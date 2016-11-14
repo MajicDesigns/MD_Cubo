@@ -1,0 +1,36 @@
+#######################################
+# Syntax Coloring Map
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+MD_Cubo	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+getVoxel	KEYWORD2
+setVoxel	KEYWORD2
+setIntensity	KEYWORD2
+update	KEYWORD2
+animate	KEYWORD2
+size	KEYWORD2
+clear	KEYWORD2
+fillPlane	KEYWORD2
+copyPlane	KEYWORD2
+drawLine	KEYWORD2
+
+######################################
+# Constants (LITERAL1)
+######################################
+
+XAXIS	LITERAL1
+YAXIS	LITERAL1
+ZAXIS	LITERAL1
+XYPLANE	LITERAL1
+XZPLANE	LITERAL1
+YZPMANE	LITERAL1
