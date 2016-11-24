@@ -4,4 +4,4 @@ The library implements functions that allow LED cubes to be abstracted in softwa
 
 Library currently comes with working code for 2 4x4x4 cubes and the jolliCube 8x8x8 cube.
 
-[Library Documentation](https://majicdesigns.github.io/Cubo/)
+[Library Documentation](https://majicdesigns.github.io/MD_Cubo/)
