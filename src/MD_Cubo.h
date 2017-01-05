@@ -59,8 +59,6 @@ Hardware Supported
 
 Revision History 
 ----------------
-xxx 2016 - version 1.2
--
 
 Feb 2016 - version 1.1
 - Added jolliCube - first 8x8x8 cube
