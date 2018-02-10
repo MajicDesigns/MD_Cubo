@@ -1,13 +1,15 @@
 #include <MD_Cubo.h>
+#include <SoftwareSerial.h>
 #include "MD_Cubo_4x4_STC.h"
+SoftwareSerial CubeSerial(10, 11); // RX, TX
 
 void MD_Cubo_STC::begin()
 {
   byte i;
-  Serial.begin(57600);
+  CubeSerial.begin(57600);
   for (i = 0; i < 50; i++)
   {
-    Serial.write(0xAD);
+    CubeSerial.write(0xAD);
     delay(100);
   }
   this->clear();
@@ -19,10 +21,10 @@ void MD_Cubo_STC::begin()
 void MD_Cubo_STC::update()
 //Update the cube LEDs
 {
-  Serial.write(0xEA);
-  Serial.write(_columns, COLUMN_COUNT);
-  Serial.write(0xEB);
-  Serial.write(0xEB);
+  CubeSerial.write(0xEA);
+  CubeSerial.write(_columns, COLUMN_COUNT);
+  CubeSerial.write(0xEB);
+  CubeSerial.write(0xEB);
 }
 
 
