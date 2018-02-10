@@ -4,6 +4,7 @@
 // Pick the include file for the right cube
 //#include "MD_Cubo_4x4_72xx.h" 
 //#include "MD_Cubo_4x4_ICS595.h"
+//#include "MD_Cubo_4x4_STC.h"
 #include "MD_Cubo_8x8_jC.h"
 
 // Define the cube object
@@ -15,6 +16,9 @@ MD_Cubo_ICS595  C;
 #endif
 #ifdef MD_CUBO_8x8_JC_H
 MD_Cubo_JC	C;
+#endif
+#ifdef MD_CUBO_4x4_STC_H
+MD_Cubo_STC  C;
 #endif
 
 #define	DEBUG	1		///< Enable or disable (default) debugging output from the example
