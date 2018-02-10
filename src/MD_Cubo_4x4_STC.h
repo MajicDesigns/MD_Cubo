@@ -21,36 +21,34 @@
 #endif
 
 /**
-\page pagePAULRB4x4 PaulRB DIY Implementation
-PaulRB 4x4 Cube
+\page Zirrfa DIY Implementation
+Zirrfa 4x4 Cube
 ---------------
-Source: Arduino Forum "4x4x4 LED Cube with ATtiny85 and MAX7219" at http://forum.arduino.cc/index.php?topic=226262.0
+Source: AliExpress "Zirrfa 4x4x4 RGB LED Cube" at https://www.aliexpress.com/item/NEW-3D-4X4X4-RGB-cubeeds-Full-Color-LED-Light-display-Electronic-DIY-Kit-3d4-4-4/32793425203.html
 
-![PaulRB 4x4 Cube] (PaulRB_image.jpg "PaulRB 4x4 Cube")
+![Zirrfa 4x4 Cube] (Zirrfa_image.jpg "Zirrfa 4x4 Cube")
 
-The PaulRB cube is implemented as a single sided PCB for DIY projects. It has a single MD_MAX7219 IC with an SPI 
-interface to the Arduino controller or an ATTiny85 on the board itself, and is therefore a 'set and forget' type 
+The Zirrfa cube can be bought online as a DIY soldering set. It has a STC15F2K60S2 IC with a SPI 
+interface to the Arduino controller and is therefore a 'set and forget' type 
 of device.
 
-The hardware architecture implemented is shown in the figure below. Essentially, the 7219 IC's 64 bits 
-(8 Digits x 8 Segments) are remapped into the 64 LEDs of the cube in a non-linear manner.
+Note: To use this implementation you need to install the SofSerial Arduino library. 
+Connect the cube RX to pin 11 (TX) of the Arduino as this is currently the default serial interface. (This should work with most Arduinos).
 
-![PaulRB Cube Schematic] (PaulRB_Schematic.png "PaulRB Cube Schematic")
 
 ###Implementation Overview###
 The software implements an SPI interface through the standard Arduino SPI object.
 
-Cube data is buffered in memory organised as the digits of the 7219 IC (8 bytes). The setVoxel() function uses a 
-lookup table to find the bits representing the XYZ position for each LED in the cube. The cube data is held in 
-memory buffers until an update() call is made, at which point it is entirely written to the cube through the SPI 
-interface.
+Cube data is buffered in memory in a serial 192 byte string, which represents the 4x4x4x3 bytes 
+(the dimensions of the cube LEDs multiplied with 3 byte values (RGB) to set the color)
+The cube data is held in memory buffers until an update() call is made, at which point it is 
+entirely written to the cube through the SPI interface.
 
-The intensity values 0..255 are remapped to 0..15 levels available in the MAX7219 IC (divide by 16).  
 */
 
 
 #define CUBE_SIZE 4		///< Cube size in the X, Y and Z axis
-#define MAX_INTENSITY 254
+#define MAX_INTENSITY 254 // @todo This will be removed at some point
 #define COLUMN_COUNT 192 /// 4x4x4 LEDs x 3 RGB color values
 
 
@@ -67,8 +65,8 @@ class MD_Cubo_STC: public MD_Cubo
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
   
   private:
-  uint8_t _columns[COLUMN_COUNT]; ///< Holds the current bit pattern for each layer of the cube
-  uint8_t _intensity;  // Can hold an RGB value
+  uint8_t _columns[COLUMN_COUNT]; ///< Holds the current byte pattern for all LEDs of the cube
+  uint8_t _intensity;  // @todo: Convert to RGB value
   
 };
 
