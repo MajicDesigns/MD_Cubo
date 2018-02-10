@@ -49,17 +49,19 @@ static uint8_t mapBit[CUBE_SIZE][CUBE_SIZE] =
 void MD_Cubo_72xx::setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z)
 {
   
-  if ((x>CUBE_SIZE) || (y>CUBE_SIZE) || (z>CUBE_SIZE))
+  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
     return;
   
-  bitWrite(_layer[z], mapBit[x][y], p);
+  _layer[z] &= ~(1 << mapBit[x][y]);
+  if (p)
+    _layer[z] |= (1 << mapBit[x][y]);
 }
 
-boolean MD_Cubo_72xx::getVoxel(uint8_t x, uint8_t y, uint8_t z)
+uint32_t MD_Cubo_72xx::getVoxel(uint8_t x, uint8_t y, uint8_t z)
 {
 
-  if ((x>CUBE_SIZE) || (y>CUBE_SIZE) || (z>CUBE_SIZE))
-    return(false);
+  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+    return(VOX_OFF);
 
-  return(bitRead(_layer[z], mapBit[x][y]) != 0);
+  return(bitRead(_layer[z], mapBit[x][y]) ? VOX_ON : VOX_OFF);
 }

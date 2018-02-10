@@ -17,20 +17,20 @@ MD_Cubo_ICS595  C;
 MD_Cubo_JC	C;
 #endif
 
-#define	DEBUG	0		///< Enable or disable (default) debugging output from the example
+#define	DEBUG	1		///< Enable or disable (default) debugging output from the example
 
 #if DEBUG
 #define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		///< Print a string followed by a value (decimal)
 #define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
 #define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
 #define	PRINTS(s)		  { Serial.print(F(s)); }						///< Print a string
-#define PRINTC(s, x, y, z) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")"); }  ///< Print coordinate tuple
+#define PRINTC(s, x, y, z, c) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")");}  ///< Print coordinate tuple
 #else
 #define	PRINT(s, v)		///< Print a string followed by a value (decimal)
 #define	PRINTX(s, v)	///< Print a string followed by a value (hex)
 #define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		///< Print a string
-#define PRINTC(s, x, y, z)  ///< Print coordinate tuple
+#define	PRINTS(s)		  ///< Print a string
+#define PRINTC(s, x, y, z, c)  ///< Print coordinate tuple
 #endif
 
 void ledTest()
@@ -121,8 +121,8 @@ void lines()
   
   for (uint8_t i=0; i<ARRAY_SIZE(lines); i+=6)
   {
-    PRINTC("\n", lines[i], lines[i + 1], lines[i + 2]);
-    PRINTC("-", lines[i + 3], lines[i + 4], lines[i + 5]);
+    PRINTC("\n", lines[i], lines[i + 1], lines[i + 2], true);
+    PRINTC("-", lines[i + 3], lines[i + 4], lines[i + 5], true);
     C.drawLine(true, lines[i], lines[i + 1], lines[i + 2], lines[i + 3], lines[i + 4], lines[i + 5]);
     C.update();
     C.animate(500);
@@ -143,10 +143,11 @@ void singles()
       PRINTS("\n");
       for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
       {
-        PRINTC("", x, y, z);
+        PRINTC("", x, y, z, true);
         C.setVoxel(true, x, y, z);
         C.update();
         C.animate(delay);
+        PRINTC("", x, y, z, false);
         C.setVoxel(false, x, y, z);
       }
     }
@@ -170,7 +171,7 @@ void progressive()
         PRINTS("\n");
         for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
         {
-          PRINTC("", x, y, z);
+          PRINTC("", x, y, z, pass == 0);
           C.setVoxel(pass == 0, x, y, z);
           C.update();
           C.animate(delay);
@@ -316,5 +317,10 @@ void loop()
   singles();
   progressive();
   lines();
+
+  if (C.isColorCube())
+  {
+    // test code that only applies to color cubes
+  }
 }
 

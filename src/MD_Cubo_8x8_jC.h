@@ -28,9 +28,9 @@ Reference: jolliCube by jollifactory "JolliCube - an 8x8x8 LED Cube (SPI)" at ht
 
 ![jolliCube 8x8 Cube] (jolliCube_image.jpg "jolliCube 8x8 Cube")
 
-The jolliCube is implemented using 8 MD_MAX7219 ICs with an SPI interface to the Arduino controller, 
-and is therefore a 'set and forget' type of device. The MAX7219 ICs are connected in series with the 
-serial output of one device being the input to the next. 
+The monochrome jolliCube is implemented using 8 MD_MAX7219 ICs with an SPI interface to the Arduino 
+controller, and is therefore a 'set and forget' type of device. The MAX7219 ICs are connected in 
+series with the serial output of one device being the input to the next. 
 
 The hardware architecture implemented is shown in the figure below.
 
@@ -56,34 +56,37 @@ The intensity values 0..255 are remapped to 0..15 levels available in the MAX721
 */
 
 // Pins for SPI comm with the MAX7219 IC
-#define DATA  11	///< SPI Data pin number
-#define CLK   13	///< SPI Clock pin number
-#define LOAD  10	///< SPI Load pin number
+const uint8_t DATA = 11;	///< SPI Data pin number
+const uint8_t CLK  = 13;	///< SPI Clock pin number
+const uint8_t LOAD = 10;	///< SPI Load pin number
 
-#define CUBE_XSIZE 	8	///< Cube size in the X axis
-#define CUBE_YSIZE 	8	///< Cube size in the Y axis
-#define CUBE_ZSIZE 	8	///< Cube size in the Z axis
-#define	MAX_DEVICES	CUBE_XSIZE	///< Number of 7219 devices is the same as X axis size
+const uint8_t CUBE_XSIZE  = 8;	///< Cube size in the X axis
+const uint8_t CUBE_YSIZE  = 8;	///< Cube size in the Y axis
+const uint8_t CUBE_ZSIZE  = 8;	///< Cube size in the Z axis
+const uint8_t MAX_DEVICES = CUBE_XSIZE;	///< Number of 7219 devices is the same as X axis size
 
 // Relevant MAX7219 Control Registers
-#define INTENSITY 0x0A		///< MAX7219 intensity control register address
-#define ON_OFF    0x0C		///< MAX7219 on/off control register address
-#define DECODE    0x09		///< MAX7219 BCD decode control register address
-#define SCAN_DIGITS 0x0B	///< MAX7219 scanned digits control register address
-#define TEST_MODE 0x0F		///< MAX7219 test mode control register address
-#define DIGIT0 		0x01	///< MAX7219 DIGIT 0 register address. Digits 1..9 consecutive after this.
+const uint8_t INTENSITY   = 0x0A;	///< MAX7219 intensity control register address
+const uint8_t ON_OFF      = 0x0C;	///< MAX7219 on/off control register address
+const uint8_t DECODE      = 0x09;	///< MAX7219 BCD decode control register address
+const uint8_t SCAN_DIGITS = 0x0B;	///< MAX7219 scanned digits control register address
+const uint8_t TEST_MODE   = 0x0F;	///< MAX7219 test mode control register address
+const uint8_t DIGIT0      = 0x01;	///< MAX7219 DIGIT 0 register address. Digits 1..9 consecutive after this.
 
 class MD_Cubo_JC: public MD_Cubo
 {
   public:
   MD_Cubo_JC(): MD_Cubo(CUBE_XSIZE), _data(DATA), _clock(CLK), _load(LOAD) {return;};
   ~MD_Cubo_JC() {return;};
+
   void begin();
   void update();
+
   void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z);
-  boolean getVoxel(uint8_t x, uint8_t y, uint8_t z);
-  void setIntensity(uint8_t intensity) { sendSPI(INTENSITY, intensity >> 4); };
-  void clear(boolean p = false) { memset(_layer, (p ? 0xff : 0), sizeof(_layer[0][0]) * CUBE_ZSIZE * MAX_DEVICES); };
+  uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
+
+  void setIntensity(uint8_t intensity) { sendSPI(INTENSITY, intensity >> 4); MD_Cubo::setIntensity(intensity); };
+  void clear(uint32_t p = VOX_OFF) { memset(_layer, (p == VOX_OFF ? 0 : 0xff), sizeof(_layer[0][0]) * CUBE_ZSIZE * MAX_DEVICES); };
   uint8_t size(axis_t axis);
   
   private:

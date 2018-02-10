@@ -57,19 +57,19 @@ void MD_Cubo_JC::setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z)
   if ((x >= CUBE_XSIZE) || (y >= CUBE_YSIZE) || (z >= CUBE_ZSIZE))
 	  return;
     
-  bitWrite(_layer[x][(CUBE_ZSIZE-1)-z], y, p);
+  bitWrite(_layer[x][(CUBE_ZSIZE-1)-z], y, p ? 1 : 0);
 }
 
-boolean MD_Cubo_JC::getVoxel(uint8_t x, uint8_t y, uint8_t z)
+uint32_t MD_Cubo_JC::getVoxel(uint8_t x, uint8_t y, uint8_t z)
 {
   // The X coordinate is the device address
   // The Y coordinate is the segment
   // The Z coordinate is the digit
 
   if ((x >= CUBE_XSIZE) || (y >= CUBE_YSIZE) || (z >= CUBE_ZSIZE))
-    return(false);
+    return(VOX_OFF);
 
-  return(bitRead(_layer[x][(CUBE_ZSIZE - 1) - z], y) != 0);
+  return(bitRead(_layer[x][(CUBE_ZSIZE - 1) - z], y) ? VOX_ON : VOX_OFF);
 }
 
 uint8_t MD_Cubo_JC::size(axis_t axis)

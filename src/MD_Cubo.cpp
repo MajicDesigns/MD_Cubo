@@ -29,7 +29,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  * \brief Implements class definition and general methods
  */
 
-void MD_Cubo::clear(boolean p)
+void MD_Cubo::clear(uint32_t p)
 {
   for (uint8_t i=0; i<_sizeXaxis; i++)
     for (uint8_t j=0; j<_sizeYaxis; j++)
@@ -37,7 +37,7 @@ void MD_Cubo::clear(boolean p)
         setVoxel(p, i, j, k);
 }
 
-void MD_Cubo::fillPlane(boolean p, plane_t plane, uint8_t coord)
+void MD_Cubo::fillPlane(uint32_t p, plane_t plane, uint8_t coord)
 // Fill the specified plane at the coordinate value
 {
   PRINT("\nfillPlane ", plane);
@@ -70,51 +70,38 @@ void MD_Cubo::copyPlane(plane_t plane, uint8_t cordFrom, uint8_t cordTo)
   PRINT(" from ", cordFrom);
   PRINT(" to ", cordTo);
 
-  fillPlane(false, plane, cordTo);    // clear the destination plane
   switch (plane)
   {
   case XYPLANE:
     for (uint8_t i = 0; i < _sizeXaxis; i++)
       for (uint8_t j = 0; j < _sizeYaxis; j++)
-        if (getVoxel(i, j, cordFrom))
-          setVoxel(true, i, j, cordTo);
+        setVoxel(getVoxel(i, j, cordFrom), i, j, cordTo);
     break;
   case XZPLANE:
     for (uint8_t i = 0; i < _sizeXaxis; i++)
       for (uint8_t j = 0; j < _sizeZaxis; j++)
-        if (getVoxel(i, cordFrom, j))
-          setVoxel(true, i, cordTo, j);
+        setVoxel(getVoxel(i, cordFrom, j), i, cordTo, j);
     break;
   case YZPLANE:
     for (uint8_t i = 0; i < _sizeYaxis; i++)
       for (uint8_t j = 0; j < _sizeZaxis; j++)
-        if (getVoxel(cordFrom, i, j))
-          setVoxel(true, cordTo, i, j);
+        setVoxel(getVoxel(cordFrom, i, j), cordTo, i, j);
     break;
   }
 }
 
-void MD_Cubo::drawLine(boolean p, uint8_t x1, uint8_t y1, uint8_t z1, uint8_t x2, uint8_t y2, uint8_t z2)
+void MD_Cubo::drawLine(uint32_t p, uint8_t x1, uint8_t y1, uint8_t z1, uint8_t x2, uint8_t y2, uint8_t z2)
 // Bresenham 3D line algorithm
 {
   int8_t  i, dx, dy, dz, l, m, n, x_inc, y_inc, z_inc, err_1, err_2, dx2, dy2, dz2;
-  int8_t  pixel[3];
+  int8_t  point[3];
 
-  pixel[0] = x1;
-  pixel[1] = y1;
-  pixel[2] = z1;
-  dx = x2 - x1;
-  dy = y2 - y1;
-  dz = z2 - z1;
-  x_inc = (dx < 0) ? -1 : 1;
-  l = abs(dx);
-  y_inc = (dy < 0) ? -1 : 1;
-  m = abs(dy);
-  z_inc = (dz < 0) ? -1 : 1;
-  n = abs(dz);
-  dx2 = l << 1;
-  dy2 = m << 1;
-  dz2 = n << 1;
+  point[0] = x1;   point[1] = y1;   point[2] = z1;
+  dx = x2 - x1;    dy = y2 - y1;    dz = z2 - z1;
+  x_inc = (dx < 0) ? -1 : 1;        l = abs(dx);
+  y_inc = (dy < 0) ? -1 : 1;        m = abs(dy);
+  z_inc = (dz < 0) ? -1 : 1;        n = abs(dz);
+  dx2 = l << 1;    dy2 = m << 1;    dz2 = n << 1;
 
   if ((l >= m) && (l >= n))
   {
@@ -122,20 +109,20 @@ void MD_Cubo::drawLine(boolean p, uint8_t x1, uint8_t y1, uint8_t z1, uint8_t x2
     err_2 = dz2 - l;
     for (i = 0; i < l; i++)
     {
-      setVoxel(p, pixel[0], pixel[1], pixel[2]);
+      setVoxel(p, point[0], point[1], point[2]);
       if (err_1 > 0)
       {
-        pixel[1] += y_inc;
+        point[1] += y_inc;
         err_1 -= dx2;
       }
       if (err_2 > 0)
       {
-        pixel[2] += z_inc;
+        point[2] += z_inc;
         err_2 -= dx2;
       }
       err_1 += dy2;
       err_2 += dz2;
-      pixel[0] += x_inc;
+      point[0] += x_inc;
     }
   }
   else if ((m >= l) && (m >= n))
@@ -144,20 +131,20 @@ void MD_Cubo::drawLine(boolean p, uint8_t x1, uint8_t y1, uint8_t z1, uint8_t x2
     err_2 = dz2 - m;
     for (i = 0; i < m; i++)
     {
-      setVoxel(p, pixel[0], pixel[1], pixel[2]);
+      setVoxel(p, point[0], point[1], point[2]);
       if (err_1 > 0)
       {
-        pixel[0] += x_inc;
+        point[0] += x_inc;
         err_1 -= dy2;
       }
       if (err_2 > 0)
       {
-        pixel[2] += z_inc;
+        point[2] += z_inc;
         err_2 -= dy2;
       }
       err_1 += dx2;
       err_2 += dz2;
-      pixel[1] += y_inc;
+      point[1] += y_inc;
     }
   }
   else
@@ -166,26 +153,26 @@ void MD_Cubo::drawLine(boolean p, uint8_t x1, uint8_t y1, uint8_t z1, uint8_t x2
     err_2 = dx2 - n;
     for (i = 0; i < n; i++)
     {
-      setVoxel(p, pixel[0], pixel[1], pixel[2]);
+      setVoxel(p, point[0], point[1], point[2]);
       if (err_1 > 0)
       {
-        pixel[1] += y_inc;
+        point[1] += y_inc;
         err_1 -= dz2;
       }
       if (err_2 > 0)
       {
-        pixel[0] += x_inc;
+        point[0] += x_inc;
         err_2 -= dz2;
       }
       err_1 += dy2;
       err_2 += dx2;
-      pixel[2] += z_inc;
+      point[2] += z_inc;
     }
   }
-  setVoxel(p, pixel[0], pixel[1], pixel[2]);
+  setVoxel(p, point[0], point[1], point[2]);
 }
 
-void MD_Cubo::drawRPrism(boolean p, uint8_t x, uint8_t y, uint8_t z, int8_t dx, uint8_t dy, uint8_t dz)
+void MD_Cubo::drawRPrism(uint32_t p, uint8_t x, uint8_t y, uint8_t z, int8_t dx, int8_t dy, int8_t dz)
 {
   // top rectangle
   drawLine(p, x, y, z, x, y+dy, z);
