@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['getvoxel',['getVoxel',['../class_m_d___cubo.html#a2a685982cc79b3f89910b8649e6af75f',1,'MD_Cubo::getVoxel()'],['../class_m_d___cubo__72xx.html#a2c8f4c7f0346fe562e210429ecdea044',1,'MD_Cubo_72xx::getVoxel()'],['../class_m_d___cubo___i_c_s595.html#af29ee7c00e5e97690ff4589a258a8917',1,'MD_Cubo_ICS595::getVoxel()'],['../class_m_d___cubo___j_c.html#ac44849db084d8f7cac2e91fbb861cd13',1,'MD_Cubo_JC::getVoxel()']]]
+  ['g',['G',['../_m_d___cubo_8h.html#a7cc73638f4849985153257c89a69ee94',1,'MD_Cubo.h']]],
+  ['getintensity',['getIntensity',['../class_m_d___cubo.html#a0dd728167415fb2ed7d0f6d08e62d363',1,'MD_Cubo']]],
+  ['getvoxel',['getVoxel',['../class_m_d___cubo.html#a41911a0bd11fe61fde0445c12b805c5a',1,'MD_Cubo::getVoxel()'],['../class_m_d___cubo__72xx.html#af3797211da9527444ab902da7424bddf',1,'MD_Cubo_72xx::getVoxel()'],['../class_m_d___cubo___i_c_s595.html#ad05c0707e255e30577d3b08bef5976d6',1,'MD_Cubo_ICS595::getVoxel()'],['../class_m_d___cubo___s_t_c.html#a5a5d1bb8cdea2f54a854ab627289cd63',1,'MD_Cubo_STC::getVoxel()'],['../class_m_d___cubo___j_c.html#adcc98f039f543a808dba22f0c5e5a792',1,'MD_Cubo_JC::getVoxel()']]]
 ];

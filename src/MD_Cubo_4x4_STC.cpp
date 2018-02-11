@@ -1,58 +1,50 @@
 #include <MD_Cubo.h>
-#include <SoftwareSerial.h>
 #include "MD_Cubo_4x4_STC.h"
-SoftwareSerial CubeSerial(10, 11); // RX, TX
 
 void MD_Cubo_STC::begin()
 {
   byte i;
-  CubeSerial.begin(57600);
+
+  _CubeSerial.begin(_bps);
   for (i = 0; i < 50; i++)
   {
-    CubeSerial.write(0xAD);
+    _CubeSerial.write(HW_INIT);
     delay(100);
   }
   this->clear();
   this->update();
-  delay(1000);
+  delay(1000); // ### MC20180211 LIBRARIES SHOULD NEVER CONTAIN DELAYS. WHY IS THIS HERE?
 }
-
 
 void MD_Cubo_STC::update()
-//Update the cube LEDs
+// Update the cube LEDs
+// ### MC20180211 WHAT HAPPENS IF THE RGB VALUES INCLUDE 2 CONSECUTIVE BYTES WITH SAME
+// VALUE AS HW_END_MSG??
 {
-  CubeSerial.write(0xEA);
-  CubeSerial.write(_columns, COLUMN_COUNT);
-  CubeSerial.write(0xEB);
-  CubeSerial.write(0xEB);
+  _CubeSerial.write(HW_START_MSG);
+  _CubeSerial.write(_columns, COLUMN_COUNT);
+  _CubeSerial.write(HW_END_MSG);
+  _CubeSerial.write(HW_END_MSG);
 }
 
-
-void MD_Cubo_STC::setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z)
+void MD_Cubo_STC::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 {
-  uint8_t pixelcolor;
-  if ((x>CUBE_SIZE) || (y>CUBE_SIZE) || (z>CUBE_SIZE))
+  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
     return;
-  
-  if (p==true)
-  {
-    pixelcolor=0xff;
-  }
-  else
-  {
-    pixelcolor=_intensity;
-  }
-  _columns[x*12+y*48+z*3]=pixelcolor;
-  _columns[x*12+y*48+z*3+1]=pixelcolor;
-  _columns[x*12+y*48+z*3+2]=pixelcolor;
-  
+
+  // #### MC 20180211 NOT SURE WHICH ORDER RGB IS IN THE TABLE
+  // MAY BE BETTER TO HAVE TH TABLE AS A UINT32_T AND JUST SAVE THE VALUE?
+  _columns[x*12 + y*48 + z*3] = R(p);
+  _columns[x*12 + y*48 + z*3 + 1] = G(p);
+  _columns[x*12 + y*48 + z*3 + 2] = B(p);
 }
 
-boolean MD_Cubo_STC::getVoxel(uint8_t x, uint8_t y, uint8_t z)
+uint32_t MD_Cubo_STC::getVoxel(uint8_t x, uint8_t y, uint8_t z)
 {
-  if ((x>CUBE_SIZE) || (y>CUBE_SIZE) || (z>CUBE_SIZE))
-    return(false);
+  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+    return(VOX_OFF);
 
-  
-  return((_columns[x*12+y*48+z*3]+_columns[x*12+y*48+z*3+1]+_columns[x*12+y*48+z*3+2])>0);
+  // #### MC 20180211 NOT SURE WHICH ORDER RGB IS IN THE TABLE
+  // ALSO DEPENDS IF THE TABLE IS JUST UINT32_T. COULD BE EASIER TO HANDLE.
+  return(RGB(_columns[x*12+y*48+z*3], _columns[x*12+y*48+z*3+1], _columns[x*12+y*48+z*3+2]));
 }

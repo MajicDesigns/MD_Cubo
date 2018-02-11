@@ -21,12 +21,12 @@
 #endif
 
 /**
-\page pageICSTATION4x4 ICStation '595 Implementation
-ICStation 595 4x4 Cube
-----------------------
+\page pageICSTATION4x4x4 ICStation '595 Implementation
+ICStation 595 4x4x4 Cube
+------------------------
 Source: ICStation "ICStation 4X4X4 Light Cube Kit For Arduino UNO" at http://www.icstation.com/icstation-4x4x4-light-cube-arduino-p-5312.html
 
-![ICStation 4x4 Cube] (ICStation_image.jpg "ICStation 4x4 Cube")
+![ICStation 4x4 Cube] (ICStation/ICStation_image.jpg "ICStation 4x4 Cube")
 
 The ICStation 595 monochrome cube shield is implemented using 2 74595 ICs with an SPI interface to 
 the Arduino controller, and is therefore a 'scan and refresh' type of device. The 595 IC outputs are 
@@ -35,7 +35,7 @@ switching in rapid succession to create a Persistence of Vision in the user's ey
 
 The hardware architecture implemented shown in the schematic below.
 
-![ICStation 4x4 schematic] (ICStation_Schematic.png "ICStation 4x4 Schematic")
+![ICStation 4x4 schematic] (ICStation/ICStation_Schematic.png "ICStation 4x4 Schematic")
 
 The shield uses pins 0 through 3 for the SPI interface and 4 through 7 to activate each layer (called 
 D16..D19 in the schematic. Because of the way the LEDs are wired through only one resistor per layer, 

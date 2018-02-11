@@ -53,15 +53,16 @@ From this reference point
 
 Hardware Supported
 ------------------
-- \subpage pageICSTATION4x4
-- \subpage pagePAULRB4x4
-- \subpage pageJOLLICUBE8x8
+- \subpage pageICSTATION4x4x4
+- \subpage pagePAULRB4x4x4
+- \subpage pageJOLLICUBE8x8x8
+- \subpage pageZIFFRADIY4x4x4
 
 Revision History 
 ----------------
 Feb 2018 - version 2.0.0
 - Added color cube support
-- Add Chinese 4x4x4 color cube based on STC15F2K60S2 with serial interface
+- Add Ziffra 4x4x4 color cube based on STC15F2K60S2 with serial interface
 
 Feb 2016 - version 1.1
 - Added jolliCube - first 8x8x8 cube
@@ -104,12 +105,12 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #define MAX_INTENSITY 0xff		///< Maximum intensity for a cube; setting is 0..MAX_INTENSITY
 
 #define RGB(r,g,b) ((uint32_t)((r<<16)+(g<<8)+b) & 0xffffff) ///< create RGB integer from components
-#define R(c)       ((uint8_t)(c >>16) & 0xff))    ///< extract R component of RGB
-#define G(c)       ((uint8_t)(c >> 8) & 0xff))    ///< extract G component of RGB
-#define B(c)       ((uint8_t)(c & 0xff))          ///< extract B component of RGB
+#define R(c)       ((uint8_t)((c >>16) & 0xff))  ///< extract R component of RGB
+#define G(c)       ((uint8_t)((c >> 8) & 0xff))  ///< extract G component of RGB
+#define B(c)       ((uint8_t)(c & 0xff))         ///< extract B component of RGB
 
-#define VOX_OFF RGB(0,0,0)
-#define VOX_ON  RGB(0xff,0xff,0xff)
+#define VOX_OFF RGB(0,0,0)                       ///< Default RGB OFF color
+#define VOX_ON  RGB(0xff,0xff,0xff)              ///< Default RGB ON color
 
 /**
  * Core object for the MD_Cubo library
@@ -246,7 +247,6 @@ public:
   * Get the default brightness of the cube. This is only implementable in the user
   * derived object, as it is heavily reliant on the hardware configuration.
   *
-  * \param 
   * \return the intensity for the cube (0 .. MAX_INTENSITY).
   */
   uint8_t getIntensity(void) { return(_intensity); };

@@ -21,12 +21,12 @@
 #endif
 
 /**
-\page pageJOLLICUBE8x8 jolliCube Implementation
-JolliCube 8x8 Cube
-------------------
+\page pageJOLLICUBE8x8x8 jolliCube Implementation
+JolliCube 8x8x8 Cube
+--------------------
 Reference: jolliCube by jollifactory "JolliCube - an 8x8x8 LED Cube (SPI)" at http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/
 
-![jolliCube 8x8 Cube] (jolliCube_image.jpg "jolliCube 8x8 Cube")
+![jolliCube 8x8 Cube] (JolliCube/JolliCube_image.jpg "jolliCube 8x8 Cube")
 
 The monochrome jolliCube is implemented using 8 MD_MAX7219 ICs with an SPI interface to the Arduino 
 controller, and is therefore a 'set and forget' type of device. The MAX7219 ICs are connected in 
@@ -34,7 +34,7 @@ series with the serial output of one device being the input to the next.
 
 The hardware architecture implemented is shown in the figure below.
 
-![jolliCube 7219 hardware mapping] (jolliCube_hardware_Map.jpg "jolliCube hardware mapping")
+![jolliCube 7219 hardware mapping] (JoiilCube/jolliCube_hardware_Map.jpg "jolliCube hardware mapping")
 
 - Each 7219 IC controls one vertical plane of the cube (64 LEDs). The software maps these so that the
 first device is at the front of the display and the X axis increases in the direction of the devices 
@@ -47,7 +47,7 @@ these with Y coordinate 0 on the left.
 ###Implementation Overview###
 The software implements an SPI interface through the standard Arduino SPI object.
 
-Cube data is buffered in memory organised as vertical layers of 64 bits (8 bytes) corresponding to the data
+Cube data is buffered in memory organized as vertical layers of 64 bits (8 bytes) corresponding to the data
 for each 7219 IC, referenced to provide an origin point on the lower left corner of the cube. The cube data 
 is held in memory buffers until an update() call is made, at which point it is entirely written to the cube 
 through the SPI interface.
