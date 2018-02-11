@@ -4,8 +4,8 @@
 // Pick the include file for the right cube
 //#include "MD_Cubo_4x4_72xx.h" 
 //#include "MD_Cubo_4x4_ICS595.h"
-//#include "MD_Cubo_4x4_STC.h"
-#include "MD_Cubo_8x8_jC.h"
+#include "MD_Cubo_4x4_STC.h"
+//#include "MD_Cubo_8x8_jC.h"
 
 // Define the cube object
 #ifdef MD_CUBO_4x4_72XX_H
@@ -18,7 +18,9 @@ MD_Cubo_ICS595  C;
 MD_Cubo_JC	C;
 #endif
 #ifdef MD_CUBO_4x4_STC_H
-MD_Cubo_STC  C;
+const uint8_t RX_PIN = 10;
+const uint8_t TX_PIN = 11;
+MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #endif
 
 #define	DEBUG	0		///< Enable or disable (default) debugging output from the example
@@ -28,13 +30,13 @@ MD_Cubo_STC  C;
 #define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
 #define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
 #define	PRINTS(s)		  { Serial.print(F(s)); }						///< Print a string
-#define PRINTC(s, x, y, z) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")"); }  ///< Print coordinate tuple
+#define PRINTC(s, x, y, z, c) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")");}  ///< Print coordinate tuple
 #else
 #define	PRINT(s, v)		///< Print a string followed by a value (decimal)
 #define	PRINTX(s, v)	///< Print a string followed by a value (hex)
 #define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		///< Print a string
-#define PRINTC(s, x, y, z)  ///< Print coordinate tuple
+#define	PRINTS(s)		  ///< Print a string
+#define PRINTC(s, x, y, z, c)  ///< Print coordinate tuple
 #endif
 
 void ledTest()
@@ -43,36 +45,36 @@ void ledTest()
 
   C.clear();
   PRINTS("\nLED Test");
-  PRINTS("\nXY Plane Z = ");
+  PRINTS("\nXY Red Plane Z = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(true, MD_Cubo::XYPLANE, i);
+    C.fillPlane(RGB(0xff,0,0), MD_Cubo::XYPLANE, i);
     C.update();
     C.animate(delay);
-    C.fillPlane(false, MD_Cubo::XYPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, i);
   }
   C.animate();
 
-  PRINTS("\nXZ Plane Y = ");
+  PRINTS("\nXZ Blue Plane Y = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::YAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(true, MD_Cubo::XZPLANE, i);
+    C.fillPlane(RGB(0,0xff,0), MD_Cubo::XZPLANE, i);
     C.update();
     C.animate(delay);
-    C.fillPlane(false, MD_Cubo::XZPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::XZPLANE, i);
   }
   C.animate();
 
-  PRINTS("\nYZ Plane X = ");
+  PRINTS("\nYZ Green Plane X = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::XAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(true, MD_Cubo::YZPLANE, i);
+    C.fillPlane(RGB(0,0,0xff), MD_Cubo::YZPLANE, i);
     C.update();
     C.animate(delay);
-    C.fillPlane(false, MD_Cubo::YZPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, i);
   }
   C.animate();
 
@@ -125,8 +127,8 @@ void lines()
   
   for (uint8_t i=0; i<ARRAY_SIZE(lines); i+=6)
   {
-    PRINTC("\n", lines[i], lines[i + 1], lines[i + 2]);
-    PRINTC("-", lines[i + 3], lines[i + 4], lines[i + 5]);
+    PRINTC("\n", lines[i], lines[i + 1], lines[i + 2], true);
+    PRINTC("-", lines[i + 3], lines[i + 4], lines[i + 5], true);
     C.drawLine(true, lines[i], lines[i + 1], lines[i + 2], lines[i + 3], lines[i + 4], lines[i + 5]);
     C.update();
     C.animate(500);
@@ -147,10 +149,11 @@ void singles()
       PRINTS("\n");
       for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
       {
-        PRINTC("", x, y, z);
+        PRINTC("", x, y, z, true);
         C.setVoxel(true, x, y, z);
         C.update();
         C.animate(delay);
+        PRINTC("", x, y, z, false);
         C.setVoxel(false, x, y, z);
       }
     }
@@ -174,7 +177,7 @@ void progressive()
         PRINTS("\n");
         for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
         {
-          PRINTC("", x, y, z);
+          PRINTC("", x, y, z, pass == 0);
           C.setVoxel(pass == 0, x, y, z);
           C.update();
           C.animate(delay);
@@ -320,5 +323,10 @@ void loop()
   singles();
   progressive();
   lines();
+
+  if (C.isColorCube())
+  {
+    // test code that only applies to color cubes
+  }
 }
 

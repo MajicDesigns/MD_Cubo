@@ -82,7 +82,7 @@ this is implemented in the object constructor and begin() method for object.
 - _Size of the cube_. To allow user code to be independent of hardware, the size of the cube being controlled
 is obtained form the library. Provision is made to allow each of the X, Y and Z axes to be of different size.
 - _Turn a LED on/off_. This is THE basic function for the cube and is implemented in the setVoxel() method. 
-Every other drawing function - clear(), drawLine(), fillPlane() -  can be written in using setVoxel(). The 
+Every other drawing function - clear(), drawLine(), fillPlane() -  can be written using setVoxel(). The 
 device function maps between the caressian coordinates and the LED cube.
 - _Test a LED on/off_. This is implemented in the getVoxel() method and used to test if a pizel is already on. 
 Every other drawing function - clear(), drawLine(), fillPlane() -  can be written in using setVoxel(). The 

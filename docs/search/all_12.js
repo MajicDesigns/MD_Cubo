@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['zaxis',['ZAXIS',['../class_m_d___cubo.html#a5b4e3c95550d679303a932bc32427380a30aed9d61567e76e6c0f53759417a618',1,'MD_Cubo']]]
+  ['vox_5foff',['VOX_OFF',['../_m_d___cubo_8h.html#a7032eafd3744398b668d0893ce9e7de6',1,'MD_Cubo.h']]],
+  ['vox_5fon',['VOX_ON',['../_m_d___cubo_8h.html#af5681d902b37f243711afef2fe916121',1,'MD_Cubo.h']]]
 ];

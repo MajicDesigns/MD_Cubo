@@ -23,7 +23,9 @@ MD_Cubo_ICS595  C;
 MD_Cubo_JC	C;
 #endif
 #ifdef MD_CUBO_4x4_STC_H
-MD_Cubo_STC  C;
+const uint8_t RX_PIN = 10;
+const uint8_t TX_PIN = 11;
+MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #endif
 
 #define RANDOM_CYCLE  1 // 1 for random selection, 0 for sequential cycle
@@ -1074,15 +1076,6 @@ void scrollFaces(void)
     }
 }
 
-// States for FSM
-#define S_INIT  0
-#define S_LOADC 1
-#define S_SCROLL  2
-#define S_WAITING 3
-#define S_TIMER   4
-#define S_CLEANUP 5
-#define S_END   6
-
 boolean displayMessage(char *mesg, uint16_t delay = 0)
 // Display a message on the surface of the cube, scrolling around the outside faces
 // Implemented as a non-blocking Finte State Machine.
@@ -1091,7 +1084,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 // so the caller is responsible for making sure it remains stable 
 // until the data is displayed.
 {
-  static uint8_t state = S_END;
+  static enum {S_INIT, S_LOADC, S_SCROLL, S_WAITING, S_TIMER, S_CLEANUP, S_END } state = S_END;
   static uint32_t timeStart;    // time at the start of the wait (ms)
   static uint16_t timeWait;     // waiting time (ms)
   static char  *cp;             // where we are in the message
@@ -1196,7 +1189,7 @@ void scrollingText()
 {
   char message[] = "MD_Cubo";
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
     return;
 

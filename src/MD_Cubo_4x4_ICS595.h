@@ -21,17 +21,17 @@
 #endif
 
 /**
-\page pageICSTATION4x4 ICStation '595 Implementation
-ICStation 595 4x4 Cube
-----------------------
+\page pageICSTATION4x4x4 ICStation '595 Implementation
+ICStation 595 4x4x4 Cube
+------------------------
 Source: ICStation "ICStation 4X4X4 Light Cube Kit For Arduino UNO" at http://www.icstation.com/icstation-4x4x4-light-cube-arduino-p-5312.html
 
 ![ICStation 4x4 Cube] (ICStation_image.jpg "ICStation 4x4 Cube")
 
-The ICStation 595 cube shield is implemented using 2 74595 ICs with an SPI interface to the Arduino 
-controller, and is therefore a 'scan and refresh' type of device. The 595 IC outputs are connected 
-across the LEDs and each layer of the cube is enabled for a short period (LAYER_TIME), switching in 
-rapid succession to create a Persistence of Vision in the user's eyes.
+The ICStation 595 monochrome cube shield is implemented using 2 74595 ICs with an SPI interface to 
+the Arduino controller, and is therefore a 'scan and refresh' type of device. The 595 IC outputs are 
+connected across the LEDs and each layer of the cube is enabled for a short period (LAYER_TIME), 
+switching in rapid succession to create a Persistence of Vision in the user's eyes.
 
 The hardware architecture implemented shown in the schematic below.
 
@@ -56,26 +56,29 @@ No intensity changes are implemented in this architecture.
 */
 
 // Pins for SPI comm with the 595 IC. These are hard coded in the library.
-#define CLK     0		///< SPI Clock pin number
-#define LOAD    1		///< SPI Load pin number
-#define DATA    3		///< SPI Data pin number
-#define OUT_ENA 2		///< 595 Output Enable pin number
+const uint8_t CLK     = 0;		///< SPI Clock pin number
+const uint8_t LOAD    = 1;		///< SPI Load pin number
+const uint8_t DATA    = 3;		///< SPI Data pin number
+const uint8_t OUT_ENA = 2;		///< 595 Output Enable pin number
 
-#define LAYER_TIME  5  	///< Reflech time for each layer, in milliseconds
+const uint8_t LAYER_TIME = 5;  	///< Reflech time for each layer, in milliseconds
 
-#define CUBE_SIZE 4		///< Cube size in the X, Y and Z axis
+const uint8_t CUBE_SIZE = 4;		///< Cube size in the X, Y and Z axis
 
 class MD_Cubo_ICS595: public MD_Cubo
 {
   public:
   MD_Cubo_ICS595(): MD_Cubo(CUBE_SIZE), _data(DATA), _clock(CLK), _load(LOAD), _enable(OUT_ENA), _curLayer(0), _pwmOffset(7) {return;};
   ~MD_Cubo_ICS595() {return;};
+
   void begin();
   void update();
   void animate(uint32_t wait = 0);
+
   void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z);
-  boolean getVoxel(uint8_t x, uint8_t y, uint8_t z);
-  void clear(boolean p = false) { memset(&_scratch, (p ? 0xff : 0), sizeof(dispData_t)); };
+  uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
+
+  void clear(uint32_t p = VOX_OFF) { memset(&_scratch, (p == VOX_OFF ? 0 : 0xff), sizeof(dispData_t)); };
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
     
   private:
