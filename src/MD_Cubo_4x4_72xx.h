@@ -26,7 +26,7 @@ PaulRB 4x4x4 Cube
 -----------------
 Source: Arduino Forum "4x4x4 LED Cube with ATtiny85 and MAX7219" at http://forum.arduino.cc/index.php?topic=226262.0
 
-![PaulRB 4x4 Cube] (PaulRB/PaulRB_image.jpg "PaulRB 4x4 Cube")
+![PaulRB 4x4 Cube] (PaulRB_image.jpg "PaulRB 4x4 Cube")
 
 The PaulRB monochrome cube is implemented as a single sided PCB for DIY projects. It has a single MD_MAX7219 IC with an SPI 
 interface to the Arduino controller or an ATTiny85 on the board itself, and is therefore a 'set and forget' type 
@@ -35,12 +35,12 @@ of device.
 The hardware architecture implemented is shown in the figure below. Essentially, the 7219 IC's 64 bits 
 (8 Digits x 8 Segments) are remapped into the 64 LEDs of the cube in a non-linear manner.
 
-![PaulRB Cube Schematic] (PaulRB/PaulRB_Schematic.png "PaulRB Cube Schematic")
+![PaulRB Cube Schematic] (PaulRB_Schematic.png "PaulRB Cube Schematic")
 
 ###Implementation Overview###
 The software implements an SPI interface through the standard Arduino SPI object.
 
-Cube data is buffered in memory organised as the digits of the 7219 IC (8 bytes). The setVoxel() function uses a 
+Cube data is buffered in memory organized as the digits of the 7219 IC (8 bytes). The setVoxel() function uses a 
 lookup table to find the bits representing the XYZ position for each LED in the cube. The cube data is held in 
 memory buffers until an update() call is made, at which point it is entirely written to the cube through the SPI 
 interface.

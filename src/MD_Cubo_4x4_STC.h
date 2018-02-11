@@ -27,7 +27,7 @@ Zirrfa 4x4 Cube
 ---------------
 Source: AliExpress "Zirrfa 4x4x4 RGB LED Cube" at https://www.aliexpress.com/item/NEW-3D-4X4X4-RGB-cubeeds-Full-Color-LED-Light-display-Electronic-DIY-Kit-3d4-4-4/32793425203.html
 
-![Zirrfa 4x4 Cube] (Zirrfa/Zirrfa_image.jpg "Zirrfa 4x4 Cube")
+![Zirrfa 4x4 Cube] (Zirrfa_image.jpg "Zirrfa 4x4 Cube")
 
 The Zirrfa RGB color cube can be bought online as a DIY soldering set. It has a STC15F2K60S2 IC with a SPI 
 interface to the Arduino controller and is therefore a 'set and forget' type of device.
@@ -46,7 +46,7 @@ entirely written to the cube through the SPI interface.
 ###Serial Communications Protocol###
 Serial port runs at 57600 bps.
 When the cube is powered up there is a 5 second delay during which commands can be received 
-from the serial port. If the cube is not initialised within the delay period it goes into demo mode.
+from the serial port. If the cube is not initialized within the delay period it goes into demo mode.
 To initialize the cube send 0xAD.
 To update the cube send 0xEA + 192 bytes of LED/color data + 0xEB to finish.
 192 bytes = 4 x 4 x 4 x 3 RGB values.

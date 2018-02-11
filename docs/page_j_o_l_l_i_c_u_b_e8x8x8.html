@@ -95,16 +95,18 @@ $(document).ready(function(){initNavTree('page_j_o_l_l_i_c_u_b_e8x8x8.html','');
 <div class="textblock"><h2>JolliCube 8x8x8 Cube </h2>
 <p>Reference: jolliCube by jollifactory "JolliCube - an 8x8x8 LED Cube (SPI)" at <a href="http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/">http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/</a></p>
 <div class="image">
-<img src="JolliCube/JolliCube_image.jpg" alt="jolliCube 8x8 Cube" title="jolliCube 8x8 Cube"/>
-</div>
-<p>The monochrome jolliCube is implemented using 8 MD_MAX7219 ICs with an SPI interface to the Arduino controller, and is therefore a 'set and forget' type of device. The MAX7219 ICs are connected in series with the serial output of one device being the input to the next.</p>
+<img src="JolliCube_image.jpg" alt="JolliCube_image.jpg"/>
+<div class="caption">
+jolliCube 8x8 Cube</div></div>
+<p> The monochrome jolliCube is implemented using 8 MD_MAX7219 ICs with an SPI interface to the Arduino controller, and is therefore a 'set and forget' type of device. The MAX7219 ICs are connected in series with the serial output of one device being the input to the next.</p>
 <p>The hardware architecture implemented is shown in the figure below.</p>
 <div class="image">
-<img src="JoiilCube/jolliCube_hardware_Map.jpg" alt="jolliCube 7219 hardware mapping" title="jolliCube hardware mapping"/>
-</div>
+<img src="jolliCube_hardware_Map.jpg" alt="jolliCube_hardware_Map.jpg"/>
+<div class="caption">
+jolliCube 7219 hardware mapping</div></div>
 <ul>
 <li>Each 7219 IC controls one vertical plane of the cube (64 LEDs). The software maps these so that the first device is at the front of the display and the X axis increases in the direction of the devices (ie, the X coordinate is the device number)</li>
-<li>Each 7219 digit is implemented as a row on a plane (Z axis) incrementing down the cube. The siftware remaps these to be increasing up from the base (ie, the lowest row near the PCb is Z = 0).</li>
+<li>Each 7219 digit is implemented as a row on a plane (Z axis) incrementing down the cube. The software remaps these to be increasing up from the base (ie, the lowest row near the PCb is Z = 0).</li>
 <li>Each segment is implemented with bits DP, A, ... F from the right face to the left. The software maps these with Y coordinate 0 on the left.</li>
 </ul>
 <h3>Implementation Overview</h3>
@@ -117,7 +119,7 @@ $(document).ready(function(){initNavTree('page_j_o_l_l_i_c_u_b_e8x8x8.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Arduino LED Cube Library</a></li>
-    <li class="footer">Generated on Sun Feb 11 2018 11:23:32 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Sun Feb 11 2018 13:02:50 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

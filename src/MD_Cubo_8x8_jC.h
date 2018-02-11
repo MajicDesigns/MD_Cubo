@@ -26,7 +26,7 @@ JolliCube 8x8x8 Cube
 --------------------
 Reference: jolliCube by jollifactory "JolliCube - an 8x8x8 LED Cube (SPI)" at http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/
 
-![jolliCube 8x8 Cube] (JolliCube/JolliCube_image.jpg "jolliCube 8x8 Cube")
+![jolliCube 8x8 Cube] (JolliCube_image.jpg "jolliCube 8x8 Cube")
 
 The monochrome jolliCube is implemented using 8 MD_MAX7219 ICs with an SPI interface to the Arduino 
 controller, and is therefore a 'set and forget' type of device. The MAX7219 ICs are connected in 
@@ -34,12 +34,12 @@ series with the serial output of one device being the input to the next.
 
 The hardware architecture implemented is shown in the figure below.
 
-![jolliCube 7219 hardware mapping] (JoiilCube/jolliCube_hardware_Map.jpg "jolliCube hardware mapping")
+![jolliCube 7219 hardware mapping] (jolliCube_hardware_Map.jpg "jolliCube hardware mapping")
 
 - Each 7219 IC controls one vertical plane of the cube (64 LEDs). The software maps these so that the
 first device is at the front of the display and the X axis increases in the direction of the devices 
 (ie, the X coordinate is the device number)
-- Each 7219 digit is implemented as a row on a plane (Z axis) incrementing down the cube. The siftware 
+- Each 7219 digit is implemented as a row on a plane (Z axis) incrementing down the cube. The software 
 remaps these to be increasing up from the base (ie, the lowest row near the PCb is Z = 0).
 - Each segment is implemented with bits DP, A, ... F from the right face to the left. The software maps
 these with Y coordinate 0 on the left.

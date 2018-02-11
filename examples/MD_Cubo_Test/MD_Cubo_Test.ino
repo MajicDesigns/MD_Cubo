@@ -45,36 +45,36 @@ void ledTest()
 
   C.clear();
   PRINTS("\nLED Test");
-  PRINTS("\nXY Plane Z = ");
+  PRINTS("\nXY Red Plane Z = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(true, MD_Cubo::XYPLANE, i);
+    C.fillPlane(RGB(0xff,0,0), MD_Cubo::XYPLANE, i);
     C.update();
     C.animate(delay);
-    C.fillPlane(false, MD_Cubo::XYPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, i);
   }
   C.animate();
 
-  PRINTS("\nXZ Plane Y = ");
+  PRINTS("\nXZ Blue Plane Y = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::YAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(true, MD_Cubo::XZPLANE, i);
+    C.fillPlane(RGB(0,0xff,0), MD_Cubo::XZPLANE, i);
     C.update();
     C.animate(delay);
-    C.fillPlane(false, MD_Cubo::XZPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::XZPLANE, i);
   }
   C.animate();
 
-  PRINTS("\nYZ Plane X = ");
+  PRINTS("\nYZ Green Plane X = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::XAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(true, MD_Cubo::YZPLANE, i);
+    C.fillPlane(RGB(0,0,0xff), MD_Cubo::YZPLANE, i);
     C.update();
     C.animate(delay);
-    C.fillPlane(false, MD_Cubo::YZPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, i);
   }
   C.animate();
 

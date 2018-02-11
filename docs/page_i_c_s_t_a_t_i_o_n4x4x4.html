@@ -95,14 +95,16 @@ $(document).ready(function(){initNavTree('page_i_c_s_t_a_t_i_o_n4x4x4.html','');
 <div class="textblock"><h2>ICStation 595 4x4x4 Cube </h2>
 <p>Source: ICStation "ICStation 4X4X4 Light Cube Kit For Arduino UNO" at <a href="http://www.icstation.com/icstation-4x4x4-light-cube-arduino-p-5312.html">http://www.icstation.com/icstation-4x4x4-light-cube-arduino-p-5312.html</a></p>
 <div class="image">
-<img src="ICStation/ICStation_image.jpg" alt="ICStation 4x4 Cube" title="ICStation 4x4 Cube"/>
-</div>
-<p>The ICStation 595 monochrome cube shield is implemented using 2 74595 ICs with an SPI interface to the Arduino controller, and is therefore a 'scan and refresh' type of device. The 595 IC outputs are connected across the LEDs and each layer of the cube is enabled for a short period (LAYER_TIME), switching in rapid succession to create a Persistence of Vision in the user's eyes.</p>
+<img src="ICStation_image.jpg" alt="ICStation_image.jpg"/>
+<div class="caption">
+ICStation 4x4 Cube</div></div>
+<p> The ICStation 595 monochrome cube shield is implemented using 2 74595 ICs with an SPI interface to the Arduino controller, and is therefore a 'scan and refresh' type of device. The 595 IC outputs are connected across the LEDs and each layer of the cube is enabled for a short period (LAYER_TIME), switching in rapid succession to create a Persistence of Vision in the user's eyes.</p>
 <p>The hardware architecture implemented shown in the schematic below.</p>
 <div class="image">
-<img src="ICStation/ICStation_Schematic.png" alt="ICStation 4x4 schematic" title="ICStation 4x4 Schematic"/>
-</div>
-<p>The shield uses pins 0 through 3 for the SPI interface and 4 through 7 to activate each layer (called D16..D19 in the schematic. Because of the way the LEDs are wired through only one resistor per layer, the result is less than impressive from a brightness perspetive, but it works.</p>
+<img src="ICStation_Schematic.png" alt="ICStation_Schematic.png"/>
+<div class="caption">
+ICStation 4x4 schematic</div></div>
+<p> The shield uses pins 0 through 3 for the SPI interface and 4 through 7 to activate each layer (called D16..D19 in the schematic. Because of the way the LEDs are wired through only one resistor per layer, the result is less than impressive from a brightness perspetive, but it works.</p>
 <h3>Implementation Overview</h3>
 <p>The software implements an SPI interface through the standard Arduino SPI object.</p>
 <p>Cube data is buffered in memory organised as vertical layers of 16 bits (1 word). At each refresh, the 595 is loaded with the data for a specific layer and the Arduino corresponding to that layer is set to groung (LOW) to enable the circuit for that layer.</p>
@@ -114,7 +116,7 @@ $(document).ready(function(){initNavTree('page_i_c_s_t_a_t_i_o_n4x4x4.html','');
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Arduino LED Cube Library</a></li>
-    <li class="footer">Generated on Sun Feb 11 2018 11:23:32 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Sun Feb 11 2018 13:02:49 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
