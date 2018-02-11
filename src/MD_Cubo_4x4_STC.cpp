@@ -13,17 +13,16 @@ void MD_Cubo_STC::begin()
   }
   this->clear();
   this->update();
-  delay(1000); // ### MC20180211 LIBRARIES SHOULD NEVER CONTAIN DELAYS. WHY IS THIS HERE?
 }
 
 void MD_Cubo_STC::update()
 // Update the cube LEDs
-// ### MC20180211 WHAT HAPPENS IF THE RGB VALUES INCLUDE 2 CONSECUTIVE BYTES WITH SAME
+// ### MC20180211 WHAT HAPPENS IF THE RGB VALUES INCLUDES A BYTE WITH SAME
 // VALUE AS HW_END_MSG??
+// ### CS20180211 It is probably ignored because it needs the full 192 bytes before it will acknowledge the end message
 {
   _CubeSerial.write(HW_START_MSG);
   _CubeSerial.write(_columns, COLUMN_COUNT);
-  _CubeSerial.write(HW_END_MSG);
   _CubeSerial.write(HW_END_MSG);
 }
 

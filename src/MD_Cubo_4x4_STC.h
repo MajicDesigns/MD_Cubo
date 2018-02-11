@@ -57,7 +57,7 @@ const uint8_t COLUMN_COUNT = (CUBE_SIZE * CUBE_SIZE * CUBE_SIZE * 3); ///< LEDs 
 
 const uint8_t HW_INIT = 0xad;       ///< Hardware initialisation into serial mode. Send within 5 seconds of HW reset.
 const uint8_t HW_START_MSG = 0xea;  ///< Hardware start serial message packet.
-const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Repeat twice at end of packet.
+const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Repeat once at end of packet.
 
 class MD_Cubo_STC: public MD_Cubo
 {
@@ -74,7 +74,7 @@ class MD_Cubo_STC: public MD_Cubo
 
   void clear(uint32_t p = VOX_OFF) { memset(_columns, p, COLUMN_COUNT); }; // #### MC20180211 This needs to cater for p being an RGB value and depends on column arrangemenmt
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
-  
+  boolean isColorCube () { return true; }
   private:
   uint8_t _tx, _rx;   ///< SoftwareSerial parameters - nor sure if we need them!
   uint32_t _bps;      ///< Software Serial comms speed.
