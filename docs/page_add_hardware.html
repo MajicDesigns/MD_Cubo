@@ -97,7 +97,7 @@ $(document).ready(function(){initNavTree('page_add_hardware.html','');});
 <p>This abstraction means that the library must provide the user code with hardware dependent primitives that work the same way for all cube types and sizes.</p>
 <p>After doing some research of existing cubes it seems there are 2 main types of LED cube architectures:</p>
 <ul>
-<li>A scanning/refresh model, where the LEDs are refreshed by the Arduino code at a rate fast enough to activate a persistence of vision (POV) effect in the observer. This puts the onus of multiplexing control in the Arduino software. An example of this type hardware is the ICStation Light Cube Kit, based on 74HC595 shift registers to control LED anodes and 4 I/O ports of Arduino control 4 common cathodes of LED. This type of hardware is the most common for LED cubes and relies on the microcontroller software opening a circuit (a path for current) for each LED in very quick succession.</li>
+<li>A scanning/refresh model, where the LEDs are refreshed by the Arduino code at a rate fast enough to activate a persistence of vision (POV) effect in the observer. This puts the onus of multiplexing control in the Arduino software. An example of this type hardware is the ICStation Light Cube Kit, based on 74HC595 shift registers to control LED anodes and 4 I/O ports of Arduino control 4 common cathodes of LED. This type of hardware is the most common for LED cubes and relies on the micro controller software opening a circuit (a path for current) for each LED in very quick succession.</li>
 <li>A 'set and forget' model, where each LED is set by the Arduino and some other hardware components ensure that they remain turned on or off. One example is the PaulRB or JolliCube versions provided with the library. These cubes uses a MAX7219 LED controller to drive the 64 LEDs in the cube, with multiple ICS required for larger cubes. Refreshing the LEDs is therefore handled by the 7219, with the Arduino periodically writing new settings through the interface registers.</li>
 </ul>
 <p>The software must take into account these differences and allow both to work using the same basic software pattern. Some analysis and experimentation resulted in a very small set of primitives that need to be implemented to handle the differences. Virtual class methods are implemented in the <a class="el" href="class_m_d___cubo.html">MD_Cubo</a> object - <br />
@@ -106,8 +106,8 @@ derived classes replace the generic method with code appropriate for the hardwar
 <ul>
 <li><em>Initialise the hardware</em>. This will clearly be different for the different hardware types. In the library this is implemented in the object constructor and begin() method for object.</li>
 <li><em>Size of the cube</em>. To allow user code to be independent of hardware, the size of the cube being controlled is obtained form the library. Provision is made to allow each of the X, Y and Z axes to be of different size.</li>
-<li><em>Turn a LED on/off</em>. This is THE basic function for the cube and is implemented in the setVoxel() method. Every other drawing function - clear(), drawLine(), fillPlane() - can be written using setVoxel(). The device function maps between the caressian coordinates and the LED cube.</li>
-<li><em>Test a LED on/off</em>. This is implemented in the getVoxel() method and used to test if a pizel is already on. Every other drawing function - clear(), drawLine(), fillPlane() - can be written in using setVoxel(). The device function maps between the caressian coordinates and the LED cube.</li>
+<li><em>Turn a LED on/off</em>. This is THE basic function for the cube and is implemented in the setVoxel() method. Every other drawing function - clear(), drawLine(), fillPlane() - can be written using setVoxel(). The device function maps between the cartesian coordinates and the LED cube.</li>
+<li><em>Test a LED on/off</em>. This is implemented in the getVoxel() method and used to test if a pizel is already on. Every other drawing function - clear(), drawLine(), fillPlane() - can be written in using setVoxel(). The device function maps between the cartesian coordinates and the LED cube.</li>
 <li><em>Update the cube</em>. Implemented in the update() method, this allows the internal buffers to be copied to the cube display, allowing for crisp animations and controlled updates, as all the changes accumulated since the previous update are shown at once.</li>
 <li><em>Animate the cube</em>. This is the animate() method called in between updates to allow refreshing in multiplexed cubes. For 'set and forget' cubes, this method is ignored.</li>
 <li><em>Clear the cube to on/off</em> (optional but recommended). The base object provides a setVoxel() implementation in a loop, but it is usually more efficient to set directly set display buffers, as in practice this function is called frequently during execution.</li>
@@ -120,7 +120,7 @@ derived classes replace the generic method with code appropriate for the hardwar
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Arduino LED Cube Library</a></li>
-    <li class="footer">Generated on Sun Feb 11 2018 13:02:50 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Mon Feb 12 2018 17:32:01 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

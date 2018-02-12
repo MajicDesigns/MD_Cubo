@@ -55,7 +55,7 @@ To update the cube send 0xEA + 192 bytes of LED/color data + 0xEB to finish.
 const uint8_t CUBE_SIZE = 4;        ///< Cube size in the X, Y and Z axis;
 const uint8_t COLUMN_COUNT = (CUBE_SIZE * CUBE_SIZE * CUBE_SIZE * 3); ///< LEDs x 3 RGB color values
 
-const uint8_t HW_INIT = 0xad;       ///< Hardware initialisation into serial mode. Send within 5 seconds of HW reset.
+const uint8_t HW_INIT = 0xad;       ///< Hardware initialization into serial mode. Send within 5 seconds of HW reset.
 const uint8_t HW_START_MSG = 0xea;  ///< Hardware start serial message packet.
 const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Repeat twice at end of packet.
 
@@ -72,11 +72,11 @@ class MD_Cubo_STC: public MD_Cubo
   void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z) { setVoxel(p ? VOX_ON : VOX_OFF, x, y, z); };
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
 
-  void clear(uint32_t p = VOX_OFF) { memset(_columns, p, COLUMN_COUNT); }; // #### MC20180211 This needs to cater for p being an RGB value and depends on column arrangemenmt
+  void clear(uint32_t p = VOX_OFF) { memset(_columns, p, COLUMN_COUNT); }; // #### MC20180211 This needs to cater for p being an RGB value and depends on column arrangement
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
   
   private:
-  uint8_t _tx, _rx;   ///< SoftwareSerial parameters - nor sure if we need them!
+  uint8_t _tx, _rx;   ///< SoftwareSerial parameters - not sure if we need them!
   uint32_t _bps;      ///< Software Serial comms speed.
   SoftwareSerial _CubeSerial;  ///< Serial comms through this object
 

@@ -2,8 +2,9 @@
 // 
 // Single letter appears in the YZ plane at X=0 and recedes to the back
 // Font file used is the same as for the MD_MAX72xx library at
-// http://arduinocode.codeplex.com. Font builder utility and documentation
-// on the font format can be found with the MD_MAX72xx library.
+// https://github.com/MajicDesigns/MD_MAX72xx 
+// Font builder utility and documentation on the font format can be found 
+// with the MD_MAX72xx library.
 //
 // Note this demo only works with large cubes (greater than the size of 
 // the font width and height). There is no checking for cube sizing in 
@@ -17,22 +18,22 @@
 
 // Define the cube object
 #ifdef MD_CUBO_8x8_JC_H
-MD_Cubo_JC	C;
+MD_Cubo_JC  C;
 #endif
 
-#define	DEBUG	  0		// Enable or disable (default) debugging output from the example
+#define DEBUG   0   // Enable or disable (default) debugging output from the example
 
 #if DEBUG
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		// Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	// Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	// Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }						// Print a string
+#define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }    // Print a string followed by a value (decimal)
+#define PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); } // Print a string followed by a value (hex)
+#define PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); } // Print a string followed by a value (binary)
+#define PRINTS(s)     { Serial.print(F(s)); }           // Print a string
 #define PRINTC(s, x, y, z) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")"); }  // Print coordinate tuple
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		///< Print a string
+#define PRINT(s, v)   ///< Print a string followed by a value (decimal)
+#define PRINTX(s, v)  ///< Print a string followed by a value (hex)
+#define PRINTB(s, v)  ///< Print a string followed by a value (binary)
+#define PRINTS(s)     ///< Print a string
 #define PRINTC(s, x, y, z)  ///< Print coordinate tuple
 #endif
 
@@ -88,4 +89,3 @@ void loop()
   if (*cp == '\0') cp = (char *)message;
   displayChar(*cp++, 100);
 }
-
