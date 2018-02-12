@@ -4,8 +4,9 @@
 // scroll across all the faces until they disappear at the other 
 // side of the corner they entered.
 // Font file used is the same as for the MD_MAX72xx library at
-// http://arduinocode.codeplex.com. Font builder utility and documentation
-// on the font format can be found with the MD_MAX72xx library.
+// https://github.com/MajicDesigns/MD_MAX72xx
+// Font builder utility and documentation on the font format can be 
+// found with the MD_MAX72xx library.
 //
 // Note this demo only works with large cubes (greater than the size of 
 // the font width and height). There is no checking for cube sizing in 
@@ -19,33 +20,24 @@
 
 // Define the cube object
 #ifdef MD_CUBO_8x8_JC_H
-MD_Cubo_JC	C;
+MD_Cubo_JC  C;
 #endif
 
-#define	DEBUG	  0		// Enable or disable (default) debugging output from the example
+#define DEBUG   0   // Enable or disable (default) debugging output from the example
 
 #if DEBUG
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		// Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	// Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	// Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }						// Print a string
+#define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      // Print a string followed by a value (decimal)
+#define PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); } // Print a string followed by a value (hex)
+#define PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); } // Print a string followed by a value (binary)
+#define PRINTS(s)     { Serial.print(F(s)); }     // Print a string
 #define PRINTC(s, x, y, z) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")"); }  // Print coordinate tuple
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		///< Print a string
+#define PRINT(s, v)   ///< Print a string followed by a value (decimal)
+#define PRINTX(s, v)  ///< Print a string followed by a value (hex)
+#define PRINTB(s, v)  ///< Print a string followed by a value (binary)
+#define PRINTS(s)     ///< Print a string
 #define PRINTC(s, x, y, z)  ///< Print coordinate tuple
 #endif
-
-// States for FSM
-#define S_INIT  0
-#define S_LOADC 1
-#define S_SCROLL  2
-#define S_WAITING 3
-#define S_TIMER   4
-#define S_CLEANUP 5
-#define S_END   6
 
 // Global message buffers shared by Serial and Scrolling functions
 #define	BUF_SIZE	75
@@ -116,7 +108,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 // so the caller is responsible for making sure it remains stable 
 // until the data is displayed.
 {
-  static uint8_t state = S_END;
+  static enum {S_INIT, S_LOADC, S_SCROLL, S_WAITING, S_TIMER, S_CLEANUP, S_END} state = S_END;
   static uint32_t timeStart;    // time at the start of the wait (ms)
   static uint16_t timeWait;     // waiting time (ms)
   static char  *cp;             // where we are in the message
@@ -190,7 +182,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
     {
       if (*cp == '\0')  // no characters left - clean up
         state = S_CLEANUP;
-      else              // otherise get the next char
+      else              // otherwise get the next char
         state = S_LOADC;
     }
     else                // more columns to process - do it

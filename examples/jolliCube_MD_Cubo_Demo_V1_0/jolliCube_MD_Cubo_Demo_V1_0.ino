@@ -1,6 +1,10 @@
-// This sketch is largely adapted from the MD_Cubo library example and some codes written for other LED cubes to work on the 8x8x8 jolliCube from jolliFactory
-// Check out http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/ for detail on building jolliCube
-// Check out http://www.instructables.com/id/JolliCube-8x8x8-LED-Cube-With-MDCubo-Library/ to see jolliCube in action using the MD_Cubo library.
+// This sketch is largely adapted from the MD_Cubo library example and 
+// some codes written for other LED cubes to work on the 8x8x8 jolliCube from jolliFactory
+//
+// Check out http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/ for detail 
+// on building jolliCube
+// Check out http://www.instructables.com/id/JolliCube-8x8x8-LED-Cube-With-MDCubo-Library/ 
+// to see jolliCube in action using the MD_Cubo library.
 
 // LED Cube demo patterns
 // 
@@ -28,19 +32,19 @@ MD_Cubo_JC	C;
 
 #define RANDOM_CYCLE  0 // 1 for random selection, 0 for sequential cycle
 
-#define	DEBUG	  0		// Enable or disable (default) debugging output from the example
+#define DEBUG   0   // Enable or disable (default) debugging output from the example
 
 #if DEBUG
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		// Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	// Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	// Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }						// Print a string
+#define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      // Print a string followed by a value (decimal)
+#define PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); } // Print a string followed by a value (hex)
+#define PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); } // Print a string followed by a value (binary)
+#define PRINTS(s)     { Serial.print(F(s)); }           // Print a string
 #define PRINTC(s, x, y, z) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")"); }  // Print coordinate tuple
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		///< Print a string
+#define PRINT(s, v)   ///< Print a string followed by a value (decimal)
+#define PRINTX(s, v)  ///< Print a string followed by a value (hex)
+#define PRINTB(s, v)  ///< Print a string followed by a value (binary)
+#define PRINTS(s)     ///< Print a string
 #define PRINTC(s, x, y, z)  ///< Print coordinate tuple
 #endif
 
@@ -232,7 +236,7 @@ void intersectPlanes()
 }
 
 void droplets()
-// dropls mobving up and down between the top and bottom
+// Droplets moving up and down between the top and bottom
 {
   const uint16_t delay = 50;
   const uint16_t MAX_DROP = (C.size(MD_Cubo::XAXIS)*C.size(MD_Cubo::YAXIS)) / 2;
@@ -483,7 +487,7 @@ void ripples()
   uint8_t midX = C.size(MD_Cubo::XAXIS) / 2;
   uint8_t midY = C.size(MD_Cubo::YAXIS) / 2;
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
     return;
 
@@ -589,7 +593,7 @@ void spiral()
       C.drawLine(true, 0, curY, C.size(MD_Cubo::ZAXIS) - 1, 0, C.size(MD_Cubo::YAXIS) - 1 - curY, 0);
     curZ += dz;
     curY += dy;
-    // reset the Z - notefirst line of Y and last of Z are the same line so avoid double delays by stopping 
+    // reset the Z - note first line of Y and last of Z are the same line so avoid double delays by stopping 
     // Z earlier
     if (curZ == C.size(MD_Cubo::ZAXIS)-1)
     {
@@ -614,7 +618,7 @@ void suspension()
 // Full plane moving end-to-end losing LEDs 'in suspension' as it goes
 {
   const uint16_t delay = 50;  //100;
-  // Spead out the LEDs evenly in each layer
+  // Spread out the LEDs evenly in each layer
   const uint8_t numSpeckles = (C.size(MD_Cubo::YAXIS) * C.size(MD_Cubo::ZAXIS)) / C.size(MD_Cubo::XAXIS);
 
   PRINTS("\nSuspension");
@@ -629,10 +633,10 @@ void suspension()
     C.update();
     C.animate(delay);
 
-    // * Speaading points through the cube
+    // * Spreading points through the cube
     // 1. copy the current plane to the next one
     // 2. clear the current plane
-    // 3. ramdomly clear numSpeckle points in the new plane and set the same points in the previous one
+    // 3. randomly clear numSpeckle points in the new plane and set the same points in the previous one
     for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS) - 1; x++)
     {
       C.copyPlane(MD_Cubo::YZPLANE, x, x + 1);
@@ -674,7 +678,7 @@ void suspension()
     C.animate(delay * 3);
 
     // now do it all again in reverse
-    // * Speaading points through the cube
+    // * Spreading points through the cube
     for (uint8_t x = C.size(MD_Cubo::XAXIS) - 1; x > 0; x--)
     {
       C.copyPlane(MD_Cubo::YZPLANE, x, x - 1);
@@ -751,7 +755,7 @@ void hourglass()
   uint8_t s, x, y, z;
   const uint16_t delay = DEMO_RUNTIME / ARRAY_SIZE(sand) / 3; // 3 delays per action
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) != 8 || C.size(MD_Cubo::YAXIS) != 8 || C.size(MD_Cubo::ZAXIS) != 8))
     return;
 
@@ -800,8 +804,8 @@ void hourglass()
 }
 
 void boingCube()
-// Small cube grows in the direction of one of the zaxes and then expands out to full size, 
-// repeated in reverse and interates theough all the axes.
+// Small cube grows in the direction of one of the axes and then expands out to full size, 
+// repeated in reverse and iterates through all the axes.
 {
   const uint16_t  delay = 100;
   uint8_t pass = 0;
@@ -960,7 +964,7 @@ void spiralLine()
 }
 
 void outsideStack()
-// outside square is drawn up the cube, then collpses into the top, the down the cube, repeats 
+// outside square is drawn up the cube, then collapses into the top, the down the cube, repeats 
 {
   uint16_t delay = 50;
 
@@ -1031,7 +1035,7 @@ void recedingText()
   const char  message[] = "presents";
   char  *cp = (char *)message;
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
     return;
 
@@ -1076,24 +1080,15 @@ void scrollFaces(void)
     }
 }
 
-// States for FSM
-#define S_INIT  0
-#define S_LOADC 1
-#define S_SCROLL  2
-#define S_WAITING 3
-#define S_TIMER   4
-#define S_CLEANUP 5
-#define S_END   6
-
 boolean displayMessage(char *mesg, uint16_t delay = 0)
 // Display a message on the surface of the cube, scrolling around the outside faces
-// Implemented as a non-blocking Finte State Machine.
+// Implemented as a non-blocking Finite State Machine.
 // Returns true when the message has completed.
 // The message is only reference by a pointer to the string, 
 // so the caller is responsible for making sure it remains stable 
 // until the data is displayed.
 {
-  static uint8_t state = S_END;
+  static enum {S_INIT, S_LOADC, S_SCROLL, S_WAITING, S_TIMER, S_CLEANUP, S_END} state = S_END;
   static uint32_t timeStart;    // time at the start of the wait (ms)
   static uint16_t timeWait;     // waiting time (ms)
   static char  *cp;             // where we are in the message
@@ -1106,7 +1101,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 
   switch (state)
   {
-  case S_INIT: // initialisation of a new message
+  case S_INIT: // initialization of a new message
     PRINTS("\nS_INIT");
     cp = mesg;
     timeWait = delay;
@@ -1147,7 +1142,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
     state = S_WAITING;
     break;
 
-  case S_WAITING: // initialisation stage for S_TIMER
+  case S_WAITING: // initialization stage for S_TIMER
     timeStart = millis();
     state = S_TIMER;
     break;
@@ -1167,7 +1162,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
     {
       if (*cp == '\0')  // no characters left - clean up
         state = S_CLEANUP;
-      else              // otherise get the next char
+      else              // otherwise get the next char
         state = S_LOADC;
     }
     else                // more columns to process - do it
@@ -1199,7 +1194,7 @@ void scrollingText()
   //char message[] = "MD_Cubo         Demo";
   char message[] = "MD_      Cubo         Demo";
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
     return;
 
@@ -1215,7 +1210,8 @@ void scrollingText()
 
 //*********************************************************************************************************************************************************************************************************
 //Below are program codes from other LED cube projects adapted for additional animation effects
-const unsigned char bitmaps[12][8] PROGMEM= {
+const unsigned char bitmaps[12][8] PROGMEM= 
+{
   {0x37,0x37,0x04,0x34,0x36,0x34,0xb4,0x64},  //  0 - JF#1
   {0x37,0x04,0x34,0x36,0x34,0xb4,0x64,0x00},  //  1 - JF#2
   {0x34,0x36,0x34,0xb4,0x64,0x00,0x00,0x00},  //  2 - JF#3
@@ -1230,55 +1226,59 @@ const unsigned char bitmaps[12][8] PROGMEM= {
   {0x18,0x3c,0x7e,0xdb,0xff,0x24,0x5a,0xa5},  // 11 - Space Invader
 };
 
-const unsigned char paths[44] PROGMEM = {0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00,0x10,0x20,0x30,0x40,0x50,0x60,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x77,0x67,0x57,0x47,0x37,0x27,0x17,0x04,0x03,0x12,0x21,0x30,0x40,0x51,0x62,0x73,0x74,0x65,0x56,0x47,0x37,0x26,0x15}; // circle, len 16, offset 28
-
+const unsigned char paths[44] PROGMEM = 
+{
+  // circle, len 16, offset 28
+  0x07,0x06,0x05,0x04,0x03,0x02,0x01,0x00,0x10,0x20,0x30,
+  0x40,0x50,0x60,0x70,0x71,0x72,0x73,0x74,0x75,0x76,0x77,
+  0x67,0x57,0x47,0x37,0x27,0x17,0x04,0x03,0x12,0x21,0x30,
+  0x40,0x51,0x62,0x73,0x74,0x65,0x56,0x47,0x37,0x26,0x15
+};
 
 void font_getpath (unsigned char path, unsigned char *destination, int length)
 {
-	int i;
-	int offset = 0;
-	
-	if (path == 1)
-		offset=28;
-	
-	for (i = 0; i < length; i++)
-		destination[i] = pgm_read_byte(&paths[i+offset]);
-}
+  int i;
+  int offset = 0;
 
+  if (path == 1)
+    offset=28;
+
+  for (i = 0; i < length; i++)
+    destination[i] = pgm_read_byte(&paths[i+offset]);
+}
 
 void font_getbitmap (char bitmap, unsigned char dst[8])
 {
-    int i;
-	
-    for (i = 0; i < 8; i++)
-		dst[i] = (unsigned char)pgm_read_byte((uint8_t*)&bitmaps[(uint8_t)bitmap][(uint8_t)i]);
-}
+  int i;
 
+  for (i = 0; i < 8; i++)
+    dst[i] = (unsigned char)pgm_read_byte((uint8_t*)&bitmaps[(uint8_t)bitmap][(uint8_t)i]);
+}
 
 unsigned char font_getbitmappixel ( char bitmap, char x, char y)
 {
-	uint8_t tmp = pgm_read_byte((uint8_t*)&bitmaps[(uint8_t)bitmap][(uint8_t)x]);
-	return (tmp >> y) & 0x01;
+  uint8_t tmp = pgm_read_byte((uint8_t*)&bitmaps[(uint8_t)bitmap][(uint8_t)x]);
+
+  return (tmp >> y) & 0x01;
 }
 
 
 void effect_pathmove (unsigned char *path, int length)
 {
-	int i,z;
-	unsigned char state;
-	
-	for (i=(length-1);i>=1;i--)
-	{
-		for (z=0;z<8;z++)
-		{
-			state = C.getVoxel(((path[(i-1)]>>4) & 0x0f), (path[(i-1)] & 0x0f), z);
-			C.setVoxel(state,((path[i]>>4) & 0x0f), (path[i] & 0x0f), z);
-		}
-	}
-	for (i=0;i<8;i++)
-		C.setVoxel(false,((path[0]>>4) & 0x0f), (path[0] & 0x0f),i);
-}
+  int i,z;
+  unsigned char state;
 
+  for (i=(length-1);i>=1;i--)
+  {
+    for (z=0;z<8;z++)
+    {
+      state = C.getVoxel(((path[(i-1)]>>4) & 0x0f), (path[(i-1)] & 0x0f), z);
+      C.setVoxel(state,((path[i]>>4) & 0x0f), (path[i] & 0x0f), z);
+    }
+  }
+  for (i=0;i<8;i++)
+    C.setVoxel(false,((path[0]>>4) & 0x0f), (path[0] & 0x0f),i);
+}
 
 #define AXIS_X 1
 #define AXIS_Y 2
@@ -1287,7 +1287,7 @@ void effect_pathmove (unsigned char *path, int length)
 // Shift the entire contents of the cube along an axis
 // This is great for effects where you want to draw something
 // on one side of the cube and have it flow towards the other
-// side. Like rain flowing down the Z axiz.
+// side. Like rain flowing down the Z axis.
 void shift(char axis, int direction)
 {
   int i, x ,y;
@@ -1303,8 +1303,7 @@ void shift(char axis, int direction)
     else
     {
       ii = (7-i);
-    }	
-
+    }
 
     for (x = 0; x < 8; x++)
     {
@@ -1365,9 +1364,8 @@ void shift(char axis, int direction)
   }
 }
 
-
 void fireworks()
-{  
+{
   const uint8_t NUM_PARTICLES = 25;
   float particles[NUM_PARTICLES][6];   // Particles and their position, x,y,z and their movement, dx, dy, dz
   uint8_t orgX, orgY, orgZ;
@@ -1430,27 +1428,24 @@ void fireworks()
       
       C.update();
       C.animate(50);
-      C.clear();            
+      C.clear();
     }
   }
 }
 
-
 void wormsqueeze()
 {
-  C.clear();
-
   int size = 2;
   int axis = AXIS_Z;
   int direction = -1;
   int iterations = 100;
   int delay = 1000;
 
-
   int x, y, i,j,k, dx, dy;
   int cube_size;
   int origin = 0;
 
+  C.clear();
   if (direction == -1)
     origin = 7;
 
@@ -1472,7 +1467,6 @@ void wormsqueeze()
 
     shift(axis, direction);
 
-
     for (j=0; j<size;j++)
     {
       for (k=0; k<size;k++)
@@ -1493,11 +1487,8 @@ void wormsqueeze()
   }
 }
 
-
 void CornerToCorner()
-{	 
-  C.clear();
-
+{
   unsigned long STEP_TIME = 1000;
   unsigned long timeSinceLastStep = 0;
   int whatstep = 0;
@@ -1506,337 +1497,329 @@ void CornerToCorner()
   boolean yHigh = random(2);
   boolean zHigh = random(2);  
   
+  C.clear();
   timeStart = millis();
-  
-  
+
   while (millis() - timeStart <= DEMO_RUNTIME)
   {
-        unsigned long dt = 1;
+    unsigned long dt = 1;
 
-	timeSinceLastStep += dt;
+    timeSinceLastStep += dt;
+    if (timeSinceLastStep > STEP_TIME)
+    {
+      if(growing)
+      {
+        for(uint8_t x = 0 ; x < C.size(MD_Cubo::XAXIS) ; x++)
+        {
+          for(uint8_t y = 0 ; y < C.size(MD_Cubo::YAXIS) ; y++)
+          {
+            for(uint8_t z = 0 ; z < C.size(MD_Cubo::ZAXIS) ; z++)
+            {
+              int xDist = x, yDist = y, zDist = z;
+              if(xHigh) xDist = C.size(MD_Cubo::XAXIS) - x - 1;
+              if(yHigh) yDist = C.size(MD_Cubo::YAXIS) - y - 1;
+              if(zHigh) zDist = C.size(MD_Cubo::ZAXIS) - z - 1;
+              
+              C.setVoxel((xDist + yDist + zDist <= whatstep),x,y,z);
+            }
+          }
+        }
+      }
+      whatstep++;
+      if(whatstep > (C.size(MD_Cubo::XAXIS)-1)*3)
+      {
+        whatstep = 0;
+        growing = false;
+      }
+    }
+    else
+    {
+      for(uint8_t x = 0 ; x < C.size(MD_Cubo::XAXIS) ; x++)
+      {
+        for(uint8_t y = 0 ; y < C.size(MD_Cubo::YAXIS) ; y++)
+        {
+          for(uint8_t z = 0 ; z < C.size(MD_Cubo::ZAXIS) ; z++)
+          {
+            int xDist = x, yDist = y, zDist = z;
+            if(xHigh) xDist = C.size(MD_Cubo::XAXIS) - x - 1;
+            if(yHigh) yDist = C.size(MD_Cubo::YAXIS) - y - 1;
+            if(zHigh) zDist = C.size(MD_Cubo::ZAXIS) - z - 1;
 
-	if (timeSinceLastStep > STEP_TIME)
-	{
-		if(growing)
-		{
-			for(byte x = 0 ; x < C.size(MD_Cubo::XAXIS) ; x++)
-			{
-				for(byte y = 0 ; y < C.size(MD_Cubo::YAXIS) ; y++)
-				{
-					for(byte z = 0 ; z < C.size(MD_Cubo::ZAXIS) ; z++)
-					{
-						int xDist = x;
-						if(xHigh)
-						{
-							xDist = C.size(MD_Cubo::XAXIS) -x -1;
-						}
-						int yDist = y;
-						if(yHigh)
-						{
-							yDist = C.size(MD_Cubo::YAXIS) -y -1;
-						}
-						int zDist = z;
-						if(zHigh)
-						{
-							zDist = C.size(MD_Cubo::ZAXIS) -z -1;
-						}
+            C.setVoxel(!(xDist + yDist + zDist <= whatstep),x,y,z);
+          }
+        }
+      }
+      whatstep++;
+      if(whatstep > (C.size(MD_Cubo::XAXIS)-1)*3)
+      {
+        whatstep = 0;
+        growing = true;
+        xHigh = random(2);
+        yHigh = random(2);
+        zHigh = random(2);
+      }
+    }
+    timeSinceLastStep -= STEP_TIME;
 
-						C.setVoxel((xDist + yDist + zDist <= whatstep),x,y,z);
-					}
-				}
-			}
-			whatstep++;
-			if(whatstep > (C.size(MD_Cubo::XAXIS)-1)*3)
-			{
-				whatstep = 0;
-				growing = false;
-			}
-		}
-		else
-		{
-			for(byte x = 0 ; x < C.size(MD_Cubo::XAXIS) ; x++)
-			{
-				for(byte y = 0 ; y < C.size(MD_Cubo::YAXIS) ; y++)
-				{
-					for(byte z = 0 ; z < C.size(MD_Cubo::ZAXIS) ; z++)
-					{
-						int xDist = x;
-						if(xHigh)
-						{
-							xDist = C.size(MD_Cubo::XAXIS) -x -1;
-						}
-						int yDist = y;
-						if(yHigh)
-						{
-							yDist = C.size(MD_Cubo::YAXIS) -y -1;
-						}
-						int zDist = z;
-						if(zHigh)
-						{
-							zDist = C.size(MD_Cubo::ZAXIS) -z -1;
-						}
-
-						C.setVoxel(!(xDist + yDist + zDist <= whatstep),x,y,z);
-					}
-				}
-			}
-			whatstep++;
-			if(whatstep > (C.size(MD_Cubo::XAXIS)-1)*3)
-			{
-				whatstep = 0;
-				growing = true;
-				xHigh = random(2);
-				yHigh = random(2);
-				zHigh = random(2);
-			}
-		}
-		timeSinceLastStep -= STEP_TIME;
-
-                C.update();
-                C.animate(50);
-	}
+    C.update();
+    C.animate(50);
   }
 }
 
 
 void effect_bitmapspin (int count, int delay, char bitmap)
 {
-        C.clear();
+  unsigned char dybde[] = {0,1,2,3,4,5,6,7,1,1,2,3,4,5,6,6,2,2,3,3,4,4,5,5,3,3,3,3,4,4,4,4};
+  int d = 0;
+  int flip = 0;
+  int x, y, off;
 
-	unsigned char dybde[] = {0,1,2,3,4,5,6,7,1,1,2,3,4,5,6,6,2,2,3,3,4,4,5,5,3,3,3,3,4,4,4,4};
-	int d = 0;
-	int flip = 0;
-	int x, y, off;
-	for(int i = 0; i<count; i++)
-	{
-		flip = 0;
-		d = 0;
-		off = 0;
-		// front:
-		for (int s=0;s<7;s++){
-			if(!flip){
-				off++;
-				if (off == 4){
-					flip = 1;
-					off = 0;
-				}
-			} else {
-				off++;
-			}
-		        for (x=0; x<8; x++)
-        		{
-				d = 0;
-                		for (y=0; y<8; y++)
-	                	{
-					if (font_getbitmappixel ( bitmap, 7-x, y)){
-						if (!flip)
-							//setvoxel(y,dybde[8 * off + d++],x);
-							C.setVoxel(true,y,dybde[8 * off + d++],x);
-						else
-							//setvoxel(y,dybde[31 - 8 * off - d++],x);
-							C.setVoxel(true,y,dybde[31 - 8 * off - d++],x);
-					} else {
-						d++;
-					}
-				}
-			}
-                        C.update();
-                        C.animate(delay);
-                        C.clear();
-		}
+  C.clear();
+  for(int i = 0; i<count; i++)
+  {
+    flip = 0;
+    d = 0;
+    off = 0;
+    // front:
+    for (int s=0;s<7;s++)
+    {
+      if(!flip)
+      {
+        off++;
+        if (off == 4)
+        {
+          flip = 1;
+          off = 0;
+        }
+      } 
+      else 
+      {
+        off++;
+      }
+      for (x=0; x<8; x++)
+      {
+        d = 0;
+        for (y=0; y<8; y++)
+        {
+          if (font_getbitmappixel ( bitmap, 7-x, y))
+          {
+            if (!flip)
+              C.setVoxel(true,y,dybde[8 * off + d++],x);
+            else
+              C.setVoxel(true,y,dybde[31 - 8 * off - d++],x);
+          }
+          else
+          {
+            d++;
+          }
+        }
+      }
+      C.update();
+      C.animate(delay);
+      C.clear();
+    }
 
-		// side:
-		off = 0;
-		flip = 0;
-		d = 0;
-		for (int s=0;s<7;s++){
-			if(!flip){
-				off++;
-				if (off == 4){
-					flip = 1;
-					off = 0;
-				}
-			} else {
-				off++;
-			}
-		        for (x=0; x<8; x++)
-        		{
-				d = 0;
-                		for (y=0; y<8; y++)
-	                	{
-					if (font_getbitmappixel ( bitmap, 7-x, y)){
-						if (!flip)
-							//setvoxel(dybde[8 * off + d++], 7 - y,x);
-							C.setVoxel(true,dybde[8 * off + d++], 7 - y,x);
-						else
-							//setvoxel(dybde[31 - 8 * off - d++],7 - y,x);
-							C.setVoxel(true,dybde[31 - 8 * off - d++],7 - y,x);
-					} else {
-						d++;
-					}
-				}
-			}
-                        C.update();
-                        C.animate(delay);
-                        C.clear();
-		}
+    // side:
+    off = 0;
+    flip = 0;
+    d = 0;
+    for (int s=0;s<7;s++)
+    {
+      if(!flip)
+      {
+        off++;
+        if (off == 4)
+        {
+          flip = 1;
+          off = 0;
+        }
+      }
+      else
+      {
+        off++;
+      }
+      for (x=0; x<8; x++)
+      {
+        d = 0;
+        for (y=0; y<8; y++)
+	      {
+          if (font_getbitmappixel ( bitmap, 7-x, y))
+          {
+            if (!flip)
+              C.setVoxel(true,dybde[8 * off + d++], 7 - y,x);
+            else
+              C.setVoxel(true,dybde[31 - 8 * off - d++],7 - y,x);
+          } 
+          else
+          {
+            d++;
+          }
+        }
+      }
+      C.update();
+      C.animate(delay);
+      C.clear();
+    }
 
+    // back:
+    flip = 0;
+    d = 0;
+    off = 0;
+    for (int s=0;s<7;s++)
+    {
+      if(!flip)
+      {
+        off++;
+        if (off == 4)
+        {
+          flip = 1;
+          off = 0;
+        }
+      }
+      else
+      {
+        off++;
+      }
+      for (x=0; x<8; x++)
+      {
+        d = 0;
+        for (y=0; y<8; y++)
+        {
+          if (font_getbitmappixel ( bitmap, 7-x, 7-y))
+          {
+            if (!flip)
+              C.setVoxel(true,y,dybde[8 * off + d++],x);
+            else
+              C.setVoxel(true,y,dybde[31 - 8 * off - d++],x);
+          }
+          else
+          {
+            d++;
+          }
+        }
+      }
+      C.update();
+      C.animate(delay);
+      C.clear();
+    }
 
-		flip = 0;
-		d = 0;
-		off = 0;
-		// back:
-		for (int s=0;s<7;s++){
-			if(!flip){
-				off++;
-				if (off == 4){
-					flip = 1;
-					off = 0;
-				}
-			} else {
-				off++;
-			}
-		        for (x=0; x<8; x++)
-        		{
-				d = 0;
-                		for (y=0; y<8; y++)
-	                	{
-					if (font_getbitmappixel ( bitmap, 7-x, 7-y)){
-						if (!flip)
-							//setvoxel(y,dybde[8 * off + d++],x);
-							C.setVoxel(true,y,dybde[8 * off + d++],x);
-						else
-							//setvoxel(y,dybde[31 - 8 * off - d++],x);
-							C.setVoxel(true,y,dybde[31 - 8 * off - d++],x);
-					} else {
-						d++;
-					}
-				}
-			}
-                        C.update();
-                        C.animate(delay);
-                        C.clear();
-		}
-
-		// other side:
-		off = 0;
-		flip = 0;
-		d = 0;
-		for (int s=0;s<7;s++){
-			if(!flip){
-				off++;
-				if (off == 4){
-					flip = 1;
-					off = 0;
-				}
-			} else {
-				off++;
-			}
-		        for (x=0; x<8; x++)
-        		{
-				d = 0;
-                		for (y=0; y<8; y++)
-	                	{
-					if (font_getbitmappixel ( bitmap, 7-x, 7-y)){
-						if (!flip)
-							//setvoxel(dybde[8 * off + d++], 7 - y,x);
-							C.setVoxel(true,dybde[8 * off + d++], 7 - y,x);
-						else
-							//setvoxel(dybde[31 - 8 * off - d++],7 - y,x);
-							C.setVoxel(true,dybde[31 - 8 * off - d++],7 - y,x);
-					} else {
-						d++;
-					}
-				}
-			}
-                        C.update();
-                        C.animate(delay);
-                        C.clear();
-		}
-	}
+    // other side:
+    off = 0;
+    flip = 0;
+    d = 0;
+    for (int s=0;s<7;s++)
+    {
+      if(!flip)
+      {
+        off++;
+        if (off == 4)
+        {
+          flip = 1;
+          off = 0;
+        }
+      }
+      else
+      {
+        off++;
+      }
+      for (x=0; x<8; x++)
+      {
+        d = 0;
+        for (y=0; y<8; y++)
+	      {
+          if (font_getbitmappixel ( bitmap, 7-x, 7-y))
+          {
+            if (!flip)
+              C.setVoxel(true,dybde[8 * off + d++], 7 - y,x);
+            else
+              C.setVoxel(true,dybde[31 - 8 * off - d++],7 - y,x);
+          }
+          else
+          {
+            d++;
+          }
+        }
+      }
+      C.update();
+      C.animate(delay);
+      C.clear();
+    }
+  }
 }
-
 
 void effect_path_bitmap(int delay, char bitmap, int iterations)
 {
-        C.clear();
+  int z, i, ii;
+  z = 4;
+  unsigned char path[28];
+  font_getpath(0,path,28);
 
-	int z, i, ii;
-	z = 4;
-	unsigned char path[28];
-	font_getpath(0,path,28);
-	
-	for (i=0; i < iterations; i++)
-	{	
-		for (ii=0;ii<8;ii++)
-		{		
-			for (z=0;z<8;z++)
-			{
-				if (font_getbitmappixel(bitmap,(7-z),ii))
-				{
-					//setvoxel(0,7,z);
-					C.setVoxel(true,0,7,z);
-				} else
-				{
-					//clrvoxel(0,7,z);
-					C.setVoxel(false,0,7,z);
-				}		
-			}
-			effect_pathmove(path, 28);
-                        C.update();
-                        C.animate(delay);
-		}
-	
-		for (ii=0;ii<20;ii++)
-		{
-			effect_pathmove(path, 28);
-                        C.update();
-                        C.animate(delay);
-		}
-	}
+  C.clear();
+  for (i=0; i < iterations; i++)
+  {
+    for (ii=0;ii<8;ii++)
+    {
+      for (z=0;z<8;z++)
+      {
+        if (font_getbitmappixel(bitmap,(7-z),ii))
+        {
+          C.setVoxel(true,0,7,z);
+        }
+        else
+        {
+          C.setVoxel(false,0,7,z);
+        }
+      }
+      effect_pathmove(path, 28);
+      C.update();
+      C.animate(delay);
+    }
+   
+    for (ii=0;ii<20;ii++)
+    {
+      effect_pathmove(path, 28);
+      C.update();
+      C.animate(delay);
+    }
+  }
 
-	for (ii=0;ii<10;ii++)
-	{
-		effect_pathmove(path, 28);
-                C.update();
-                C.animate(delay);
-	}
+  for (ii=0;ii<10;ii++)
+  {
+    effect_pathmove(path, 28);
+    C.update();
+    C.animate(delay);
+  }
 }
-
 
 void effect_path_bitmapSequence1()
 {
-effect_path_bitmap (50,7,2);  // 7 - fish
-effect_path_bitmap (50,9,2);  // 9 - heart
+  effect_path_bitmap (50,7,2);  // 7 - fish
+  effect_path_bitmap (50,9,2);  // 9 - heart
 }
-
 
 void effect_path_bitmapSequence2()
 {
- effect_path_bitmap (80,6,2);   // 6 - arrow
- effect_path_bitmap (80,11,2);  // 11 - space invader
+  effect_path_bitmap (80,6,2);   // 6 - arrow
+  effect_path_bitmap (80,11,2);  // 11 - space invader
 }
-
 
 void effect_bitmapspinSequence1()
 {
-effect_bitmapspin(3,50,0);  // 0 - JF#1
-effect_bitmapspin(1,5,1);   // 1 - JF#2
-effect_bitmapspin(1,4,2);   // 2 - JF#3
-effect_bitmapspin(1,3,3);   // 3 - JF#4
-effect_bitmapspin(1,1,4);   // 4 - JF#5 
+  effect_bitmapspin(3,50,0);  // 0 - JF#1
+  effect_bitmapspin(1,5,1);   // 1 - JF#2
+  effect_bitmapspin(1,4,2);   // 2 - JF#3
+  effect_bitmapspin(1,3,3);   // 3 - JF#4
+  effect_bitmapspin(1,1,4);   // 4 - JF#5 
 }
-
 
 void effect_bitmapspinSequence2()
 {
-effect_bitmapspin(2,50,5);  // 5 - smiley
-effect_bitmapspin(2,50,6);  // 6 - Arrow
-effect_bitmapspin(2,50,8);  // 8 - Superman
-effect_bitmapspin(2,40,9);  // 9 - Heart
-effect_bitmapspin(2,30,10); // 10 - face
+  effect_bitmapspin(2,50,5);  // 5 - smiley
+  effect_bitmapspin(2,50,6);  // 6 - Arrow
+  effect_bitmapspin(2,50,8);  // 8 - Superman
+  effect_bitmapspin(2,40,9);  // 9 - Heart
+  effect_bitmapspin(2,30,10); // 10 - face
 }
-
 
 void setup()
 {  
@@ -1857,7 +1840,7 @@ void loop()
 
   void (*demoType[])(void) =
   {    
-    //Animation effects adapted from other LED cube projects    
+    //Animation effects adapted from other LED cube projects
     fireworks,
     effect_bitmapspinSequence1,
     recedingText,
@@ -1869,7 +1852,7 @@ void loop()
     effect_path_bitmapSequence2,
 
 
-    //Animation effects from MD_Cubo library     
+    //Animation effects from MD_Cubo library
     oscillation, 
     firefly, 
     intersectPlanes, 

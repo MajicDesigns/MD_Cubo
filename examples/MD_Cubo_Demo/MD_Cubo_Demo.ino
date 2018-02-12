@@ -42,7 +42,7 @@ MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #define PRINT(s, v)   ///< Print a string followed by a value (decimal)
 #define PRINTX(s, v)  ///< Print a string followed by a value (hex)
 #define PRINTB(s, v)  ///< Print a string followed by a value (binary)
-#define PRINTS(s)   ///< Print a string
+#define PRINTS(s)     ///< Print a string
 #define PRINTC(s, x, y, z)  ///< Print coordinate tuple
 #endif
 
@@ -181,7 +181,7 @@ void wrapFaces()
 {
   const uint16_t  delay = 100;
 
-  PRINTS("\nWrap Faces");   
+  PRINTS("\nWrap Faces");
 
   C.clear();
   C.fillPlane(true, MD_Cubo::XYPLANE, 0);
@@ -665,7 +665,7 @@ void suspension()
     C.update();
     C.animate(delay);
 
-    // * Speaading points through the cube
+    // * Spreading points through the cube
     // 1. copy the current plane to the next one
     // 2. clear the current plane
     // 3. ramdomly clear numSpeckle points in the new plane and set the same points in the previous one
@@ -787,7 +787,7 @@ void hourglass()
   uint8_t s, x, y, z;
   const uint16_t delay = DEMO_RUNTIME / ARRAY_SIZE(sand) / 3; // 3 delays per action
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) != 8 || C.size(MD_Cubo::YAXIS) != 8 || C.size(MD_Cubo::ZAXIS) != 8))
     return;
 
@@ -836,8 +836,8 @@ void hourglass()
 }
 
 void boingCube()
-// Small cube grows in the direction of one of the zaxes and then expands out to full size, 
-// repeated in reverse and interates theough all the axes.
+// Small cube grows in the direction of one of the axes and then expands out to full size, 
+// repeated in reverse and iterates through all the axes.
 {
   const uint16_t  delay = 100;
   uint8_t pass = 0;
@@ -996,7 +996,7 @@ void spiralLine()
 }
 
 void outsideStack()
-// outside square is drawn up the cube, then collpses into the top, the down the cube, repeats 
+// outside square is drawn up the cube, then collapses into the top, the down the cube, repeats 
 {
   uint16_t delay = 50;
 
@@ -1113,7 +1113,7 @@ void scrollFaces(void)
 
 boolean displayMessage(char *mesg, uint16_t delay = 0)
 // Display a message on the surface of the cube, scrolling around the outside faces
-// Implemented as a non-blocking Finte State Machine.
+// Implemented as a non-blocking Finite State Machine.
 // Returns true when the message has completed.
 // The message is only reference by a pointer to the string, 
 // so the caller is responsible for making sure it remains stable 
@@ -1132,7 +1132,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 
   switch (state)
   {
-  case S_INIT: // initialisation of a new message
+  case S_INIT: // initialization of a new message
     PRINTS("\nS_INIT");
     cp = mesg;
     timeWait = delay;
@@ -1173,7 +1173,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
     state = S_WAITING;
     break;
 
-  case S_WAITING: // initialisation stage for S_TIMER
+  case S_WAITING: // initialization stage for S_TIMER
     timeStart = millis();
     state = S_TIMER;
     break;
@@ -1193,7 +1193,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
     {
       if (*cp == '\0')  // no characters left - clean up
         state = S_CLEANUP;
-      else              // otherise get the next char
+      else              // otherwise get the next char
         state = S_LOADC;
     }
     else                // more columns to process - do it

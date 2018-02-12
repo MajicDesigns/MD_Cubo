@@ -62,7 +62,7 @@ After doing some research of existing cubes it seems there are 2 main types of L
 activate a persistence of vision (POV) effect in the observer. This puts the onus of multiplexing control 
 in the Arduino software. An example of this type hardware is the ICStation Light Cube Kit, based on 74HC595 
 shift registers to control LED anodes and 4 I/O ports of Arduino control 4 common cathodes of LED. This type 
-of hardware is the most common for LED cubes and relies on the microcontroller software opening a circuit 
+of hardware is the most common for LED cubes and relies on the micro controller software opening a circuit 
 (a path for current) for each LED in very quick succession.
 - A 'set and forget' model, where each LED is set by the Arduino and some other hardware components ensure 
 that they remain turned on or off. One example is the PaulRB or JolliCube versions provided with the library.
@@ -83,10 +83,10 @@ this is implemented in the object constructor and begin() method for object.
 is obtained form the library. Provision is made to allow each of the X, Y and Z axes to be of different size.
 - _Turn a LED on/off_. This is THE basic function for the cube and is implemented in the setVoxel() method. 
 Every other drawing function - clear(), drawLine(), fillPlane() -  can be written using setVoxel(). The 
-device function maps between the caressian coordinates and the LED cube.
+device function maps between the cartesian coordinates and the LED cube.
 - _Test a LED on/off_. This is implemented in the getVoxel() method and used to test if a pizel is already on. 
 Every other drawing function - clear(), drawLine(), fillPlane() -  can be written in using setVoxel(). The 
-device function maps between the caressian coordinates and the LED cube.
+device function maps between the cartesian coordinates and the LED cube.
 - _Update the cube_. Implemented in the update() method, this allows the internal buffers to be copied to the 
 cube display, allowing for crisp animations and controlled updates, as all the changes accumulated since the 
 previous update are shown at once.

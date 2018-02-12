@@ -15,7 +15,7 @@ MD_Cubo_72xx  C;
 MD_Cubo_ICS595  C;
 #endif
 #ifdef MD_CUBO_8x8_JC_H
-MD_Cubo_JC	C;
+MD_Cubo_JC  C;
 #endif
 #ifdef MD_CUBO_4x4_STC_H
 const uint8_t RX_PIN = 10;
@@ -23,19 +23,19 @@ const uint8_t TX_PIN = 11;
 MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #endif
 
-#define	DEBUG	0		///< Enable or disable (default) debugging output from the example
+#define DEBUG 0   ///< Enable or disable (default) debugging output from the example
 
 #if DEBUG
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }						///< Print a string
+#define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      ///< Print a string followed by a value (decimal)
+#define PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); } ///< Print a string followed by a value (hex)
+#define PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); } ///< Print a string followed by a value (binary)
+#define PRINTS(s)     { Serial.print(F(s)); }           ///< Print a string
 #define PRINTC(s, x, y, z, c) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")");}  ///< Print coordinate tuple
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  ///< Print a string
+#define PRINT(s, v)   ///< Print a string followed by a value (decimal)
+#define PRINTX(s, v)  ///< Print a string followed by a value (hex)
+#define PRINTB(s, v)  ///< Print a string followed by a value (binary)
+#define PRINTS(s)     ///< Print a string
 #define PRINTC(s, x, y, z, c)  ///< Print coordinate tuple
 #endif
 

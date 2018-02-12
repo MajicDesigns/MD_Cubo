@@ -27,7 +27,7 @@ ensures that the appropriate LEDs are turned on.
 
 The software must take into account these differences and allow both to work using the same basic 
 software pattern. At a fundamental level, the hardware dependent code required needs to do the following:
-- Initialise the hardware
+- Initialize the hardware
 - Turn on specific LED (voxel) on or off
 - Update the display (internal buffers to actual device)
 - Animate the display (ignored for 'set and forget', refresh for scanning)
@@ -66,9 +66,9 @@ Feb 2018 - version 2.0.0
 
 Feb 2016 - version 1.1
 - Added jolliCube - first 8x8x8 cube
-- Reorganised library
-- Reorganised and expanded examples
-- Added text based examples, font defintion file and related utility functions
+- Reorganized library
+- Reorganized and expanded examples
+- Added text based examples, font definition file and related utility functions
 
 Aug 2015 - version 1.0
 - First release
@@ -101,10 +101,10 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
  * \brief Main header file for the MD_Cubo library
  */
 
-#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))		///< Generic macro to return number of array elemenmts
-#define MAX_INTENSITY 0xff		///< Maximum intensity for a cube; setting is 0..MAX_INTENSITY
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))    ///< Generic macro to return number of array elemenmts
+#define MAX_INTENSITY 0xff    ///< Maximum intensity for a cube; setting is 0..MAX_INTENSITY
 
-#define RGB(r,g,b) ((uint32_t)((r<<16)+(g<<8)+b) & 0xffffff) ///< create RGB integer from components
+#define RGB(r,g,b) ((((uint32_t)r<<16)+((uint32_t)g<<8)+b) & 0xffffff) ///< create RGB integer from components
 #define R(c)       ((uint8_t)((c >>16) & 0xff))  ///< extract R component of RGB
 #define G(c)       ((uint8_t)((c >> 8) & 0xff))  ///< extract G component of RGB
 #define B(c)       ((uint8_t)(c & 0xff))         ///< extract B component of RGB
