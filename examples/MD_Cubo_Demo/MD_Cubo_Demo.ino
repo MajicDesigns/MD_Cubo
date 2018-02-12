@@ -5,6 +5,7 @@
 
 #include <MD_Cubo.h>
 #include "MD_Cubo_Font.h"
+#include "ColorShifter.h"
 
 // Pick the include file for the right cube
 //#include "MD_Cubo_4x4_72xx.h" 
@@ -56,9 +57,9 @@ void firefly()
 {
   uint8_t x, y, z;
   uint32_t colorRGB;
-  uint8_t colorSlide[3] = {1,2,1};
+  uint8_t colorSlide[3] = {1,1,1};
 
-  colorRGB = 0x223355;
+  colorRGB = 0xaa0000;
   PRINTS("\nFirefly");
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME)
@@ -68,8 +69,7 @@ void firefly()
       for (uint8_t y = 0; y<C.size(MD_Cubo::YAXIS); y++)
         for (uint8_t z = 0; z<C.size(MD_Cubo::ZAXIS); z++) {
           if (C.isColorCube()){
-            colorRGB = shiftColor( colorRGB, colorSlide);
-            C.setVoxel((random(100)>50)?(uint32_t)colorRGB:0 , x, y, z);
+            C.setVoxel((random(100)>50)?(uint32_t) (colorRGB = shiftColor( colorRGB, colorSlide)):0 , x, y, z);
           } else {
           	C.setVoxel(random(100)>50, x, y, z);
           }
@@ -85,24 +85,17 @@ uint32_t shiftColor ( uint32_t color, uint8_t *step_widths)
   red = R(color);
   green = G(color);
   blue = B(color);
-  PRINTC("\nIn:",red,green,blue);
-  if (step_widths[0]>0 && ((red+step_widths[0])>red)){
+  if (step_widths[0]>0 && ((255-step_widths[0])>red)){
     red+=step_widths[0];
   }
-  if (step_widths[1]>0 && ((green+step_widths[1])>green)){
+  if (step_widths[1]>0 && ((255-step_widths[1])>green)){
     green+=step_widths[1];
   }
-  if (step_widths[2]>0 && ((blue+step_widths[2])>blue)){
+  if (step_widths[2]>0 && ((255-step_widths[2])>blue)){
     blue+=step_widths[2];
   }
-  PRINTC("\nOut:",red,green,blue);
-  PRINTX("\nColor:",color);
   color = RGB(red,green,blue);
-  red = R(color);
-  green = G(color);
-  blue = B(color);
-  PRINTC("\nOut2:",red,green,blue);
-  return (RGB(red,green,blue));
+  return color;
 }
 
 void brownian()
