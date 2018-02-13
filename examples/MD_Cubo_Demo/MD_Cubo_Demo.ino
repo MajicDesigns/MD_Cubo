@@ -57,7 +57,9 @@ void firefly()
 {
   uint8_t x, y, z;
   uint32_t colorRGB;
-  uint8_t colorSlide[3] = {1,1,1};
+  uint32_t colorsRGB[3] = {0xFF0000,0x00FF00,0x0000FF};
+ 
+  ColorShifter shifter(colorsRGB, 0.10,0);
 
   colorRGB = 0xaa0000;
   PRINTS("\nFirefly");
@@ -69,7 +71,7 @@ void firefly()
       for (uint8_t y = 0; y<C.size(MD_Cubo::YAXIS); y++)
         for (uint8_t z = 0; z<C.size(MD_Cubo::ZAXIS); z++) {
           if (C.isColorCube()){
-            C.setVoxel((random(100)>50)?(uint32_t) (colorRGB = shiftColor( colorRGB, colorSlide)):0 , x, y, z);
+            C.setVoxel((random(100)>50)?(uint32_t) (shifter.shift()):0 , x, y, z);
           } else {
           	C.setVoxel(random(100)>50, x, y, z);
           }
@@ -79,7 +81,7 @@ void firefly()
   }  
 }
 
-uint32_t shiftColor ( uint32_t color, uint8_t *step_widths)
+/*uint32_t shiftColor ( uint32_t color, uint8_t *step_widths)
 {
   uint8_t red,green,blue;
   red = R(color);
@@ -97,6 +99,7 @@ uint32_t shiftColor ( uint32_t color, uint8_t *step_widths)
   color = RGB(red,green,blue);
   return color;
 }
+*/
 
 void brownian()
 // 2x2 cube doing brownian motion
