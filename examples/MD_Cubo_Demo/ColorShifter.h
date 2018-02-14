@@ -125,6 +125,7 @@ class ColorShifter
     boolean _ascending;
     uint8_t _finishMode;  // 0 = once , 1 = Wrap around , 2= reverse
     uint8_t _nextColorIndex;
+    uint8_t _colorCount;
     
   private:
     float shiftSingleColor( float current, float next, float width);
@@ -140,7 +141,7 @@ class ColorShifter
 
         \param sizeCube    the number of LEDs on each side of the cube.
     */
-    ColorShifter(uint32_t* shiftColors, float stepWidth, uint8_t finishMode) ;
+    ColorShifter(uint32_t* shiftColors, uint8_t shiftColorCount, float stepWidth, uint8_t finishMode) ;
     boolean isDone;
     /**
        Class Destructor.

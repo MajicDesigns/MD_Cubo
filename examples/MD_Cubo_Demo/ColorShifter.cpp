@@ -8,7 +8,7 @@
 #define PRINTC(s, x, y, z) { PRINTS(s); PRINT("(",x); PRINT(",",y); PRINT(",",z); PRINTS(")"); }  // Print coordinate tuple
 
 
-ColorShifter::ColorShifter(uint32_t* shiftColors, float stepWidth, uint8_t finishMode)
+ColorShifter::ColorShifter(uint32_t* shiftColors, uint8_t shiftColorCount, float stepWidth, uint8_t finishMode)
 {
   _currentR = (float)R(shiftColors[0]);
   _currentG = (float)G(shiftColors[0]);
@@ -16,9 +16,12 @@ ColorShifter::ColorShifter(uint32_t* shiftColors, float stepWidth, uint8_t finis
   _nextR = (float)R(shiftColors[1]);
   _nextG = (float)G(shiftColors[1]);
   _nextB = (float)B(shiftColors[1]);
+  _shiftColors = shiftColors;
+  _colorCount = shiftColorCount;
   _stepWidth = stepWidth;
   _nextColorIndex = 1;
   _backwards = false;
+  isDone = false;
   _finishMode = finishMode;
 };
 
@@ -47,11 +50,9 @@ float ColorShifter::shiftSingleColor( float current, float next, float width)
   return current;
 }
 
-
-
-
 uint32_t ColorShifter::shift()
 {
+  //PRINTC("\nIn:", _currentR, _currentG, _currentB);
   if (isDone) {
     return RGB ((uint8_t) _currentR, (uint8_t) _currentG, (uint8_t) _currentB);
   }
@@ -59,19 +60,19 @@ uint32_t ColorShifter::shift()
   _currentG = shiftSingleColor(_currentG, _nextG, _stepWidth);
   _currentB = shiftSingleColor(_currentB, _nextB, _stepWidth);
 
-
   if (((byte)_currentR == (byte) _nextR) && ((byte)_currentG == (byte) _nextG) && ((byte)_currentB == (byte) _nextB)) {
     if (!_backwards) {
       _nextColorIndex++;
-      if (_nextColorIndex > (ARRAY_SIZE (_shiftColors) - 1))
+      if (_nextColorIndex > ( _colorCount - 1 ))
       {
         if (_finishMode == 0) {
           isDone = true;
+          PRINTS("\nDone.");
           _nextColorIndex--;
         } else if (_finishMode == 1) {
-          _nextColorIndex = 1;
+          _nextColorIndex = 0;
         } else if (_finishMode == 2) {
-          _nextColorIndex -= 2;
+          _nextColorIndex -= 1;
           _backwards = !_backwards;
         }
       }
@@ -88,7 +89,7 @@ uint32_t ColorShifter::shift()
     _nextR = (float)R(_shiftColors[_nextColorIndex]);
     _nextG = (float)G(_shiftColors[_nextColorIndex]);
     _nextB = (float)B(_shiftColors[_nextColorIndex]);
-    PRINT("\nNextColor",ARRAY_SIZE (_shiftColors))
+    PRINTC("\nNext color: ", _nextR, _nextG, _nextB);
 
   }
   return RGB ((uint8_t) _currentR, (uint8_t) _currentG, (uint8_t) _currentB);
