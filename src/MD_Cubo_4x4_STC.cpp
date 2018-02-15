@@ -43,7 +43,5 @@ uint32_t MD_Cubo_STC::getVoxel(uint8_t x, uint8_t y, uint8_t z)
   if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
     return(VOX_OFF);
 
-  // #### MC 20180211 NOT SURE WHICH ORDER RGB IS IN THE TABLE
-  // ALSO DEPENDS IF THE TABLE IS JUST UINT32_T. COULD BE EASIER TO HANDLE.
   return(RGB(_columns[x*12+y*48+z*3], _columns[x*12+y*48+z*3+1], _columns[x*12+y*48+z*3+2]));
 }
