@@ -60,26 +60,23 @@ void firefly()
   uint32_t colorsRGB[3] = {0x005501, 0x00ff99, 0x0081ee};
 
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 10, 2);
-  if (C.isColorCube()) {
-    colorRGB = shifter.shift();
 
-    PRINTS("\nFirefly");
-    timeStart = millis();
-    while (millis() - timeStart <= DEMO_RUNTIME) {
-      C.clear();
-      for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
-        for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
-          for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) {
-            if (C.isColorCube()) {
-              colorRGB = shifter.shift();
-              C.setVoxel((random(100) > 50) ? (uint32_t)colorRGB : 0 , x, y, z);
-            } else {
-              C.setVoxel(random(100) > 50, x, y, z);
-            }
+  PRINTS("\nFirefly");
+  timeStart = millis();
+  while (millis() - timeStart <= DEMO_RUNTIME) {
+    C.clear();
+    for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
+      for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
+        for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) {
+          if (C.isColorCube()) {
+            colorRGB = shifter.shift();
+          } else {
+            colorRGB = VOX_ON;
           }
-      C.update();
-      C.animate(100);
-    }
+          C.setVoxel((random(100) > 50) ? (uint32_t)colorRGB : VOX_OFF , x, y, z);
+        }
+    C.update();
+    C.animate(100);
   }
 }
 
@@ -96,17 +93,15 @@ void brownian()
 
   PRINTS("\nBrownian");
   timeStart = millis();
-  while (millis() - timeStart <= DEMO_RUNTIME)
-  {
+  while (millis() - timeStart <= DEMO_RUNTIME) {
     C.clear();
     // PRINTC("\n", x, y, z);
     if (C.isColorCube()) {
       colorRGB = shifter.shift();
-      C.drawCube(colorRGB, x, y, z, 2);
     } else {
-      C.drawCube(true, x, y, z, 2);
+      colorRGB = VOX_ON;
     }
-    
+    C.drawCube(colorRGB, x, y, z, 2);
     C.update();
     C.animate(75);
 
@@ -125,9 +120,18 @@ void slideFaces()
   const uint16_t  delay = 100;
 
   PRINTS("\nSlide Faces");
+  uint32_t colorRGB;
+  uint32_t colorsRGB[7] = {0xFF00FF, 0x00ff99, 0x0081ee, 0xFFFF00, 0x883311, 0xFF0022, 0x0081ee};
+
+  ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 25, 1);
+  if (C.isColorCube()) {
+    colorRGB = shifter.shift();
+  } else {
+    colorRGB = VOX_ON;
+  }
 
   C.clear();
-  C.fillPlane(true, MD_Cubo::XYPLANE, 0);
+  C.fillPlane(colorRGB, MD_Cubo::XYPLANE, 0);
   C.update();
   C.animate(delay);
 
@@ -136,29 +140,49 @@ void slideFaces()
   {
     for (uint8_t j = 0; j < C.size(MD_Cubo::YAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, j, 0, C.size(MD_Cubo::XAXIS) - 1, j, 0);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS) - 1, j + 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j + 1);
+      C.drawLine(VOX_OFF, 0, j, 0, C.size(MD_Cubo::XAXIS) - 1, j, 0);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(colorRGB, 0, C.size(MD_Cubo::YAXIS) - 1, j + 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j + 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::ZAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, C.size(MD_Cubo::YAXIS) - 1, j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(VOX_OFF, 0, C.size(MD_Cubo::YAXIS) - 1, j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(colorRGB, 0, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::YAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1);
-      C.drawLine(true, 0, 0, C.size(MD_Cubo::ZAXIS) - 2 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 2 - j);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, 0, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(colorRGB, 0, 0, C.size(MD_Cubo::ZAXIS) - 2 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 2 - j);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::ZAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, 0, C.size(MD_Cubo::ZAXIS) - 1 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 1 - j);
-      C.drawLine(true, 0, j + 1, 0, C.size(MD_Cubo::XAXIS) - 1, j + 1, 0);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, 0, 0, C.size(MD_Cubo::ZAXIS) - 1 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 1 - j);
+      C.drawLine(colorRGB, 0, j + 1, 0, C.size(MD_Cubo::XAXIS) - 1, j + 1, 0);
       C.update();
       C.animate(delay);
     }
@@ -169,11 +193,20 @@ void wrapFaces()
 // Wrap the around all the 6 faces of the cube in a sliding pattern
 {
   const uint16_t  delay = 100;
+  uint32_t colorRGB;
+  uint32_t colorsRGB[4] = {0xFF0000, 0x00ff99, 0x0081ee, 0xFFFF30};
+
+  ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 50, 1);
 
   PRINTS("\nWrap Faces");
 
   C.clear();
-  C.fillPlane(true, MD_Cubo::XYPLANE, 0);
+  if (C.isColorCube()) {
+    colorRGB = shifter.shift();
+  } else {
+    colorRGB = VOX_ON;
+  }
+  C.fillPlane(colorRGB, MD_Cubo::XYPLANE, 0);
   C.update();
   C.animate(delay);
 
@@ -182,43 +215,73 @@ void wrapFaces()
   {
     for (uint8_t j = 0; j < C.size(MD_Cubo::YAXIS) - 1; j++)
     { // move across the XY plane @ Z 0 into XZ plane @ Y max
-      C.drawLine(false, 0, j, 0, C.size(MD_Cubo::ZAXIS) - 1, j, 0);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS) - 1, j + 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j + 1);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, 0, j, 0, C.size(MD_Cubo::ZAXIS) - 1, j, 0);
+      C.drawLine(colorRGB, 0, C.size(MD_Cubo::YAXIS) - 1, j + 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j + 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::ZAXIS) - 1; j++)
     { // move across the XZ plane @ Y max into XY plane @ Z max
-      C.drawLine(false, 0, C.size(MD_Cubo::YAXIS) - 1, j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, 0, C.size(MD_Cubo::YAXIS) - 1, j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j);
+      C.drawLine(colorRGB, 0, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::XAXIS) - 1; j++)
     { // move across the XY plane @ Z max into YZ plane @ X max
-      C.drawLine(false, j, 0, C.size(MD_Cubo::ZAXIS) - 1, j, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1);
-      C.drawLine(true, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 2 - j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 2 - j);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, j, 0, C.size(MD_Cubo::ZAXIS) - 1, j, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(colorRGB, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 2 - j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 2 - j);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::YAXIS) - 1; j++)
     { // move across the YZ plane @ X max into XZ plane @ Y 0
-      C.drawLine(false, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, 0, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1);
-      C.drawLine(true, C.size(MD_Cubo::XAXIS) - 2 - j, 0, 0, C.size(MD_Cubo::XAXIS) - 2 - j, 0, C.size(MD_Cubo::ZAXIS) - 1);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, 0, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(colorRGB, C.size(MD_Cubo::XAXIS) - 2 - j, 0, 0, C.size(MD_Cubo::XAXIS) - 2 - j, 0, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::XAXIS) - 1; j++)
     { // move across XZ Plane @ Y 0 into YZ plane @ X 0
-      C.drawLine(false, C.size(MD_Cubo::XAXIS) - 1 - j, 0, 0, C.size(MD_Cubo::XAXIS) - 1 - j, 0, C.size(MD_Cubo::ZAXIS) - 1);
-      C.drawLine(true, 0, j + 1, 0, 0, j + 1, C.size(MD_Cubo::ZAXIS) - 1);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, C.size(MD_Cubo::XAXIS) - 1 - j, 0, 0, C.size(MD_Cubo::XAXIS) - 1 - j, 0, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(colorRGB, 0, j + 1, 0, 0, j + 1, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j < C.size(MD_Cubo::ZAXIS) - 1; j++)
     { // move across YZ plane @ X 0 into XY plane @ Z 0 - back to starting point
-      C.drawLine(false, 0, 0, C.size(MD_Cubo::ZAXIS) - 1 - j, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - j);
-      C.drawLine(true, j + 1, 0, 0, j + 1, C.size(MD_Cubo::YAXIS) - 1, 0);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }
+      C.drawLine(VOX_OFF, 0, 0, C.size(MD_Cubo::ZAXIS) - 1 - j, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - j);
+      C.drawLine(colorRGB, j + 1, 0, 0, j + 1, C.size(MD_Cubo::YAXIS) - 1, 0);
       C.update();
       C.animate(delay);
     }
@@ -248,34 +311,31 @@ void intersectPlanes()
       if (C.isColorCube()) {
         colorRGB = shifter.shift();
         colorRGB2 = shifter2.shift();
-        C.fillPlane(colorRGB, MD_Cubo::XYPLANE, p);
-        C.fillPlane(colorRGB2, MD_Cubo::YZPLANE, p);
       } else {
-        C.fillPlane(true, MD_Cubo::XYPLANE, p);
-        C.fillPlane(true, MD_Cubo::YZPLANE, p);
+        colorRGB = colorRGB2 = VOX_ON;
       }
+      C.fillPlane(colorRGB, MD_Cubo::XYPLANE, p);
+      C.fillPlane(colorRGB2, MD_Cubo::YZPLANE, p);
       C.update();
       C.animate(delay);
-      C.fillPlane(false, MD_Cubo::XYPLANE, p);
-      C.fillPlane(false, MD_Cubo::YZPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, p);
     }
 
     for (uint8_t p = C.size(MD_Cubo::YAXIS) - 2; p > 0; --p)
     { // ... reverse back
       if (C.isColorCube()) {
-
         colorRGB = shifter.shift();
         colorRGB2 = shifter2.shift();
-        C.fillPlane(colorRGB, MD_Cubo::XYPLANE, p);
-        C.fillPlane(colorRGB2, MD_Cubo::YZPLANE, p);
       } else {
-        C.fillPlane(true, MD_Cubo::XYPLANE, p);
-        C.fillPlane(true, MD_Cubo::YZPLANE, p);
+        colorRGB = colorRGB2 = VOX_ON;
       }
+      C.fillPlane(colorRGB, MD_Cubo::XYPLANE, p);
+      C.fillPlane(colorRGB2, MD_Cubo::YZPLANE, p);
       C.update();
       C.animate(delay);
-      C.fillPlane(false, MD_Cubo::XYPLANE, p);
-      C.fillPlane(false, MD_Cubo::YZPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, p);
     }
   }
 }
@@ -288,13 +348,23 @@ void droplets()
   uint8_t *dropx = (uint8_t *)malloc(MAX_DROP);
   uint8_t *dropy = (uint8_t *)malloc(MAX_DROP);
   uint8_t get = 0, put = 1;
+  uint32_t colorRGB;
+  uint32_t colorsRGB[4] = {0xFF0001, 0x00ff99, 0xFFAA00, 0x0081ee};
+  ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 40, 2);
+    
 
   PRINTS("\nDroplets");
   memset(dropx, 0, MAX_DROP * sizeof(dropx[0]));
   memset(dropy, 0, MAX_DROP * sizeof(dropy[0]));
   C.clear();
 
-  C.fillPlane(true, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS) - 1);
+  if (C.isColorCube()) {
+    colorRGB = shifter.shift();
+  } else {
+    colorRGB = VOX_ON;
+  }
+
+  C.fillPlane(colorRGB, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS) - 1);
 
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME * 2)
@@ -321,8 +391,13 @@ void droplets()
       //PRINTS(" - overwrite");
       for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS) - 1; z++)
       {
-        C.setVoxel(false, dropx[get], dropy[get], z);
-        C.setVoxel(true, dropx[get], dropy[get], z + 1);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }        
+        C.setVoxel(VOX_OFF, dropx[get], dropy[get], z);
+        C.setVoxel(colorRGB, dropx[get], dropy[get], z + 1);
         C.update();
         C.animate(delay);
       }
@@ -336,8 +411,8 @@ void droplets()
     // drop the new one
     for (uint8_t z = C.size(MD_Cubo::ZAXIS) - 1; z > 0; --z)
     {
-      C.setVoxel(false, x, y, z);
-      C.setVoxel(true, x, y, z - 1);
+      C.setVoxel(VOX_OFF, x, y, z);
+      C.setVoxel(colorRGB, x, y, z - 1);
       C.update();
       C.animate(delay);
     }
@@ -349,8 +424,13 @@ void droplets()
   {
     for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS) - 1; z++)
     {
-      C.setVoxel(false, dropx[get], dropy[get], z);
-      C.setVoxel(true, dropx[get], dropy[get], z + 1);
+      if (C.isColorCube()) {
+        colorRGB = shifter.shift();
+      } else {
+        colorRGB = VOX_ON;
+      }             
+      C.setVoxel(VOX_OFF, dropx[get], dropy[get], z);
+      C.setVoxel(colorRGB, dropx[get], dropy[get], z + 1);
       C.update();
       C.animate(delay);
     }
@@ -365,22 +445,34 @@ void scaleCube()
 // Scale a cube from the largest size to the smallest in the center
 {
   const uint16_t delay = 125;
+  uint32_t colorRGB;
 
+ 
   C.clear();
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    C.drawCube(true, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
+    if (C.isColorCube()) {
+      colorRGB = RGB(random(255),random(255),random(255));
+    } else {
+      colorRGB = VOX_ON;
+    }             
+   C.drawCube(colorRGB, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
     C.update();
     C.animate(delay);
-    C.drawCube(false, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
+    C.drawCube(VOX_OFF, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
   }
 
   for (uint8_t i = 1; i <= C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    C.drawCube(true, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
+    if (C.isColorCube()) {
+      colorRGB = RGB(random(255),random(255),random(255));
+    } else {
+      colorRGB = VOX_ON;
+    }         
+    C.drawCube(colorRGB, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
     C.update();
     C.animate(delay);
-    C.drawCube(false, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
+    C.drawCube(VOX_OFF, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
   }
 }
 
@@ -402,6 +494,8 @@ void shrinkCube()
     { 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1, 1, -1, -1 },
     { C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1, -1, -1, -1 }
   };
+  uint32_t colorRGB;
+  
 
   PRINTS("\nShrink Cube");
 
@@ -412,6 +506,12 @@ void shrinkCube()
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME)
   {
+    if (C.isColorCube()) {
+      colorRGB = RGB(random(255),random(255),random(255));
+    } else {
+      colorRGB = VOX_ON;
+    }             
+    
     x = corners[cur][0];
     y = corners[cur][1];
     z = corners[cur][2];
@@ -426,10 +526,10 @@ void shrinkCube()
       //PRINTC("\nG Cube ", x, y, z);
       //PRINT(" size ", i+1);
 
-      C.drawRPrism(true, x, y, z, dx, dy, dz);
+      C.drawRPrism(colorRGB, x, y, z, dx, dy, dz);
       C.update();
       C.animate(delay);
-      C.drawRPrism(false, x, y, z, dx, dy, dz);
+      C.drawRPrism(VOX_OFF, x, y, z, dx, dy, dz);
     }
 
     // see if we should throw in a WOW!
@@ -451,10 +551,10 @@ void shrinkCube()
       //PRINTC("\nS Cube ", x, y, z);
       //PRINT(" size ", i+1);
 
-      C.drawRPrism(true, x, y, z, dx, dy, dz);
+      C.drawRPrism(colorRGB, x, y, z, dx, dy, dz);
       C.update();
       C.animate(delay);
-      C.drawRPrism(false, x, y, z, dx, dy, dz);
+      C.drawRPrism(VOX_OFF, x, y, z, dx, dy, dz);
     }
 
   }
@@ -464,13 +564,19 @@ void rain()
 // Rain drops passing through the cube, top to bottom
 {
   uint16_t delay = 100;
-
+  uint32_t colorRGB;
   PRINTS("\nRain");
   C.clear();
 
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME)
   {
+    if (C.isColorCube()) {
+      colorRGB = RGB(random(100),random(100),100+random(155));
+    } else {
+      colorRGB = VOX_ON;
+    }             
+    
     uint8_t num_drops = random(100) % (C.size(MD_Cubo::YAXIS) - 2);
 
     C.fillPlane(false, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS) - 1);
@@ -478,7 +584,7 @@ void rain()
     {
       uint8_t x = random(C.size(MD_Cubo::XAXIS));
       uint8_t y = random(C.size(MD_Cubo::YAXIS));
-      C.setVoxel(true, x, y, C.size(MD_Cubo::ZAXIS) - 1);
+      C.setVoxel(colorRGB, x, y, C.size(MD_Cubo::ZAXIS) - 1);
     }
     C.update();
     C.animate(delay);
@@ -494,6 +600,7 @@ void randomFill()
 // Completely fill the cube with a random pattern until all LEDs lit
 {
   int c = 0;
+  uint32_t colorRGB;
 
   PRINTS("\nRandom fill");
   C.clear();
@@ -504,15 +611,60 @@ void randomFill()
     uint8_t y = random(C.size(MD_Cubo::YAXIS));
     uint8_t z = random(C.size(MD_Cubo::XAXIS));
 
-    if (C.getVoxel(x, y, z))
+    if (C.getVoxel(x, y, z)!=VOX_OFF)
       continue;
-
-    C.setVoxel(true, x, y, z);
+    if (C.isColorCube()) {
+      colorRGB = RGB(random(255),random(255),100+random(255));
+    } else {
+      colorRGB = VOX_ON;
+    }         
+    C.setVoxel(colorRGB, x, y, z);
     C.update();
     C.animate(75);
     c++;
   }
 }
+
+void randomFillDim()
+// Completely fill the cube with a random pattern until all LEDs lit
+{
+  int c = 0;
+  uint32_t colorRGB;
+
+  if (!C.isColorCube()) {
+    return;
+  }
+  PRINTS("\nRandom fill Dim");
+  C.clear();
+
+  timeStart = millis();
+  while (millis() - timeStart <= DEMO_RUNTIME)
+  {
+    uint8_t xx = random(C.size(MD_Cubo::XAXIS));
+    uint8_t yy = random(C.size(MD_Cubo::YAXIS));
+    uint8_t zz = random(C.size(MD_Cubo::XAXIS));
+
+    for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
+      for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
+        for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) {
+          C.setVoxel(ColorShifter::dim(C.getVoxel(x, y, z),-5) , x, y, z);
+        }
+    if (C.getVoxel(xx, yy, zz)!=VOX_OFF)
+      continue;
+
+    
+    if (C.isColorCube()) {
+      colorRGB = RGB(random(255),random(255),100+random(255));
+    } else {
+      colorRGB = VOX_ON;
+    }         
+    C.setVoxel(colorRGB, xx, yy, zz);
+    C.update();
+    C.animate(75);
+    c++;
+  }
+}
+
 
 float length(int8_t x1, int8_t y1, uint8_t z1, uint8_t x2, uint8_t y2, uint8_t z2)
 // Work out the length of a line
@@ -585,7 +737,7 @@ void oscillation()
       colorRGB = shifter.shift();
       C.drawLine(colorRGB, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
     } else {
-      C.drawLine(true, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
+      C.drawLine(VOX_ON, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
     }
 
     curZ += dz;
@@ -613,7 +765,7 @@ void flagwave()
     C.fillPlane(false, MD_Cubo::YZPLANE, 0);
 
     // draw the wave line on the YZ plane
-    C.drawLine(true, 0, curY, 0, 0, curY, C.size(MD_Cubo::ZAXIS) - 1);
+    C.drawLine(VOX_ON, 0, curY, 0, 0, curY, C.size(MD_Cubo::ZAXIS) - 1);
     curY += dy;
     if (curY == C.size(MD_Cubo::YAXIS) - 1 || curY == 0) dy = -dy;
 
@@ -641,9 +793,9 @@ void spiral()
 
     // draw the spiral line on the YZ plane
     if (dy == 0)
-      C.drawLine(true, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
+      C.drawLine(VOX_ON, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
     else
-      C.drawLine(true, 0, curY, C.size(MD_Cubo::ZAXIS) - 1, 0, C.size(MD_Cubo::YAXIS) - 1 - curY, 0);
+      C.drawLine(VOX_ON, 0, curY, C.size(MD_Cubo::ZAXIS) - 1, 0, C.size(MD_Cubo::YAXIS) - 1 - curY, 0);
     curZ += dz;
     curY += dy;
     // reset the Z - notefirst line of Y and last of Z are the same line so avoid double delays by stopping
@@ -816,12 +968,12 @@ void hourglass()
 
   // Draw the hourglass cube outline and the sand within it
   C.clear();
-  C.drawCube(true, 0, 0, 0, C.size(MD_Cubo::XAXIS));
+  C.drawCube(VOX_ON, 0, 0, 0, C.size(MD_Cubo::XAXIS));
   for (uint8_t i = 0; i < ARRAY_SIZE(sand); i++)
   {
     s = pgm_read_byte(&sand[i]);
     x = UX(s); y = UY(s); z = C.size(MD_Cubo::ZAXIS) - 1 - UZ(s);
-    C.setVoxel(true, x, y, z);
+    C.setVoxel(VOX_ON, x, y, z);
   }
   C.update();
   C.animate(1000);
@@ -833,21 +985,21 @@ void hourglass()
     x = UX(s); y = UY(s); z = UZ(s);
 
     // turn it off at the top
-    C.setVoxel(false, x, y, C.size(MD_Cubo::ZAXIS) - 1 - z);
+    C.setVoxel(VOX_OFF, x, y, C.size(MD_Cubo::ZAXIS) - 1 - z);
     C.update();
     C.animate(delay);
 
     // drop it down
     for (uint8_t i = (C.size(MD_Cubo::ZAXIS) / 2); i > z; i--)
     {
-      C.setVoxel(true, 3, 3, i);
+      C.setVoxel(VOX_ON, 3, 3, i);
       C.update();
       C.animate(delay / 3);
-      C.setVoxel(false, 3, 3, i);
+      C.setVoxel(VOX_OFF, 3, 3, i);
     }
 
     // turn it on at the bottom
-    C.setVoxel(true, x, y, z);
+    C.setVoxel(VOX_ON, x, y, z);
 
     // update and wait for next grain
     C.update();
@@ -875,7 +1027,7 @@ void boingCube()
 
   // draw the initial seed cube
   C.clear();
-  C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+  C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
   C.update();
   C.animate(delay);
 
@@ -895,7 +1047,7 @@ void boingCube()
       x += dx; y += dy; z += dz;
       sx += 2 * abs(dx); sy += 2 * abs(dy); sz += 2 * abs(dz);
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -915,7 +1067,7 @@ void boingCube()
       sy += 2 * abs(dy); if (sy == C.size(MD_Cubo::YAXIS)) dy = 0;
       sz += 2 * abs(dz); if (sz == C.size(MD_Cubo::ZAXIS)) dz = 0;
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -936,7 +1088,7 @@ void boingCube()
       sy -= 2 * abs(dy); if (sy == 2) dy = 0;
       sz -= 2 * abs(dz); if (sz == 2) dz = 0;
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -955,7 +1107,7 @@ void boingCube()
       y += dy; if (sy == 2) dy = 0;
       z += dz; if (sz == 2) dz = 0;
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -980,28 +1132,28 @@ void spiralLine()
       for (int8_t x = instep; x < C.size(MD_Cubo::XAXIS) - instep; x++)
       {
         C.clear();
-        C.drawLine(true, x, instep, 0, x, instep, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, x, instep, 0, x, instep, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
       for (int8_t y = 1 + instep; y < C.size(MD_Cubo::YAXIS) - instep; y++)
       {
         C.clear();
-        C.drawLine(true, C.size(MD_Cubo::XAXIS) - 1 - instep, y, 0, C.size(MD_Cubo::XAXIS) - 1 - instep, y, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, C.size(MD_Cubo::XAXIS) - 1 - instep, y, 0, C.size(MD_Cubo::XAXIS) - 1 - instep, y, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
       for (int8_t x = C.size(MD_Cubo::XAXIS) - 2 - instep; x >= instep; x--)
       {
         C.clear();
-        C.drawLine(true, x, C.size(MD_Cubo::YAXIS) - 1 - instep, 0, x, C.size(MD_Cubo::YAXIS) - 1 - instep, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, x, C.size(MD_Cubo::YAXIS) - 1 - instep, 0, x, C.size(MD_Cubo::YAXIS) - 1 - instep, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
       for (int8_t y = C.size(MD_Cubo::YAXIS) - 2 - instep; y >= 1 + instep; y--)
       {
         C.clear();
-        C.drawLine(true, instep, y, 0, instep, y, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, instep, y, 0, instep, y, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
@@ -1009,7 +1161,7 @@ void spiralLine()
     for (int8_t i = C.size(MD_Cubo::XAXIS) / 2; i >= 0; i--)
     {
       C.clear();
-      C.drawLine(true, i, i, 0, i, i, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(VOX_ON, i, i, 0, i, i, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
@@ -1020,6 +1172,10 @@ void outsideStack()
 // outside square is drawn up the cube, then collapses into the top, the down the cube, repeats
 {
   uint16_t delay = 50;
+  uint32_t colorRGB;
+  uint32_t colorsRGB[7] = {0xFF00FF, 0x00ff99, 0x0081ee, 0xFFFF00, 0x883311, 0xFF0022, 0x0081ee};
+
+  ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 25, 1);
 
   PRINTS("\nSpiral Line");
 
@@ -1031,7 +1187,7 @@ void outsideStack()
     {
       for (int8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++)
       {
-        C.drawRPrism(step == 0, 0, 0, z, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, 1);
+        C.drawRPrism(step == 0 ? colorRGB:VOX_OFF, 0, 0, z, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, 1);
         C.update();
         C.animate(delay);
       }
@@ -1243,11 +1399,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 
 void scrollingText()
 {
-  char message[] = "MD_Cubo";
-
-  // this only works for larger cubes, so return if the cube is not big enough
-  if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
-    return;
+  char message[] = "Hello";
 
   PRINTS("\nScrolling Text")
   C.clear();    // new clean cube
@@ -1274,14 +1426,15 @@ void loop()
 
   void (*demoType[])(void) =
   {
-    wrapFaces
-    /* oscillation, firefly, intersectPlanes, brownian,
-      outsideStack, recedingText, rain, shrinkCube, randomFill, flagwave,
-      slideFaces, scrollingText, wrapFaces,
+    randomFillDim
+    /* oscillation, firefly, intersectPlanes, brownian, wrapFaces, slideFaces, rain, randomFill
+      /*  outsideStack, recedingText, rain, shrinkCube, flagwave,
+      slideFaces, scrollingText,
       suspension, spiralLine, boingCube, droplets,
       // For bigger cubes only
       ripples, hourglass*/
-      
+      // For color cubes only
+
   };
 
 #if RANDOM_CYCLE

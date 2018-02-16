@@ -128,7 +128,7 @@ class ColorShifter
     uint8_t _colorCount;
     
   private:
-    float shiftSingleColor( float current, float next, float width);
+    static float shiftSingleColor( float current, float next, float width);
 
   public:
     uint32_t getCurrentColor(void) {};
@@ -160,5 +160,10 @@ class ColorShifter
 
     */
     uint32_t shift(void);
+
+    /**
+     * Raises or lowers brightness on a color
+     */
+    static uint32_t dim(uint32_t color, float stepsize);
 
 };

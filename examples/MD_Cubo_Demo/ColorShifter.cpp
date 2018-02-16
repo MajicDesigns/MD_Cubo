@@ -25,7 +25,7 @@ ColorShifter::ColorShifter(uint32_t* shiftColors, uint8_t shiftColorCount, float
   _finishMode = finishMode;
 };
 
-float ColorShifter::shiftSingleColor( float current, float next, float width)
+static float ColorShifter::shiftSingleColor( float current, float next, float width)
 {
   if ((byte)current != (byte) next) {
     if ( next > current) {
@@ -49,6 +49,20 @@ float ColorShifter::shiftSingleColor( float current, float next, float width)
   }
   return current;
 }
+
+uint32_t ColorShifter::dim(uint32_t color, float stepsize)
+{
+  float goal;
+  if (stepsize > 0) {
+    goal = 255;
+  } else {
+    goal = 0;
+  }
+  stepsize = abs(stepsize);
+//  PRINTX("\nIn:", x, y, z)  
+  return RGB(shiftSingleColor(R(color),goal,stepsize),shiftSingleColor(G(color),goal,stepsize),shiftSingleColor(B(color),goal,stepsize));
+}
+
 
 uint32_t ColorShifter::shift()
 {

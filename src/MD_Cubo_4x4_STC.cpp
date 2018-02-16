@@ -26,16 +26,14 @@ void MD_Cubo_STC::update()
   _CubeSerial.write(HW_END_MSG);
 }
 
-void MD_Cubo_STC::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
+void MD_Cubo_STC::setVoxel(uint32_t color, uint8_t x, uint8_t y, uint8_t z)
 {
-  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+  if ((x > CUBE_SIZE-1) || (y > CUBE_SIZE-1) || (z > CUBE_SIZE-1))
     return;
 
-  // #### MC 20180211 NOT SURE WHICH ORDER RGB IS IN THE TABLE
-  // MAY BE BETTER TO HAVE TH TABLE AS A UINT32_T AND JUST SAVE THE VALUE?
-  _columns[x*12 + y*48 + z*3] = R(p);
-  _columns[x*12 + y*48 + z*3 + 1] = G(p);
-  _columns[x*12 + y*48 + z*3 + 2] = B(p);
+  _columns[x*12 + y*48 + z*3] = R(color);
+  _columns[x*12 + y*48 + z*3 + 1] = G(color);
+  _columns[x*12 + y*48 + z*3 + 2] = B(color);
 }
 
 uint32_t MD_Cubo_STC::getVoxel(uint8_t x, uint8_t y, uint8_t z)
