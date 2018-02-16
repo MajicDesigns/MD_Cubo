@@ -75,7 +75,7 @@ class MD_Cubo_ICS595: public MD_Cubo
   void update();
   void animate(uint32_t wait = 0);
 
-  void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z);
+  void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z);
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
 
   void clear(uint32_t p = VOX_OFF) { memset(&_scratch, (p == VOX_OFF ? 0 : 0xff), sizeof(dispData_t)); };

@@ -72,7 +72,7 @@ class MD_Cubo_72xx: public MD_Cubo
   void begin();
   void update();
 
-  void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z);
+  void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z);
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
 
   void setIntensity(uint8_t intensity) { sendSPI(INTENSITY, intensity >> 4); MD_Cubo::setIntensity(intensity); };

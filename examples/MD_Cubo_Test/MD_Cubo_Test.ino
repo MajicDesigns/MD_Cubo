@@ -80,7 +80,7 @@ void ledTest()
 
   PRINTS("\nIntensity");
   for (uint8_t i = 0; i < C.size(MD_Cubo::XAXIS); i++)
-    C.fillPlane(true, MD_Cubo::YZPLANE, i);
+    C.fillPlane(VOX_ON, MD_Cubo::YZPLANE, i);
   C.update();
   C.animate(delay);
   for (int16_t i = MAX_INTENSITY; i >= 0; --i)
@@ -127,9 +127,9 @@ void lines()
   
   for (uint8_t i=0; i<ARRAY_SIZE(lines); i+=6)
   {
-    PRINTC("\n", lines[i], lines[i + 1], lines[i + 2], true);
-    PRINTC("-", lines[i + 3], lines[i + 4], lines[i + 5], true);
-    C.drawLine(true, lines[i], lines[i + 1], lines[i + 2], lines[i + 3], lines[i + 4], lines[i + 5]);
+    PRINTC("\n", lines[i], lines[i + 1], lines[i + 2], VOX_ON);
+    PRINTC("-", lines[i + 3], lines[i + 4], lines[i + 5], VOX_ON);
+    C.drawLine(VOX_ON, lines[i], lines[i + 1], lines[i + 2], lines[i + 3], lines[i + 4], lines[i + 5]);
     C.update();
     C.animate(500);
   }    
@@ -149,12 +149,12 @@ void singles()
       PRINTS("\n");
       for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
       {
-        PRINTC("", x, y, z, true);
-        C.setVoxel(true, x, y, z);
+        PRINTC("", x, y, z, VOX_ON);
+        C.setVoxel(VOX_ON, x, y, z);
         C.update();
         C.animate(delay);
-        PRINTC("", x, y, z, false);
-        C.setVoxel(false, x, y, z);
+        PRINTC("", x, y, z, VOX_OFF);
+        C.setVoxel(VOX_OFF, x, y, z);
       }
     }
   }
@@ -196,85 +196,85 @@ void showZero()
   // print out the X
   if (C.size(MD_Cubo::XAXIS) >= 6)
   {
-    C.drawLine(true, 0, 1, 1, 0, 5, 5);
-    C.drawLine(true, 0, 1, 5, 0, 5, 1);
+    C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 5);
+    C.drawLine(VOX_ON, 0, 1, 5, 0, 5, 1);
   }
   else
   {
-    C.drawLine(true, 0, 1, 1, 0, 3, 3);
-    C.drawLine(true, 0, 1, 3, 0, 3, 1);
+    C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 3);
+    C.drawLine(VOX_ON, 0, 1, 3, 0, 3, 1);
   }
   for (uint8_t i = 0; i < C.size(MD_Cubo::XAXIS); i++)
   {
     PRINT("", i);
-    C.setVoxel(true, i, 0, 0);
+    C.setVoxel(VOX_ON, i, 0, 0);
     C.update();
     C.animate(delay);
   }
   // clear the X
   if (C.size(MD_Cubo::XAXIS) >= 6)
   {
-    C.drawLine(false, 0, 1, 1, 0, 5, 5);
-    C.drawLine(false, 0, 1, 5, 0, 5, 1);
+    C.drawLine(VOX_OFF, 0, 1, 1, 0, 5, 5);
+    C.drawLine(VOX_OFF, 0, 1, 5, 0, 5, 1);
   }
   else
   {
-    C.drawLine(false, 0, 1, 1, 0, 3, 3);
-    C.drawLine(false, 0, 1, 3, 0, 3, 1);
+    C.drawLine(VOX_OFF, 0, 1, 1, 0, 3, 3);
+    C.drawLine(VOX_OFF, 0, 1, 3, 0, 3, 1);
   }
 
   PRINTS("\nY");
   // draw the Y
   if (C.size(MD_Cubo::XAXIS) >= 6)
   {
-    C.drawLine(true, 0, 3, 3, 0, 5, 5);
-    C.drawLine(true, 0, 3, 3, 0, 1, 5);
-    C.drawLine(true, 0, 3, 3, 0, 3, 1);
+    C.drawLine(VOX_ON, 0, 3, 3, 0, 5, 5);
+    C.drawLine(VOX_ON, 0, 3, 3, 0, 1, 5);
+    C.drawLine(VOX_ON, 0, 3, 3, 0, 3, 1);
   }
   else
   {
-    C.drawLine(true, 0, 2, 2, 0, 3, 3);
-    C.drawLine(true, 0, 2, 2, 0, 1, 3);
-    C.drawLine(true, 0, 2, 2, 0, 2, 1);
+    C.drawLine(VOX_ON, 0, 2, 2, 0, 3, 3);
+    C.drawLine(VOX_ON, 0, 2, 2, 0, 1, 3);
+    C.drawLine(VOX_ON, 0, 2, 2, 0, 2, 1);
   }
   for (uint8_t i = 0; i < C.size(MD_Cubo::YAXIS); i++)
   {
     PRINT("", i);
-    C.setVoxel(true, 0, i, 0);
+    C.setVoxel(VOX_ON, 0, i, 0);
     C.update();
     C.animate(delay);
   }
   if (C.size(MD_Cubo::XAXIS) >= 6)
   {
-    C.drawLine(false, 0, 3, 3, 0, 5, 5);
-    C.drawLine(false, 0, 3, 3, 0, 1, 5);
-    C.drawLine(false, 0, 3, 3, 0, 3, 1);
+    C.drawLine(VOX_OFF, 0, 3, 3, 0, 5, 5);
+    C.drawLine(VOX_OFF, 0, 3, 3, 0, 1, 5);
+    C.drawLine(VOX_OFF, 0, 3, 3, 0, 3, 1);
   }
   else
   {
-    C.drawLine(false, 0, 2, 2, 0, 3, 3);
-    C.drawLine(false, 0, 2, 2, 0, 1, 3);
-    C.drawLine(false, 0, 2, 2, 0, 2, 1);
+    C.drawLine(VOX_OFF, 0, 2, 2, 0, 3, 3);
+    C.drawLine(VOX_OFF, 0, 2, 2, 0, 1, 3);
+    C.drawLine(VOX_OFF, 0, 2, 2, 0, 2, 1);
   }
 
   PRINTS("\nZ");
   // draw the Z
   if (C.size(MD_Cubo::XAXIS) >= 6)
   {
-    C.drawLine(true, 0, 1, 5, 0, 5, 5);
-    C.drawLine(true, 0, 1, 1, 0, 5, 5);
-    C.drawLine(true, 0, 1, 1, 0, 5, 1);
+    C.drawLine(VOX_ON, 0, 1, 5, 0, 5, 5);
+    C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 5);
+    C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 1);
   }
   else
   {
-    C.drawLine(true, 0, 1, 3, 0, 3, 3);
-    C.drawLine(true, 0, 1, 1, 0, 3, 3);
-    C.drawLine(true, 0, 1, 1, 0, 3, 1);
+    C.drawLine(VOX_ON, 0, 1, 3, 0, 3, 3);
+    C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 3);
+    C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 1);
   }
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS); i++)
   {
     PRINT("", i);
-    C.setVoxel(true, 0, 0, i);
+    C.setVoxel(VOX_ON, 0, 0, i);
     C.update();
     C.animate(delay);
   }
@@ -288,18 +288,18 @@ void scaleCube()
   C.clear();
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS)/2; i++)
   {
-    C.drawCube(true, i, i, i, C.size(MD_Cubo::ZAXIS) - (2*i));
+    C.drawCube(VOX_ON, i, i, i, C.size(MD_Cubo::ZAXIS) - (2*i));
     C.update();
     C.animate(delay);
-    C.drawCube(false, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
+    C.drawCube(VOX_OFF, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
   }
 
   for (uint8_t i = 1; i <= C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    C.drawCube(true, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
+    C.drawCube(VOX_ON, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
     C.update();
     C.animate(delay);
-    C.drawCube(false, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
+    C.drawCube(VOX_OFF, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
   }
 
   C.animate(delay);
