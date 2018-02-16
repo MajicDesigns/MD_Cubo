@@ -65,19 +65,21 @@ void MD_Cubo_ICS595::update()
   memcpy(&_current, &_scratch, sizeof(dispData_t));
 }
 
-void MD_Cubo_ICS595::setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z)
+void MD_Cubo_ICS595::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 {
   PRINT("\nPixel ", p);
   PRINT(" @ ", x);
   PRINT(",",y);
   PRINT(",",z);
+
   if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
     return;
   
   uint16_t  pix = (x + (y << 2));  // same as x + (y * 4)
+  boolean b = (p != VOX_OFF);
 
-  bitWrite(_scratch.data[z], pix, p ? 1 : 0);
-  _scratch.count[z] += (p ? 1 : -1);
+  bitWrite(_scratch.data[z], pix, b ? 1 : 0);
+  _scratch.count[z] += (b ? 1 : -1);
   
   PRINTX(" layer data ", _scratch.data[z]);
 }

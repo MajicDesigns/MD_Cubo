@@ -46,14 +46,14 @@ static uint8_t mapBit[CUBE_SIZE][CUBE_SIZE] =
   { 7, 2, 0, 1 },  // x=3 plane
 };
 
-void MD_Cubo_72xx::setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z)
+void MD_Cubo_72xx::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 {
   
   if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
     return;
   
   _layer[z] &= ~(1 << mapBit[x][y]);
-  if (p)
+  if (p != VOX_OFF)
     _layer[z] |= (1 << mapBit[x][y]);
 }
 

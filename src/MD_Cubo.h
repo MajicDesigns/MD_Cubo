@@ -4,8 +4,8 @@ LED Cubes
 ---------
 
 The MD_Cubo library implements methods and a framework that enable the software elements of 
-any single color LED cube to be easily implemented. This allows the programmer to use the 
-LED matrix as a voxel device addressable through XYZ cartesian coordinates, displaying 
+any monochrome or color LED cube to be easily implemented. This allows the programmer to 
+use the LED matrix as a voxel device addressable through XYZ cartesian coordinates, displaying 
 graphics elements much like any other voxel addressable display.
 
 The Library
@@ -14,13 +14,13 @@ The library implements functions that allow LED cubes to be abstracted in softwa
 underlying hardware changes do not affect the definition and structure of the controlling code.
 
 In this scenario, it is convenient to abstract out the concept of the hardware device and 
-create a uniform and consistent cartesian (XYZ) voxel address space, with the libraries 
+create a uniform and consistent 3D cartesian (XYZ) voxel address space, with the libraries 
 determining device-element address for each LED. Similarly, control of the devices should 
 be uniform and abstracted to a system level.
 
 There appears to be 2 major architectures for implementing cubes:
 
-- A scanning refresh model. In this model the LEDs are refreshed by the Arduino at a rate fast 
+- A 'scanning refresh' model. In this model the LEDs are refreshed by the Arduino at a rate fast 
 enough to activate a persistence of vision (POV) effect.
 - A 'set and forget' model. In this model the voxel is set by the Arduino and some other hardware 
 ensures that the appropriate LEDs are turned on.
@@ -28,7 +28,7 @@ ensures that the appropriate LEDs are turned on.
 The software must take into account these differences and allow both to work using the same basic 
 software pattern. At a fundamental level, the hardware dependent code required needs to do the following:
 - Initialize the hardware
-- Turn on specific LED (voxel) on or off
+- Turn on specific LED (voxel) on or off in the spcified color
 - Update the display (internal buffers to actual device)
 - Animate the display (ignored for 'set and forget', refresh for scanning)
 
@@ -51,8 +51,8 @@ From this reference point
 - the Y axis is the left to right axis you can see.
 - the X axis is the axis in the 'depth' direction of the cube.
 
-Hardware Supported
-------------------
+Cube Hardware Supported
+-----------------------
 - \subpage pageICSTATION4x4x4
 - \subpage pagePAULRB4x4x4
 - \subpage pageJOLLICUBE8x8x8
@@ -109,8 +109,8 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #define G(c)       ((uint8_t)((c >> 8) & 0xff))  ///< extract G component of RGB
 #define B(c)       ((uint8_t)(c & 0xff))         ///< extract B component of RGB
 
-#define VOX_OFF RGB(0,0,0)                       ///< Default RGB OFF color
-#define VOX_ON  RGB(0xff,0xff,0xff)              ///< Default RGB ON color
+#define VOX_OFF RGB(0,0,0)                       ///< Default RGB OFF color / monochrome LED off
+#define VOX_ON  RGB(0xff,0xff,0xff)              ///< Default RGB ON color / monochrome LED on
 
 /**
  * Core object for the MD_Cubo library
@@ -178,12 +178,14 @@ public:
  /** 
    * Set the specified point in the cube (monochrome version).
    * 
+   * This method should onle be implemented for monochrome cubes and is for backward
+   * compatibility only. The preferred implementation is to use the color version for
+   * all cubes.
+   * 
    * This is the most basic graphic function and is necessarily only implementable in 
    * the user derived object, as it is heavily related to the hardware configuration.
    * The (x,y,z) coordinate for the voxel needs to be mapped to a device action to turn the 
    * voxel on or off.
-   * This method should be implemented for color cubes using VOX_ON for true and VOX_OFF for
-   * false so that monochrome code can run on color cubes.
    *
    * \param p     voxel value - if false, set the voxel off. Otherwise, set the voxel on.
    * \param x     x coordinate for the voxel.
@@ -191,17 +193,23 @@ public:
    * \param z     z coordinate for the voxel.
    * \return No return value.
    */
-  virtual void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z) {};
+  virtual void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z) { setVoxel(p ? VOX_ON : VOX_OFF, x, y, z);  };
 
   /**
-  * Set the specified point in the cube (color version).
+  * Set the specified point in the cube (all cubes).
   *
   * This is the most basic graphic function and is necessarily only implementable in
   * the user derived object, as it is heavily related to the hardware configuration.
   * The (x,y,z) coordinate for the voxel needs to be mapped to a device action to turn the
   * voxel to the specified color in the specified color and intensity.
-  * Default for this virtual method is to invoke the monochrome version is not implemented 
-  * in user code.
+  *
+  * By default all cubes are treated as color cubes. Use code should recognise if it is 
+  * operating with a color or monochrome cube by testing isColorCube(). For clarity, 
+  * monochrome cubes should use the default VOX_ON and VOX_OFF colors for clarity, 
+  * color cubes are free to choose any RGB color.
+  *
+  * Default for this virtual method is to invoke the monochrome method if color is
+  * not implemented in user code.
   *
   * \param p     voxel RGB value - if VOX_OFF, set the voxel off. Otherwise, set the voxel to the color.
   * \param x     x coordinate for the voxel.
@@ -209,7 +217,7 @@ public:
   * \param z     z coordinate for the voxel.
   * \return No return value.
   */
-  virtual void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z) { setVoxel(p != VOX_OFF, x, y, z); };
+  virtual void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z) { };
   
   /**
    * Get the status of specified point in the cube.
