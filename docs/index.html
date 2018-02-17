@@ -93,18 +93,18 @@ $(document).ready(function(){initNavTree('index.html','');});
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h2>LED Cubes </h2>
-<p>The <a class="el" href="class_m_d___cubo.html">MD_Cubo</a> library implements methods and a framework that enable the software elements of any single color LED cube to be easily implemented. This allows the programmer to use the LED matrix as a voxel device addressable through XYZ cartesian coordinates, displaying graphics elements much like any other voxel addressable display.</p>
+<p>The <a class="el" href="class_m_d___cubo.html">MD_Cubo</a> library implements methods and a framework that enable the software elements of any monochrome or color LED cube to be easily implemented. This allows the programmer to use the LED matrix as a voxel device addressable through XYZ cartesian coordinates, displaying graphics elements much like any other voxel addressable display.</p>
 <h2>The Library </h2>
 <p>The library implements functions that allow LED cubes to be abstracted in software so that underlying hardware changes do not affect the definition and structure of the controlling code.</p>
-<p>In this scenario, it is convenient to abstract out the concept of the hardware device and create a uniform and consistent cartesian (XYZ) voxel address space, with the libraries determining device-element address for each LED. Similarly, control of the devices should be uniform and abstracted to a system level.</p>
+<p>In this scenario, it is convenient to abstract out the concept of the hardware device and create a uniform and consistent 3D cartesian (XYZ) voxel address space, with the libraries determining device-element address for each LED. Similarly, control of the devices should be uniform and abstracted to a system level.</p>
 <p>There appears to be 2 major architectures for implementing cubes:</p>
-<ul>
-<li>A scanning refresh model. In this model the LEDs are refreshed by the Arduino at a rate fast enough to activate a persistence of vision (POV) effect.</li>
+<ol type="1">
+<li>A 'scanning refresh' model. In this model the LEDs are refreshed by the Arduino at a rate fast enough to activate a persistence of vision (POV) effect.</li>
 <li>A 'set and forget' model. In this model the voxel is set by the Arduino and some other hardware ensures that the appropriate LEDs are turned on.</li>
-</ul>
+</ol>
 <p>The software must take into account these differences and allow both to work using the same basic software pattern. At a fundamental level, the hardware dependent code required needs to do the following:</p><ul>
 <li>Initialize the hardware</li>
-<li>Turn on specific LED (voxel) on or off</li>
+<li>Turn on specific LED (voxel) on or off in the specified color</li>
 <li>Update the display (internal buffers to actual device)</li>
 <li>Animate the display (ignored for 'set and forget', refresh for scanning)</li>
 </ul>
@@ -121,7 +121,7 @@ MD_Cubo Axes Convention</div></div>
 <li>the Y axis is the left to right axis you can see.</li>
 <li>the X axis is the axis in the 'depth' direction of the cube.</li>
 </ul>
-<h2>Hardware Supported </h2>
+<h2>Cube Hardware Supported </h2>
 <ul>
 <li><a class="el" href="page_i_c_s_t_a_t_i_o_n4x4x4.html">ICStation '595 Implementation</a></li>
 <li><a class="el" href="page_p_a_u_l_r_b4x4x4.html">PaulRB DIY Implementation</a></li>
@@ -152,7 +152,7 @@ MD_Cubo Axes Convention</div></div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="footer">Generated on Mon Feb 12 2018 17:32:01 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Sun Feb 18 2018 10:23:23 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

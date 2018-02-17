@@ -6,7 +6,7 @@ var class_m_d___cubo___j_c =
     [ "clear", "class_m_d___cubo___j_c.html#aaea709f6ee3d1f35e4eae81c00f10dc6", null ],
     [ "getVoxel", "class_m_d___cubo___j_c.html#adcc98f039f543a808dba22f0c5e5a792", null ],
     [ "setIntensity", "class_m_d___cubo___j_c.html#a8054e813353531a38448ff0f3113dfa3", null ],
-    [ "setVoxel", "class_m_d___cubo___j_c.html#a381e8da0ab24903ff62aa8c978a0b724", null ],
+    [ "setVoxel", "class_m_d___cubo___j_c.html#ad6f407887dda290fb7d5fc625009cee8", null ],
     [ "size", "class_m_d___cubo___j_c.html#a7201deb486e5ffd0aa9b82342d024610", null ],
     [ "update", "class_m_d___cubo___j_c.html#a36f96089198d75a0e54b94b1841d1804", null ]
 ];

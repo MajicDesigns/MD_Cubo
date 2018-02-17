@@ -26,7 +26,7 @@ var class_m_d___cubo =
     [ "setIntensity", "class_m_d___cubo.html#a553c2a2911b46e4a413f2076c1cc2025", null ],
     [ "setVoxel", "class_m_d___cubo.html#af36b312efe151ba8dfa6896ac438d062", null ],
     [ "setVoxel", "class_m_d___cubo.html#a926b5687087090a2c16cdeef815ad978", null ],
-    [ "size", "class_m_d___cubo.html#a0063c6074ac90e87ac1fb7eec2e76da9", null ],
+    [ "size", "class_m_d___cubo.html#a552477bf160a000e4dbec1d41de6a94f", null ],
     [ "update", "class_m_d___cubo.html#a584167edcf18b0838e1b5aed22dffaac", null ],
     [ "_intensity", "class_m_d___cubo.html#a1a9bb1fead022a91c54dcbb1827fecca", null ],
     [ "_sizeXaxis", "class_m_d___cubo.html#a06e5e9b0165c1cc9c1425aa3ab932da0", null ],

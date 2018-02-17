@@ -6,18 +6,18 @@
  * \brief Header file for the MD_Cubo 72xx class
  */
 
-#define	DEBUG_72XX	0		///< Enable or disable (default) debugging output from the example
+#define DEBUG_72XX  0   ///< Enable or disable (default) debugging output from the example
 
 #if DEBUG_72XX
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		  ///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }							          ///< Print a string
+#define	PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }		  ///< Print a string followed by a value (decimal)
+#define	PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
+#define	PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
+#define	PRINTS(s)     { Serial.print(F(s)); }							          ///< Print a string
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  ///< Print a string
+#define	PRINT(s, v)   ///< Print a string followed by a value (decimal)
+#define	PRINTX(s, v)  ///< Print a string followed by a value (hex)
+#define	PRINTB(s, v)  ///< Print a string followed by a value (binary)
+#define	PRINTS(s)     ///< Print a string
 #endif
 
 /**
@@ -49,19 +49,19 @@ The intensity values 0..255 are remapped to 0..15 levels available in the MAX721
 */
 
 // Pins for SPI comm with the MAX7219 IC
-const uint8_t DATA = 11;	///< SPI Data pin number
-const uint8_t CLK  = 13;	///< SPI Clock pin number
-const uint8_t LOAD = 10;	///< SPI Load pin number
+const uint8_t DATA = 11;  ///< SPI Data pin number
+const uint8_t CLK  = 13;  ///< SPI Clock pin number
+const uint8_t LOAD = 10;  ///< SPI Load pin number
 
-const uint8_t CUBE_SIZE = 4;		///< Cube size in the X, Y and Z axis
+const uint8_t CUBE_SIZE = 4;    ///< Cube size in the X, Y and Z axis
 
 // Relevant MAX7219 Control Registers
-const uint8_t INTENSITY   = 0x0A;		///< MAX7219 intensity control register address
-const uint8_t ON_OFF      = 0x0C;		///< MAX7219 on/off control register address
-const uint8_t DECODE      = 0x09;		///< MAX7219 BCD decode control register address
-const uint8_t SCAN_DIGITS = 0x0B;	  ///< MAX7219 scanned digits control register address
-const uint8_t TEST_MODE   = 0x0F;		///< MAX7219 test mode control register address
-const uint8_t DIGIT0      = 0x01;	  ///< MAX7219 DIGIT 0 register address. Digits 1..9 consecutive after this.
+const uint8_t INTENSITY   = 0x0A; ///< MAX7219 intensity control register address
+const uint8_t ON_OFF      = 0x0C; ///< MAX7219 on/off control register address
+const uint8_t DECODE      = 0x09; ///< MAX7219 BCD decode control register address
+const uint8_t SCAN_DIGITS = 0x0B; ///< MAX7219 scanned digits control register address
+const uint8_t TEST_MODE   = 0x0F; ///< MAX7219 test mode control register address
+const uint8_t DIGIT0      = 0x01; ///< MAX7219 DIGIT 0 register address. Digits 1..9 consecutive after this.
 
 class MD_Cubo_72xx: public MD_Cubo
 {
@@ -82,8 +82,8 @@ class MD_Cubo_72xx: public MD_Cubo
   
   private:
   uint8_t   _data;    ///< SPI Data pin for transmission
-  uint8_t   _clock;   ///< SPI Clock pin for transmisison
-  uint8_t   _load;    ///< SPI Load pin for transmisison
+  uint8_t   _clock;   ///< SPI Clock pin for transmission
+  uint8_t   _load;    ///< SPI Load pin for transmission
   uint16_t _layer[CUBE_SIZE]; ///< Holds the current bit pattern for each layer of the cube
   
   void sendSPI(uint8_t reg, uint8_t val);

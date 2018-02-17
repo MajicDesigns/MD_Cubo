@@ -20,6 +20,7 @@ update	KEYWORD2
 animate	KEYWORD2
 size	KEYWORD2
 clear	KEYWORD2
+isColorCube	KEYWORD2
 fillPlane	KEYWORD2
 copyPlane	KEYWORD2
 drawLine	KEYWORD2

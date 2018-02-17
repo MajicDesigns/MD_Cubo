@@ -1,6 +1,11 @@
 ﻿#include <MD_Cubo.h>
 #include "MD_Cubo_4x4_72xx.h"
 
+/**
+ * \file
+ * \brief Main file for the MD_Cubo 72xx class
+ */
+
 void MD_Cubo_72xx::begin()
 {
   pinMode(_data, OUTPUT);
@@ -49,7 +54,7 @@ static uint8_t mapBit[CUBE_SIZE][CUBE_SIZE] =
 void MD_Cubo_72xx::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 {
   
-  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+  if ((x >= CUBE_SIZE) || (y >= CUBE_SIZE) || (z >= CUBE_SIZE))
     return;
   
   _layer[z] &= ~(1 << mapBit[x][y]);
@@ -60,7 +65,7 @@ void MD_Cubo_72xx::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 uint32_t MD_Cubo_72xx::getVoxel(uint8_t x, uint8_t y, uint8_t z)
 {
 
-  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+  if ((x >= CUBE_SIZE) || (y >= CUBE_SIZE) || (z >= CUBE_SIZE))
     return(VOX_OFF);
 
   return(bitRead(_layer[z], mapBit[x][y]) ? VOX_ON : VOX_OFF);
