@@ -1,81 +1,15 @@
 /**
-  \mainpage Arduino LED Cube Library
-  LED Cubes
-  ---------
-
-  The MD_Cubo library implements methods and a framework that enable the software elements of
-  any single color LED cube to be easily implemented. This allows the programmer to use the
-  LED matrix as a voxel device addressable through XYZ cartesian coordinates, displaying
-  graphics elements much like any other voxel addressable display.
-
-  The Library
-  -----------
-  The library implements functions that allow LED cubes to be abstracted in software so that
-  underlying hardware changes do not affect the definition and structure of the controlling code.
-
-  In this scenario, it is convenient to abstract out the concept of the hardware device and
-  create a uniform and consistent cartesian (XYZ) voxel address space, with the libraries
-  determining device-element address for each LED. Similarly, control of the devices should
-  be uniform and abstracted to a system level.
-
-  There appears to be 2 major architectures for implementing cubes:
-
-  - A scanning refresh model. In this model the LEDs are refreshed by the Arduino at a rate fast
-  enough to activate a persistence of vision (POV) effect.
-  - A 'set and forget' model. In this model the voxel is set by the Arduino and some other hardware
-  ensures that the appropriate LEDs are turned on.
-
-  The software must take into account these differences and allow both to work using the same basic
-  software pattern. At a fundamental level, the hardware dependent code required needs to do the following:
-  - Initialize the hardware
-  - Turn on specific LED (voxel) on or off
-  - Update the display (internal buffers to actual device)
-  - Animate the display (ignored for 'set and forget', refresh for scanning)
-
-  The standard library supports several different types of cubes, listed below. To
-  add a new type of hardware architecture, refer to \subpage pageAddHardware
-
-  A word about Axes
-  -----------------
-  To enable user code to work properly a convention related to the orientation of the XYZ axes needs
-  to be implemented in the hardware dependent code.
-
-  Decide on a 'bottom' corner to be the origin (0,0,0). This will usually be one of the corners just
-  above the supporting PCB. Orient the cube so one face of the cube is directly towards you and the
-  origin is located in the lower left hand corner.
-
-  ![MD_Cubo Axes Convention] (MD_Cubo_Axes.jpg "MD_Cubo Axes Convention")
-
-  From this reference point
-  - the Z axis is the vertical axis up the cube.
-  - the Y axis is the left to right axis you can see.
-  - the X axis is the axis in the 'depth' direction of the cube.
-
-  Hardware Supported
-  ------------------
-  - \subpage pageICSTATION4x4x4
-  - \subpage pagePAULRB4x4x4
-  - \subpage pageJOLLICUBE8x8x8
-  - \subpage pageZIFFRADIY4x4x4
+  \mainpage Arduino RGB Color Shifter Class 
 
   Revision History
   ----------------
-  Feb 2018 - version 2.0.0
-  - Added color cube support
-  - Add Ziffra 4x4x4 color cube based on STC15F2K60S2 with serial interface
+  Feb 2018 - version 1.0.0
 
-  Feb 2016 - version 1.1
-  - Added jolliCube - first 8x8x8 cube
-  - Reorganized library
-  - Reorganized and expanded examples
-  - Added text based examples, font definition file and related utility functions
-
-  Aug 2015 - version 1.0
   - First release
 
   Copyright
   ---------
-  Copyright (C) 2015 Marco Colli. All rights reserved.
+  Copyright (C) 2015 Carsten Schmitz. All rights reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -96,7 +30,7 @@
 
 /**
    \file
-   \brief Main header file for the MD_Cubo library
+   \brief Main header file for the ColorShifter class
 */
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))    ///< Generic macro to return number of array elemenmts
@@ -139,7 +73,16 @@ class ColorShifter
         Instantiate a new instance of the class. The parameters passed are used to
         initialise the object.
 
-        \param sizeCube    the number of LEDs on each side of the cube.
+        \param shiftColors    An array of colors the actual RGB value is shifted towards to. Once the next color is reached, the next color in the array is set as destinat
+        \param shiftColorCount  The number of colors in the array
+        \param stepWidth  The step width which all 3 colors are moved along
+        \param finishMode This determines what happens if the last color in the array is reached: 
+            Set to 0 to end the shifting - Property isDone will be set to true after that.
+            Set to 1 to move backward in the array (bounce)
+            Set to 2 to set the first color as next color (loop)
+        Returns the new color
+                           
+            
     */
     ColorShifter(uint32_t* shiftColors, uint8_t shiftColorCount, float stepWidth, uint8_t finishMode) ;
     boolean isDone;
@@ -156,13 +99,16 @@ class ColorShifter
        @{
     */
     /**
-        Shift the colors and return the result.
+        Shift the color by step width.
 
     */
     uint32_t shift(void);
 
     /**
-     * Raises or lowers brightness on a color
+     * Raises or lowers brightness of a RGB color
+     \param Current color
+     \param The step width
+     Returns the new color
      */
     static uint32_t dim(uint32_t color, float stepsize);
 
