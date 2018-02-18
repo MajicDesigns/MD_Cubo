@@ -34,7 +34,7 @@ MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #define DEBUG   0   // Enable or disable (default) debugging output from the example
 
 #if DEBUG
-#define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }    // Print a string followed by a value (decimal)
+#define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      // Print a string followed by a value (decimal)
 #define PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); } // Print a string followed by a value (hex)
 #define PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); } // Print a string followed by a value (binary)
 #define PRINTS(s)     { Serial.print(F(s)); }           // Print a string
@@ -67,12 +67,12 @@ void firefly()
     C.clear();
     for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
       for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
-        for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) {
-          if (C.isColorCube()) {
+        for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) 
+        {
+          if (C.isColorCube())
             colorRGB = shifter.shift();
-          } else {
+          else
             colorRGB = VOX_ON;
-          }
           C.setVoxel((random(100) > 50) ? (uint32_t)colorRGB : VOX_OFF , x, y, z);
         }
     C.update();
@@ -94,7 +94,7 @@ void brownian()
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME) {
     C.clear();
-    // PRINTC("\n", x, y, z);
+    PRINTC("\n", x, y, z);
     C.drawCube(C.isColorCube() ? shifter.shift() : VOX_ON, x, y, z, 2);
     C.update();
     C.animate(75);
@@ -238,13 +238,14 @@ void intersectPlanes()
   {
     for (uint8_t p = 0; p < C.size(MD_Cubo::YAXIS); p++)
     { // move plane one way ...
-
-      if (C.isColorCube()) {
+      if (C.isColorCube()) 
+      {
         colorRGB = shifter.shift();
         colorRGB2 = shifter2.shift();
-      } else {
-        colorRGB = colorRGB2 = VOX_ON;
       }
+      else
+        colorRGB = colorRGB2 = VOX_ON;
+
       C.fillPlane(colorRGB, MD_Cubo::XYPLANE, p);
       C.fillPlane(colorRGB2, MD_Cubo::YZPLANE, p);
       C.update();
@@ -255,12 +256,14 @@ void intersectPlanes()
 
     for (uint8_t p = C.size(MD_Cubo::YAXIS) - 2; p > 0; --p)
     { // ... reverse back
-      if (C.isColorCube()) {
+      if (C.isColorCube()) 
+      {
         colorRGB = shifter.shift();
         colorRGB2 = shifter2.shift();
-      } else {
-        colorRGB = colorRGB2 = VOX_ON;
       }
+      else
+        colorRGB = colorRGB2 = VOX_ON;
+
       C.fillPlane(colorRGB, MD_Cubo::XYPLANE, p);
       C.fillPlane(colorRGB2, MD_Cubo::YZPLANE, p);
       C.update();
@@ -289,11 +292,11 @@ void droplets()
   memset(dropy, 0, MAX_DROP * sizeof(dropy[0]));
   C.clear();
 
-  if (C.isColorCube()) {
+  if (C.isColorCube()) 
     colorRGB = shifter.shift();
-  } else {
+  else
     colorRGB = VOX_ON;
-  }
+
   C.fillPlane(colorRGB, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS) - 1);
 
   timeStart = millis();
@@ -308,24 +311,24 @@ void droplets()
       x = random(C.size(MD_Cubo::XAXIS));
       y = random(C.size(MD_Cubo::YAXIS));
 
-      //PRINT("\nNew drop ", x);
-      //PRINT(",", y);
+      PRINT("\nNew drop ", x);
+      PRINT(",", y);
       found = false;
       for (uint16_t i = 0; i < MAX_DROP && !found; i++)
         found |= (x == dropx[i]) && (y == dropy[i]);
-      //PRINT("- search ", found);
+      PRINT("- search ", found);
     } while (found);
 
     if (put == get)   // raise the oldest one
     {
-      //PRINTS(" - overwrite");
+      PRINTS(" - overwrite");
       for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS) - 1; z++)
       {
-        if (C.isColorCube()) {
+        if (C.isColorCube())
           colorRGB = shifter.shift();
-        } else {
+        else
           colorRGB = VOX_ON;
-        }
+
         C.setVoxel(VOX_OFF, dropx[get], dropy[get], z);
         C.setVoxel(colorRGB, dropx[get], dropy[get], z + 1);
         C.update();
@@ -349,16 +352,16 @@ void droplets()
   }
 
   // now finish up by returning all the drops to the top
-  //PRINTS("\nFinishing up");
+  PRINTS("\nFinishing up");
   do
   {
     for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS) - 1; z++)
     {
-      if (C.isColorCube()) {
+      if (C.isColorCube())
         colorRGB = shifter.shift();
-      } else {
+      else
         colorRGB = VOX_ON;
-      }
+
       C.setVoxel(VOX_OFF, dropx[get], dropy[get], z);
       C.setVoxel(colorRGB, dropx[get], dropy[get], z + 1);
       C.update();
@@ -377,15 +380,14 @@ void scaleCube()
   const uint16_t delay = 125;
   uint32_t colorRGB;
 
-
   C.clear();
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    if (C.isColorCube()) {
+    if (C.isColorCube())
       colorRGB = RGB(random(255), random(255), random(255));
-    } else {
+    else
       colorRGB = VOX_ON;
-    }
+
     C.drawCube(colorRGB, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
     C.update();
     C.animate(delay);
@@ -394,11 +396,11 @@ void scaleCube()
 
   for (uint8_t i = 1; i <= C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    if (C.isColorCube()) {
+    if (C.isColorCube())
       colorRGB = RGB(random(255), random(255), random(255));
-    } else {
+    else
       colorRGB = VOX_ON;
-    }
+
     C.drawCube(colorRGB, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
     C.update();
     C.animate(delay);
@@ -426,9 +428,7 @@ void shrinkCube()
   };
   uint32_t colorRGB;
 
-
   PRINTS("\nShrink Cube");
-
   C.clear();
 
   // Grown the cube from max size to min size then back to max,
@@ -436,11 +436,10 @@ void shrinkCube()
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME)
   {
-    if (C.isColorCube()) {
+    if (C.isColorCube())
       colorRGB = RGB(random(255), random(255), random(255));
-    } else {
+    else
       colorRGB = VOX_ON;
-    }
 
     x = corners[cur][0];
     y = corners[cur][1];
@@ -453,8 +452,8 @@ void shrinkCube()
       dy = i * corners[cur][4];
       dz = i * corners[cur][5];
 
-      //PRINTC("\nG Cube ", x, y, z);
-      //PRINT(" size ", i+1);
+      PRINTC("\nG Cube ", x, y, z);
+      PRINT(" size ", i+1);
 
       C.drawRPrism(colorRGB, x, y, z, dx, dy, dz);
       C.update();
@@ -478,15 +477,14 @@ void shrinkCube()
       dy = i * corners[cur][4];
       dz = i * corners[cur][5];
 
-      //PRINTC("\nS Cube ", x, y, z);
-      //PRINT(" size ", i+1);
+      PRINTC("\nS Cube ", x, y, z);
+      PRINT(" size ", i+1);
 
       C.drawRPrism(colorRGB, x, y, z, dx, dy, dz);
       C.update();
       C.animate(delay);
       C.drawRPrism(VOX_OFF, x, y, z, dx, dy, dz);
     }
-
   }
 }
 
@@ -495,17 +493,17 @@ void rain()
 {
   uint16_t delay = 100;
   uint32_t colorRGB;
+  
   PRINTS("\nRain");
   C.clear();
 
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME)
   {
-    if (C.isColorCube()) {
+    if (C.isColorCube())
       colorRGB = RGB(random(100), random(100), 100 + random(155));
-    } else {
+    else
       colorRGB = VOX_ON;
-    }
 
     uint8_t num_drops = random(100) % (C.size(MD_Cubo::YAXIS) - 2);
 
@@ -543,11 +541,11 @@ void randomFill()
 
     if (C.getVoxel(x, y, z) != VOX_OFF)
       continue;
-    if (C.isColorCube()) {
+    if (C.isColorCube())
       colorRGB = RGB(random(255), random(255), 100 + random(255));
-    } else {
+    else
       colorRGB = VOX_ON;
-    }
+
     C.setVoxel(colorRGB, x, y, z);
     C.update();
     C.animate(75);
@@ -561,9 +559,9 @@ void randomFillDim()
   int c = 0;
   uint32_t colorRGB;
 
-  if (!C.isColorCube()) {
+  if (!C.isColorCube())
     return;
-  }
+
   PRINTS("\nRandom fill Dim");
   C.clear();
 
@@ -579,16 +577,11 @@ void randomFillDim()
 
     for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS); x++)
       for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
-        for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) {
+        for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++) 
           C.setVoxel(ColorShifter::dim(C.getVoxel(x, y, z), -10) , x, y, z);
-        }
 
+    colorRGB = RGB(random(255), random(255), 100 + random(255));
 
-    if (C.isColorCube()) {
-      colorRGB = RGB(random(255), random(255), 100 + random(255));
-    } else {
-      colorRGB = VOX_ON;
-    }
     C.setVoxel(colorRGB, xx, yy, zz);
     C.update();
     C.animate(75);
@@ -614,7 +607,7 @@ void ripples()
   uint8_t midX = C.size(MD_Cubo::XAXIS) / 2;
   uint8_t midY = C.size(MD_Cubo::YAXIS) / 2;
 
-  // this only works for larger cubes, soreturn if the cube is not big enough
+  // this only works for larger cubes, so return if the cube is not big enough
   if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
     return;
 
@@ -664,11 +657,11 @@ void oscillation()
     C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, 0);
 
     // draw the wave line on the YZ plane
-    if (C.isColorCube()) {
+    if (C.isColorCube())
       colorRGB = shifter.shift();
-    } else {
+    else
       colorRGB = VOX_ON;
-    }
+
     C.drawLine(colorRGB, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
 
     curZ += dz;
@@ -684,11 +677,13 @@ void flagwave()
 {
   uint8_t curY = 0, dy = 1;
   uint32_t colorRGB;
-  uint32_t colorsRGB[4] = {RGB(random(255), random(255), random(255)),
-                           RGB(random(55), random(255), random(255)),
-                           RGB(random(255), random(255), random(55)),
-                           RGB(random(255), random(55), random(255))
-                          };
+  uint32_t colorsRGB[4] = 
+  {
+    RGB(random(255), random(255), random(255)),
+    RGB(random(55), random(255), random(255)),
+    RGB(random(255), random(255), random(55)),
+    RGB(random(255), random(55), random(255))
+  };
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 30, 2);
 
   PRINTS("\nFlag wave");
@@ -736,7 +731,7 @@ void spiral()
       C.drawLine(VOX_ON, 0, curY, C.size(MD_Cubo::ZAXIS) - 1, 0, C.size(MD_Cubo::YAXIS) - 1 - curY, 0);
     curZ += dz;
     curY += dy;
-    // reset the Z - notefirst line of Y and last of Z are the same line so avoid double delays by stopping
+    // reset the Z - note first line of Y and last of Z are the same line so avoid double delays by stopping
     // Z earlier
     if (curZ == C.size(MD_Cubo::ZAXIS) - 1)
     {
@@ -761,7 +756,7 @@ void suspension()
 // Full plane moving end-to-end losing LEDs 'in suspension' as it goes
 {
   const uint16_t delay = 100;
-  // Spead out the LEDs evenly in each layer
+  // Spread out the LEDs evenly in each layer
   const uint8_t numSpeckles = (C.size(MD_Cubo::YAXIS) * C.size(MD_Cubo::ZAXIS)) / C.size(MD_Cubo::XAXIS);
   uint32_t colorRGB;
   uint32_t colorsRGB[3] = {0x0F5501, 0x00ff99, 0xff2155};
@@ -770,11 +765,11 @@ void suspension()
   PRINTS("\nSuspension");
   C.clear();
   // fill the start plane
-  if (C.isColorCube()) {
+  if (C.isColorCube())
     colorRGB = shifter.shift();
-  } else {
+  else
     colorRGB = VOX_ON;
-  }
+
   C.fillPlane(colorRGB, MD_Cubo::YZPLANE, 0);
   C.update();
   C.animate(delay);
@@ -785,7 +780,7 @@ void suspension()
     // * Spreading points through the cube
     // 1. copy the current plane to the next one
     // 2. clear the current plane
-    // 3. ramdomly clear numSpeckle points in the new plane and set the same points in the previous one
+    // 3. randomly clear numSpeckle points in the new plane and set the same points in the previous one
     for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS) - 1; x++)
     {
       C.copyPlane(MD_Cubo::YZPLANE, x, x + 1);
@@ -801,11 +796,11 @@ void suspension()
           z = random(C.size(MD_Cubo::ZAXIS));
         } while (!C.getVoxel(x + 1, y, z));
 
-        if (C.isColorCube()) {
+        if (C.isColorCube())
           colorRGB = shifter.shift();
-        } else {
+        else
           colorRGB = VOX_ON;
-        }
+
         C.setVoxel(colorRGB, x, y, z);
         C.setVoxel(VOX_OFF, x + 1, y, z);
       }
@@ -832,7 +827,7 @@ void suspension()
     C.animate(delay * 3);
 
     // now do it all again in reverse
-    // * Speaading points through the cube
+    // * Spreading points through the cube
     for (uint8_t x = C.size(MD_Cubo::XAXIS) - 1; x > 0; x--)
     {
       C.copyPlane(MD_Cubo::YZPLANE, x, x - 1);
@@ -1358,7 +1353,7 @@ void scrollingText()
   displayMessage(message, 100);
 
   while (!displayMessage(NULL))
-    ;
+    /* busy loop */ ;
 }
 
 void setup()
@@ -1374,11 +1369,11 @@ void setup()
 
 void loop()
 {
-  static int8_t old_choice = -1;
+  static int8_t choice = -1;
 
   void (*demoType[])(void) =
   {
-    // For all cubes (ordere by name)
+    // For all cubes (ordered by name)
     boingCube, brownian, droplets, firefly, flagwave, 
     intersectPlanes, oscillation, outsideStack, rain, 
     randomFill, shrinkCube, slideFaces, spiralLine, 
@@ -1392,16 +1387,15 @@ void loop()
   };
 
 #if RANDOM_CYCLE
-  uint8_t choice;
+  uint8_t old_choice = choice;
 
   do
     choice = random(ARRAY_SIZE(demoType));
   while (choice == old_choice);
-  old_choice = choice;
 #else
-  old_choice = (old_choice + 1) % ARRAY_SIZE(demoType);
+  choice = (choice + 1) % ARRAY_SIZE(demoType);
 #endif // RANDOM_CYCLE
 
-  demoType[old_choice]();
+  demoType[choice]();
 }
 

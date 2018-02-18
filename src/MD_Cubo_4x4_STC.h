@@ -7,18 +7,18 @@
  * \brief Header file for the MD_Cubo STC class
  */
 
-#define	DEBUG_STC	0		///< Enable or disable (default) debugging output from the example
+#define	DEBUG_STC 0   ///< Enable or disable (default) debugging output from the example
 
 #if DEBUG_STC
-    #define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		///< Print a string followed by a value (decimal)
-    #define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
-    #define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
-    #define	PRINTS(s)		  { Serial.print(F(s)); }						///< Print a string
+    #define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      ///< Print a string followed by a value (decimal)
+    #define PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); } ///< Print a string followed by a value (hex)
+    #define PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); } ///< Print a string followed by a value (binary)
+    #define PRINTS(s)     { Serial.print(F(s)); }                       ///< Print a string
 #else
-    #define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-    #define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-    #define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-    #define	PRINTS(s)		  ///< Print a string
+    #define PRINT(s, v)   ///< Print a string followed by a value (decimal)
+    #define PRINTX(s, v)  ///< Print a string followed by a value (hex)
+    #define PRINTB(s, v)  ///< Print a string followed by a value (binary)
+    #define PRINTS(s)     ///< Print a string
 #endif
 
 /**

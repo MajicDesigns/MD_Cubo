@@ -136,6 +136,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:aebd9303924688f830ff9d83aa2b3565d"><td class="memItemLeft" align="right" valign="top"><a id="aebd9303924688f830ff9d83aa2b3565d"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> (<a class="el" href="class_m_d___cubo.html#a5b4e3c95550d679303a932bc32427380">axis_t</a> axis)</td></tr>
 <tr class="separator:aebd9303924688f830ff9d83aa2b3565d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3e23ea1c2f9d6b56a4dc798a017f420d"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#a3e23ea1c2f9d6b56a4dc798a017f420d">isColorCube</a> ()</td></tr>
+<tr class="separator:a3e23ea1c2f9d6b56a4dc798a017f420d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_class_m_d___cubo"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_class_m_d___cubo')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="class_m_d___cubo.html">MD_Cubo</a></td></tr>
 <tr class="memitem:a779ec6533304d971dbcc046fe4b0a79d inherit pub_methods_class_m_d___cubo"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo.html#a779ec6533304d971dbcc046fe4b0a79d">MD_Cubo</a> (uint8_t sizeCube)</td></tr>
 <tr class="separator:a779ec6533304d971dbcc046fe4b0a79d inherit pub_methods_class_m_d___cubo"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -149,8 +151,6 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> (<a class
 <tr class="separator:ae5bf797b8247375ee873f926ce4cc8c6 inherit pub_methods_class_m_d___cubo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a552477bf160a000e4dbec1d41de6a94f inherit pub_methods_class_m_d___cubo"><td class="memItemLeft" align="right" valign="top">uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo.html#a552477bf160a000e4dbec1d41de6a94f">size</a> (<a class="el" href="class_m_d___cubo.html#a5b4e3c95550d679303a932bc32427380">axis_t</a> axis)</td></tr>
 <tr class="separator:a552477bf160a000e4dbec1d41de6a94f inherit pub_methods_class_m_d___cubo"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aae961b0d772a32bf034f862811279d03 inherit pub_methods_class_m_d___cubo"><td class="memItemLeft" align="right" valign="top">virtual bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo.html#aae961b0d772a32bf034f862811279d03">isColorCube</a> (void)</td></tr>
-<tr class="separator:aae961b0d772a32bf034f862811279d03 inherit pub_methods_class_m_d___cubo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a189c7cfc603735279ad7596169462d86 inherit pub_methods_class_m_d___cubo"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo.html#a189c7cfc603735279ad7596169462d86">fillPlane</a> (uint32_t p, <a class="el" href="class_m_d___cubo.html#a5e58e81576191fd4faac158ad4f4c1f7">plane_t</a> plane, uint8_t coord)</td></tr>
 <tr class="separator:a189c7cfc603735279ad7596169462d86 inherit pub_methods_class_m_d___cubo"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43ba0dabde0486ddea859929ac547024 inherit pub_methods_class_m_d___cubo"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo.html#a43ba0dabde0486ddea859929ac547024">copyPlane</a> (<a class="el" href="class_m_d___cubo.html#a5e58e81576191fd4faac158ad4f4c1f7">plane_t</a> plane, uint8_t cordFrom, uint8_t cordTo)</td></tr>
@@ -317,6 +317,37 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 
 </div>
 </div>
+<a id="a3e23ea1c2f9d6b56a4dc798a017f420d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3e23ea1c2f9d6b56a4dc798a017f420d">&#9670;&nbsp;</a></span>isColorCube()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">boolean MD_Cubo_STC::isColorCube </td>
+          <td>(</td>
+          <td class="paramtype">void&#160;</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Return whether the cube supports RGB color.</p>
+<p>Return true if the cube supports RGB colors. This will depend on the hardware implemented, so can be overridden by the user functions.</p>
+<dl class="section return"><dt>Returns</dt><dd>True if RGB color supported. </dd></dl>
+
+<p>Reimplemented from <a class="el" href="class_m_d___cubo.html#aae961b0d772a32bf034f862811279d03">MD_Cubo</a>.</p>
+
+</div>
+</div>
 <a id="a6c74def98b50bd29f84fa69c95ad095f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6c74def98b50bd29f84fa69c95ad095f">&#9670;&nbsp;</a></span>setVoxel() <span class="overload">[1/2]</span></h2>
 
@@ -364,9 +395,9 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div><div class="memdoc">
 <p>Set the specified point in the cube.</p>
 <p>This is the most basic graphic function and is necessarily only implementable in the user derived object, as it is heavily related to the hardware configuration. The (x,y,z) coordinate for the voxel needs to be mapped to a device action to turn the voxel to the specified color in the specified color and intensity.</p>
-<p>By default all cubes are treated as color cubes. User code should recognize if it is operating with a color or monochrome cube by testing <a class="el" href="class_m_d___cubo.html#aae961b0d772a32bf034f862811279d03">isColorCube()</a>. For clarity, monochrome cubes should use the default VOX_ON and VOX_OFF colors for clarity, color cubes are free to choose any RGB color.</p>
+<p>By default all cubes are treated as color cubes. User code should recognize if it is operating with a color or monochrome cube by testing <a class="el" href="class_m_d___cubo___s_t_c.html#a3e23ea1c2f9d6b56a4dc798a017f420d">isColorCube()</a>. For clarity, monochrome cubes should use the default VOX_ON and VOX_OFF colors for clarity, color cubes are free to choose any RGB color.</p>
 <p>Default for this virtual method is to invoke the monochrome method if color is not implemented in user code.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___cubo.html#aae961b0d772a32bf034f862811279d03">isColorCube()</a></dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="class_m_d___cubo___s_t_c.html#a3e23ea1c2f9d6b56a4dc798a017f420d">isColorCube()</a></dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">p</td><td>voxel RGB value - if VOX_OFF, set the voxel off. Otherwise, set the voxel to the color. </td></tr>
@@ -485,7 +516,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_m_d___cubo___s_t_c.html">MD_Cubo_STC</a></li>
-    <li class="footer">Generated on Sun Feb 18 2018 10:23:23 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Mon Feb 19 2018 08:56:20 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>
