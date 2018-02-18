@@ -1,6 +1,11 @@
 ﻿#include <MD_Cubo.h>
 #include "MD_CUBO_4x4_ICS595.h"
 
+/**
+ * \file
+ * \brief Main file for the MD_Cubo ICStation 595 object
+ */
+
 void MD_Cubo_ICS595::begin()
 {
   pinMode(_data, OUTPUT);
@@ -72,7 +77,7 @@ void MD_Cubo_ICS595::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
   PRINT(",",y);
   PRINT(",",z);
 
-  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+  if ((x >= CUBE_SIZE) || (y >= CUBE_SIZE) || (z >= CUBE_SIZE))
     return;
   
   uint16_t  pix = (x + (y << 2));  // same as x + (y * 4)
@@ -86,7 +91,7 @@ void MD_Cubo_ICS595::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 
 uint32_t MD_Cubo_ICS595::getVoxel(uint8_t x, uint8_t y, uint8_t z)
 {
-  if ((x > CUBE_SIZE) || (y > CUBE_SIZE) || (z > CUBE_SIZE))
+  if ((x >= CUBE_SIZE) || (y >= CUBE_SIZE) || (z >= CUBE_SIZE))
     return(VOX_OFF);
 
   uint16_t  pix = x + (y << 2);  // same as x + (y * 4)

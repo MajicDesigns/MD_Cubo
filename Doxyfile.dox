@@ -1535,7 +1535,7 @@ FORMULA_FONTSIZE       = 10
 # The default value is: YES.
 # This tag requires that the tag GENERATE_HTML is set to YES.
 
-FORMULA_TRANSPARENT    = YES
+FORMULA_TRANSPARENT    = NO
 
 # Enable the USE_MATHJAX option to render LaTeX formulas using MathJax (see
 # https://www.mathjax.org) which uses client side Javascript for the rendering

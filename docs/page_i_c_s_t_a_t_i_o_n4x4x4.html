@@ -104,10 +104,10 @@ ICStation 4x4 Cube</div></div>
 <img src="ICStation_Schematic.png" alt="ICStation_Schematic.png"/>
 <div class="caption">
 ICStation 4x4 schematic</div></div>
-<p> The shield uses pins 0 through 3 for the SPI interface and 4 through 7 to activate each layer (called D16..D19 in the schematic. Because of the way the LEDs are wired through only one resistor per layer, the result is less than impressive from a brightness perspetive, but it works.</p>
+<p> The shield uses pins 0 through 3 for the SPI interface and 4 through 7 to activate each layer (called D16..D19 in the schematic. Because of the way the LEDs are wired through only one resistor per layer, the result is less than impressive from a brightness perspective, but it works.</p>
 <h3>Implementation Overview</h3>
 <p>The software implements an SPI interface through the standard Arduino SPI object.</p>
-<p>Cube data is buffered in memory organised as vertical layers of 16 bits (1 word). At each refresh, the 595 is loaded with the data for a specific layer and the Arduino corresponding to that layer is set to groung (LOW) to enable the circuit for that layer.</p>
+<p>Cube data is buffered in memory organized as vertical layers of 16 bits (1 word). At each refresh, the 595 is loaded with the data for a specific layer and the Arduino corresponding to that layer is set to ground (LOW) to enable the circuit for that layer.</p>
 <p>The cube data is held in memory buffers until an update() call is made, at which point it is entirely written to the cube through the SPI interface. The animate() call is used to scan the refresh of the cube. No interrupt timers are used in this implementation.</p>
 <p>No intensity changes are implemented in this architecture. </p>
 </div></div><!-- contents -->
@@ -116,7 +116,7 @@ ICStation 4x4 schematic</div></div>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="index.html">Arduino LED Cube Library</a></li>
-    <li class="footer">Generated on Mon Feb 12 2018 17:32:01 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Sun Feb 18 2018 10:23:23 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

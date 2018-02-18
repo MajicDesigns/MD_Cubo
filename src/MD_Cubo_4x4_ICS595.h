@@ -3,21 +3,21 @@
 
 /**
  * \file
- * \brief Main header file for the MD_Cubo ICStation 595 object
+ * \brief Header file for the MD_Cubo ICStation 595 object
  */
 
-#define	DEBUG_595	0		///< Enable or disable (default) debugging output from the example
+#define	DEBUG_595 0   ///< Enable or disable (default) debugging output from the example
 
 #if DEBUG_595
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		  ///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }							          ///< Print a string
+#define	PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }		  ///< Print a string followed by a value (decimal)
+#define	PRINTX(s, v)  { Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
+#define	PRINTB(s, v)  { Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
+#define	PRINTS(s)     { Serial.print(F(s)); }							          ///< Print a string
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  ///< Print a string
+#define	PRINT(s, v)   ///< Print a string followed by a value (decimal)
+#define	PRINTX(s, v)  ///< Print a string followed by a value (hex)
+#define	PRINTB(s, v)  ///< Print a string followed by a value (binary)
+#define	PRINTS(s)     ///< Print a string
 #endif
 
 /**
@@ -39,13 +39,13 @@ The hardware architecture implemented shown in the schematic below.
 
 The shield uses pins 0 through 3 for the SPI interface and 4 through 7 to activate each layer (called 
 D16..D19 in the schematic. Because of the way the LEDs are wired through only one resistor per layer, 
-the result is less than impressive from a brightness perspetive, but it works.
+the result is less than impressive from a brightness perspective, but it works.
 
 ###Implementation Overview###
 The software implements an SPI interface through the standard Arduino SPI object.
 
-Cube data is buffered in memory organised as vertical layers of 16 bits (1 word). At each refresh, the 595
-is loaded with the data for a specific layer and the Arduino corresponding to that layer is set to groung (LOW)
+Cube data is buffered in memory organized as vertical layers of 16 bits (1 word). At each refresh, the 595
+is loaded with the data for a specific layer and the Arduino corresponding to that layer is set to ground (LOW)
 to enable the circuit for that layer.
 
 The cube data is held in memory buffers until an update() call is made, at which point it is entirely 
@@ -56,14 +56,14 @@ No intensity changes are implemented in this architecture.
 */
 
 // Pins for SPI comm with the 595 IC. These are hard coded in the library.
-const uint8_t CLK     = 0;		///< SPI Clock pin number
-const uint8_t LOAD    = 1;		///< SPI Load pin number
-const uint8_t DATA    = 3;		///< SPI Data pin number
-const uint8_t OUT_ENA = 2;		///< 595 Output Enable pin number
+const uint8_t CLK     = 0;    ///< SPI Clock pin number
+const uint8_t LOAD    = 1;    ///< SPI Load pin number
+const uint8_t DATA    = 3;    ///< SPI Data pin number
+const uint8_t OUT_ENA = 2;    ///< 595 Output Enable pin number
 
-const uint8_t LAYER_TIME = 5;  	///< Reflech time for each layer, in milliseconds
+const uint8_t LAYER_TIME = 5;   ///< Refresh time for each layer, in milliseconds
 
-const uint8_t CUBE_SIZE = 4;		///< Cube size in the X, Y and Z axis
+const uint8_t CUBE_SIZE = 4;    ///< Cube size in the X, Y and Z axis
 
 class MD_Cubo_ICS595: public MD_Cubo
 {
@@ -96,10 +96,10 @@ class MD_Cubo_ICS595: public MD_Cubo
     
   uint8_t   _curLayer;  // currently displayed layer
   uint32_t  _timeLayer; // layer display start time
-  uint8_t   _data;    // SPI Data pin for transmission
-  uint8_t   _clock;   // SPI Clock pin for transmisison
-  uint8_t   _load;    // SPI Load pin for transmisison
-  uint8_t   _enable;  // 595 enable active low
+  uint8_t   _data;      // SPI Data pin for transmission
+  uint8_t   _clock;     // SPI Clock pin for transmission
+  uint8_t   _load;      // SPI Load pin for transmission
+  uint8_t   _enable;    // 595 enable active low
  
   void send595(uint16_t val);
 };

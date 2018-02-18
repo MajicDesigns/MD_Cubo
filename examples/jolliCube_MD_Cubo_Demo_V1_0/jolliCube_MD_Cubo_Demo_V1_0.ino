@@ -66,7 +66,7 @@ void firefly()
     for (uint8_t x = 0; x<C.size(MD_Cubo::XAXIS); x++)
       for (uint8_t y = 0; y<C.size(MD_Cubo::YAXIS); y++)
         for (uint8_t z = 0; z<C.size(MD_Cubo::ZAXIS); z++)
-          C.setVoxel(random(100)>50, x, y, z);
+          C.setVoxel((random(100)>50) ? VOX_ON : VOX_OFF, x, y, z);
     C.update();
     C.animate(50);
   }  
@@ -84,7 +84,7 @@ void brownian()
   {
     C.clear();
     // PRINTC("\n", x, y, z);
-    C.drawCube(true, x, y, z, 2);
+    C.drawCube(VOX_ON, x, y, z, 2);
     C.update();
     C.animate(75);
 
@@ -105,7 +105,7 @@ void slideFaces()
   PRINTS("\nSlide Faces");  
 
   C.clear();
-  C.fillPlane(true, MD_Cubo::XYPLANE, 0);
+  C.fillPlane(VOX_ON, MD_Cubo::XYPLANE, 0);
   C.update();
   C.animate(delay);
   
@@ -114,29 +114,29 @@ void slideFaces()
   {
     for (uint8_t j = 0; j<C.size(MD_Cubo::YAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, j, 0, C.size(MD_Cubo::XAXIS) - 1, j, 0);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS) - 1, j + 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j + 1);
+      C.drawLine(VOX_OFF, 0, j, 0, C.size(MD_Cubo::XAXIS) - 1, j, 0);
+      C.drawLine(VOX_ON, 0, C.size(MD_Cubo::YAXIS) - 1, j + 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j + 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j<C.size(MD_Cubo::ZAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, C.size(MD_Cubo::YAXIS) - 1, j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(VOX_OFF, 0, C.size(MD_Cubo::YAXIS) - 1, j, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, j);
+      C.drawLine(VOX_ON, 0, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 2 - j, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j<C.size(MD_Cubo::YAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1);
-      C.drawLine(true, 0, 0, C.size(MD_Cubo::ZAXIS) - 2 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 2 - j);
+      C.drawLine(VOX_OFF, 0, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1 - j, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(VOX_ON, 0, 0, C.size(MD_Cubo::ZAXIS) - 2 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 2 - j);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j = 0; j<C.size(MD_Cubo::ZAXIS) - 1; j++)
     {
-      C.drawLine(false, 0, 0, C.size(MD_Cubo::ZAXIS) - 1 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 1 - j);
-      C.drawLine(true, 0, j + 1, 0, C.size(MD_Cubo::XAXIS) - 1, j + 1, 0);
+      C.drawLine(VOX_OFF, 0, 0, C.size(MD_Cubo::ZAXIS) - 1 - j, C.size(MD_Cubo::XAXIS) - 1, 0, C.size(MD_Cubo::ZAXIS) - 1 - j);
+      C.drawLine(VOX_ON, 0, j + 1, 0, C.size(MD_Cubo::XAXIS) - 1, j + 1, 0);
       C.update();
       C.animate(delay);
     }
@@ -151,7 +151,7 @@ void wrapFaces()
   PRINTS("\nWrap Faces");   
 
   C.clear();
-  C.fillPlane(true, MD_Cubo::XYPLANE, 0);
+  C.fillPlane(VOX_ON, MD_Cubo::XYPLANE, 0);
   C.update();
   C.animate(delay);
   
@@ -160,43 +160,43 @@ void wrapFaces()
   {
     for (uint8_t j=0; j<C.size(MD_Cubo::YAXIS)-1; j++)
     { // move across the XY plane @ Z 0 into XZ plane @ Y max
-      C.drawLine(false, 0, j, 0, C.size(MD_Cubo::ZAXIS)-1, j, 0);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS)-1, j+1, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1, j+1);
+      C.drawLine(VOX_OFF, 0, j, 0, C.size(MD_Cubo::ZAXIS)-1, j, 0);
+      C.drawLine(VOX_ON, 0, C.size(MD_Cubo::YAXIS)-1, j+1, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1, j+1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j=0; j<C.size(MD_Cubo::ZAXIS)-1; j++)
     { // move across the XZ plane @ Y max into XY plane @ Z max
-      C.drawLine(false, 0, C.size(MD_Cubo::YAXIS)-1, j, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1, j);
-      C.drawLine(true, 0, C.size(MD_Cubo::YAXIS)-2-j, C.size(MD_Cubo::ZAXIS)-1, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-2-j, C.size(MD_Cubo::ZAXIS)-1);
+      C.drawLine(VOX_OFF, 0, C.size(MD_Cubo::YAXIS)-1, j, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1, j);
+      C.drawLine(VOX_ON, 0, C.size(MD_Cubo::YAXIS)-2-j, C.size(MD_Cubo::ZAXIS)-1, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-2-j, C.size(MD_Cubo::ZAXIS)-1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j=0; j<C.size(MD_Cubo::XAXIS)-1; j++)
     { // move across the XY plane @ Z max into YZ plane @ X max  
-      C.drawLine(false, j, 0, C.size(MD_Cubo::ZAXIS)-1, j, C.size(MD_Cubo::YAXIS)-1, C.size(MD_Cubo::ZAXIS)-1);
-      C.drawLine(true, C.size(MD_Cubo::XAXIS)-1, 0, C.size(MD_Cubo::ZAXIS)-2-j, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1, C.size(MD_Cubo::ZAXIS)-2-j);
+      C.drawLine(VOX_OFF, j, 0, C.size(MD_Cubo::ZAXIS)-1, j, C.size(MD_Cubo::YAXIS)-1, C.size(MD_Cubo::ZAXIS)-1);
+      C.drawLine(VOX_ON, C.size(MD_Cubo::XAXIS)-1, 0, C.size(MD_Cubo::ZAXIS)-2-j, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1, C.size(MD_Cubo::ZAXIS)-2-j);
       C.update();
       C.animate(delay);
     } 
     for (uint8_t j=0; j<C.size(MD_Cubo::YAXIS)-1; j++)
     { // move across the YZ plane @ X max into XZ plane @ Y 0
-      C.drawLine(false, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1-j, 0, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1-j, C.size(MD_Cubo::ZAXIS)-1);
-      C.drawLine(true, C.size(MD_Cubo::XAXIS)-2-j, 0, 0, C.size(MD_Cubo::XAXIS)-2-j, 0, C.size(MD_Cubo::ZAXIS)-1);
+      C.drawLine(VOX_OFF, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1-j, 0, C.size(MD_Cubo::XAXIS)-1, C.size(MD_Cubo::YAXIS)-1-j, C.size(MD_Cubo::ZAXIS)-1);
+      C.drawLine(VOX_ON, C.size(MD_Cubo::XAXIS)-2-j, 0, 0, C.size(MD_Cubo::XAXIS)-2-j, 0, C.size(MD_Cubo::ZAXIS)-1);
       C.update();
       C.animate(delay);
     }
     for (uint8_t j=0; j<C.size(MD_Cubo::XAXIS)-1; j++)
     { // move across XZ Plane @ Y 0 into YZ plane @ X 0
-      C.drawLine(false, C.size(MD_Cubo::XAXIS)-1-j, 0, 0, C.size(MD_Cubo::XAXIS)-1-j, 0, C.size(MD_Cubo::ZAXIS)-1);
-      C.drawLine(true, 0, j+1, 0, 0, j+1, C.size(MD_Cubo::ZAXIS)-1);
+      C.drawLine(VOX_OFF, C.size(MD_Cubo::XAXIS)-1-j, 0, 0, C.size(MD_Cubo::XAXIS)-1-j, 0, C.size(MD_Cubo::ZAXIS)-1);
+      C.drawLine(VOX_ON, 0, j+1, 0, 0, j+1, C.size(MD_Cubo::ZAXIS)-1);
       C.update();
       C.animate(delay);
     }  
     for (uint8_t j=0; j<C.size(MD_Cubo::ZAXIS)-1; j++)
     { // move across YZ plane @ X 0 into XY plane @ Z 0 - back to starting point
-      C.drawLine(false, 0, 0, C.size(MD_Cubo::ZAXIS)-1-j, 0, C.size(MD_Cubo::YAXIS)-1, C.size(MD_Cubo::ZAXIS)-1-j);
-      C.drawLine(true, j+1, 0, 0, j+1, C.size(MD_Cubo::YAXIS)-1, 0);
+      C.drawLine(VOX_OFF, 0, 0, C.size(MD_Cubo::ZAXIS)-1-j, 0, C.size(MD_Cubo::YAXIS)-1, C.size(MD_Cubo::ZAXIS)-1-j);
+      C.drawLine(VOX_ON, j+1, 0, 0, j+1, C.size(MD_Cubo::YAXIS)-1, 0);
       C.update();
       C.animate(delay);
     }
@@ -216,21 +216,21 @@ void intersectPlanes()
   {
     for (uint8_t p = 0; p<C.size(MD_Cubo::YAXIS); p++)
     { // move plane one way ...
-      C.fillPlane(true, MD_Cubo::XYPLANE, p);
-      C.fillPlane(true, MD_Cubo::YZPLANE, p);
+      C.fillPlane(VOX_ON, MD_Cubo::XYPLANE, p);
+      C.fillPlane(VOX_ON, MD_Cubo::YZPLANE, p);
       C.update();
       C.animate(delay);
-      C.fillPlane(false, MD_Cubo::XYPLANE, p);
-      C.fillPlane(false, MD_Cubo::YZPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, p);
     }
     for (uint8_t p = C.size(MD_Cubo::YAXIS) - 2; p>0; --p)
     { // ... reverse back
-      C.fillPlane(true, MD_Cubo::XYPLANE, p);
-      C.fillPlane(true, MD_Cubo::YZPLANE, p);
+      C.fillPlane(VOX_ON, MD_Cubo::XYPLANE, p);
+      C.fillPlane(VOX_ON, MD_Cubo::YZPLANE, p);
       C.update();
       C.animate(delay);
-      C.fillPlane(false, MD_Cubo::XYPLANE, p);
-      C.fillPlane(false, MD_Cubo::YZPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, p);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, p);
     }
   }          
 }
@@ -249,7 +249,7 @@ void droplets()
   memset(dropy, 0, MAX_DROP*sizeof(dropy[0]));
   C.clear();
   
-  C.fillPlane(true, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS) - 1);
+  C.fillPlane(VOX_ON, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS) - 1);
   
   timeStart = millis();
   while (millis() - timeStart <= DEMO_RUNTIME)
@@ -276,8 +276,8 @@ void droplets()
       //PRINTS(" - overwrite");
       for (uint8_t z = 0; z<C.size(MD_Cubo::ZAXIS) - 1; z++)
       {
-        C.setVoxel(false, dropx[get], dropy[get], z);
-        C.setVoxel(true, dropx[get], dropy[get], z+1);
+        C.setVoxel(VOX_OFF, dropx[get], dropy[get], z);
+        C.setVoxel(VOX_ON, dropx[get], dropy[get], z+1);
         C.update();
         C.animate(delay);
       }
@@ -291,8 +291,8 @@ void droplets()
     // drop the new one
     for (uint8_t z = C.size(MD_Cubo::ZAXIS) - 1; z>0; --z)
     {
-      C.setVoxel(false, x, y, z);
-      C.setVoxel(true, x, y, z-1);
+      C.setVoxel(VOX_OFF, x, y, z);
+      C.setVoxel(VOX_ON, x, y, z-1);
       C.update();
       C.animate(delay);
     }
@@ -304,8 +304,8 @@ void droplets()
   {
     for (uint8_t z = 0; z<C.size(MD_Cubo::ZAXIS) - 1; z++)
     {
-      C.setVoxel(false, dropx[get], dropy[get], z);
-      C.setVoxel(true, dropx[get], dropy[get], z+1);
+      C.setVoxel(VOX_OFF, dropx[get], dropy[get], z);
+      C.setVoxel(VOX_ON, dropx[get], dropy[get], z+1);
       C.update();
       C.animate(delay);
     }
@@ -324,18 +324,18 @@ void scaleCube()
   C.clear();
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    C.drawCube(true, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
+    C.drawCube(VOX_ON, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
     C.update();
     C.animate(delay);
-    C.drawCube(false, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
+    C.drawCube(VOX_OFF, i, i, i, C.size(MD_Cubo::ZAXIS) - (2 * i));
   }
 
   for (uint8_t i = 1; i <= C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
-    C.drawCube(true, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
+    C.drawCube(VOX_ON, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
     C.update();
     C.animate(delay);
-    C.drawCube(false, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
+    C.drawCube(VOX_OFF, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, (C.size(MD_Cubo::ZAXIS) / 2) - i, 2 * i);
   }
 }
 
@@ -381,10 +381,10 @@ void shrinkCube()
       //PRINTC("\nG Cube ", x, y, z);
       //PRINT(" size ", i+1);
 
-      C.drawRPrism(true, x, y, z, dx, dy, dz);
+      C.drawRPrism(VOX_ON, x, y, z, dx, dy, dz);
       C.update();
       C.animate(delay);
-      C.drawRPrism(false, x, y, z, dx, dy, dz);
+      C.drawRPrism(VOX_OFF, x, y, z, dx, dy, dz);
     }
 
     // see if we should throw in a WOW!
@@ -406,10 +406,10 @@ void shrinkCube()
       //PRINTC("\nS Cube ", x, y, z);
       //PRINT(" size ", i+1);
 
-      C.drawRPrism(true, x, y, z, dx, dy, dz);
+      C.drawRPrism(VOX_ON, x, y, z, dx, dy, dz);
       C.update();
       C.animate(delay);
-      C.drawRPrism(false, x, y, z, dx, dy, dz);
+      C.drawRPrism(VOX_OFF, x, y, z, dx, dy, dz);
     }
 
   }
@@ -428,12 +428,12 @@ void rain()
   {
     uint8_t num_drops = random(100) % (C.size(MD_Cubo::YAXIS)-2);
 
-    C.fillPlane(false, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS)-1);
+    C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, C.size(MD_Cubo::ZAXIS)-1);
     for (uint8_t i = 0; i < num_drops; i++)
     {
       uint8_t x = random(C.size(MD_Cubo::XAXIS));
       uint8_t y = random(C.size(MD_Cubo::YAXIS));
-      C.setVoxel(true, x, y, C.size(MD_Cubo::ZAXIS) - 1);
+      C.setVoxel(VOX_ON, x, y, C.size(MD_Cubo::ZAXIS) - 1);
     }
     C.update();
     C.animate(delay);
@@ -459,10 +459,10 @@ void randomFill()
     uint8_t y = random(C.size(MD_Cubo::YAXIS));
     uint8_t z = random(C.size(MD_Cubo::XAXIS));
 
-    if (C.getVoxel(x, y, z))
+    if (C.getVoxel(x, y, z) == VOX_ON)
       continue;
     
-    C.setVoxel(true, x, y, z);
+    C.setVoxel(VOX_ON, x, y, z);
     C.update();
     //C.animate(75);
     C.animate(5);
@@ -505,10 +505,10 @@ void ripples()
         float dist = length((C.size(MD_Cubo::ZAXIS) - 1) / 2, (C.size(MD_Cubo::YAXIS) - 1) / 2, 0, x, y, 0) / 9.899495 * C.size(MD_Cubo::ZAXIS);
         float height = (C.size(MD_Cubo::ZAXIS) / 2) + (sin((dist / waveInterval) + (float)iteration / 200) * (C.size(MD_Cubo::ZAXIS) / 2));
 
-        C.setVoxel(true, x, y, (int)height);
-        C.setVoxel(true, C.size(MD_Cubo::XAXIS)-1-x, y, (int)height);
-        C.setVoxel(true, x, C.size(MD_Cubo::YAXIS)-1-y, (int)height);
-        C.setVoxel(true, C.size(MD_Cubo::XAXIS)-1-x, C.size(MD_Cubo::YAXIS)-1-y, (int)height);
+        C.setVoxel(VOX_ON, x, y, (int)height);
+        C.setVoxel(VOX_ON, C.size(MD_Cubo::XAXIS)-1-x, y, (int)height);
+        C.setVoxel(VOX_ON, x, C.size(MD_Cubo::YAXIS)-1-y, (int)height);
+        C.setVoxel(VOX_ON, C.size(MD_Cubo::XAXIS)-1-x, C.size(MD_Cubo::YAXIS)-1-y, (int)height);
         iteration++;
       }
     }
@@ -531,10 +531,10 @@ void oscillation()
     // shift all the planes back by one
     for (uint8_t x = C.size(MD_Cubo::XAXIS) - 1; x > 0; x--)
       C.copyPlane(MD_Cubo::YZPLANE, x - 1, x);
-    C.fillPlane(false, MD_Cubo::YZPLANE, 0);
+    C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, 0);
 
     // draw the wave line on the YZ plane
-    C.drawLine(true, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
+    C.drawLine(VOX_ON, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
     curZ += dz;
     if (curZ == C.size(MD_Cubo::ZAXIS) || curZ == 0) dz = -dz;
 
@@ -557,10 +557,10 @@ void flagwave()
     // shift all the planes back by one
     for (uint8_t x = C.size(MD_Cubo::XAXIS) - 1; x > 0; x--)
       C.copyPlane(MD_Cubo::YZPLANE, x - 1, x);
-    C.fillPlane(false, MD_Cubo::YZPLANE, 0);
+    C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, 0);
 
     // draw the wave line on the YZ plane
-    C.drawLine(true, 0, curY, 0, 0, curY, C.size(MD_Cubo::ZAXIS) - 1);
+    C.drawLine(VOX_ON, 0, curY, 0, 0, curY, C.size(MD_Cubo::ZAXIS) - 1);
     curY += dy;
     if (curY == C.size(MD_Cubo::YAXIS)-1 || curY == 0) dy = -dy;
 
@@ -584,13 +584,13 @@ void spiral()
     // shift all the planes back by one
     for (uint8_t x = C.size(MD_Cubo::XAXIS) - 1; x > 0; x--)
       C.copyPlane(MD_Cubo::YZPLANE, x - 1, x);
-    C.fillPlane(false, MD_Cubo::YZPLANE, 0);
+    C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, 0);
 
     // draw the spiral line on the YZ plane
     if (dy == 0)
-      C.drawLine(true, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
+      C.drawLine(VOX_ON, 0, 0, curZ, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - curZ);
     else
-      C.drawLine(true, 0, curY, C.size(MD_Cubo::ZAXIS) - 1, 0, C.size(MD_Cubo::YAXIS) - 1 - curY, 0);
+      C.drawLine(VOX_ON, 0, curY, C.size(MD_Cubo::ZAXIS) - 1, 0, C.size(MD_Cubo::YAXIS) - 1 - curY, 0);
     curZ += dz;
     curY += dy;
     // reset the Z - note first line of Y and last of Z are the same line so avoid double delays by stopping 
@@ -629,7 +629,7 @@ void suspension()
     C.clear();
 
     // fill the end plane
-    C.fillPlane(true, MD_Cubo::YZPLANE, 0);
+    C.fillPlane(VOX_ON, MD_Cubo::YZPLANE, 0);
     C.update();
     C.animate(delay);
 
@@ -640,7 +640,7 @@ void suspension()
     for (uint8_t x = 0; x < C.size(MD_Cubo::XAXIS) - 1; x++)
     {
       C.copyPlane(MD_Cubo::YZPLANE, x, x + 1);
-      C.fillPlane(false, MD_Cubo::YZPLANE, x);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, x);
 
       for (uint8_t j = 0; j < numSpeckles; j++)
       {
@@ -650,10 +650,10 @@ void suspension()
         {
           y = random(C.size(MD_Cubo::YAXIS));
           z = random(C.size(MD_Cubo::ZAXIS));
-        } while (!C.getVoxel(x+1, y, z));
+        } while (C.getVoxel(x+1, y, z) == VOX_OFF);
 
-        C.setVoxel(true, x, y, z);
-        C.setVoxel(false, x + 1, y, z);
+        C.setVoxel(VOX_ON, x, y, z);
+        C.setVoxel(VOX_OFF, x + 1, y, z);
       }
 
       C.update();
@@ -669,8 +669,8 @@ void suspension()
     {
       for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
         for (uint8_t z = 0; z < C.size(MD_Cubo::YAXIS); z++)
-          if (C.getVoxel(x, y, z)) C.setVoxel(true, x + 1, y, z);
-      C.fillPlane(false, MD_Cubo::YZPLANE, x);
+          if (C.getVoxel(x, y, z) == VOX_ON) C.setVoxel(VOX_ON, x + 1, y, z);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, x);
       C.update();
       C.animate(delay);
     }
@@ -682,7 +682,7 @@ void suspension()
     for (uint8_t x = C.size(MD_Cubo::XAXIS) - 1; x > 0; x--)
     {
       C.copyPlane(MD_Cubo::YZPLANE, x, x - 1);
-      C.fillPlane(false, MD_Cubo::YZPLANE, x);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, x);
 
       for (uint8_t j = 0; j < numSpeckles; j++)
       {
@@ -692,10 +692,10 @@ void suspension()
         {
           y = random(C.size(MD_Cubo::YAXIS));
           z = random(C.size(MD_Cubo::ZAXIS));
-        } while (!C.getVoxel(x - 1, y, z));
+        } while (C.getVoxel(x - 1, y, z) == VOX_OFF);
 
-        C.setVoxel(true, x, y, z);
-        C.setVoxel(false, x - 1, y, z);
+        C.setVoxel(VOX_ON, x, y, z);
+        C.setVoxel(VOX_OFF, x - 1, y, z);
       }
 
       C.update();
@@ -709,8 +709,8 @@ void suspension()
     {
       for (uint8_t y = 0; y < C.size(MD_Cubo::YAXIS); y++)
         for (uint8_t z = 0; z < C.size(MD_Cubo::YAXIS); z++)
-          if (C.getVoxel(x, y, z)) C.setVoxel(true, x - 1, y, z);
-      C.fillPlane(false, MD_Cubo::YZPLANE, x);
+          if (C.getVoxel(x, y, z) == VOX_ON) C.setVoxel(VOX_ON, x - 1, y, z);
+      C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, x);
       C.update();
       C.animate(delay);
     }
@@ -763,12 +763,12 @@ void hourglass()
 
   // Draw the hourglass cube outline and the sand within it
   C.clear();
-  C.drawCube(true, 0, 0, 0, C.size(MD_Cubo::XAXIS));
+  C.drawCube(VOX_ON, 0, 0, 0, C.size(MD_Cubo::XAXIS));
   for (uint8_t i = 0; i < ARRAY_SIZE(sand); i++)
   {
     s = pgm_read_byte(&sand[i]);
     x = UX(s); y = UY(s); z = C.size(MD_Cubo::ZAXIS) - 1 - UZ(s);
-    C.setVoxel(true, x, y, z);
+    C.setVoxel(VOX_ON, x, y, z);
   }
   C.update();
   C.animate(1000);
@@ -780,21 +780,21 @@ void hourglass()
     x = UX(s); y = UY(s); z = UZ(s);
 
     // turn it off at the top
-    C.setVoxel(false, x, y, C.size(MD_Cubo::ZAXIS) - 1 - z);
+    C.setVoxel(VOX_OFF, x, y, C.size(MD_Cubo::ZAXIS) - 1 - z);
     C.update();
     C.animate(delay);
 
     // drop it down
     for (uint8_t i = (C.size(MD_Cubo::ZAXIS) / 2); i > z; i--)
     {
-      C.setVoxel(true, 3, 3, i);
+      C.setVoxel(VOX_ON, 3, 3, i);
       C.update();
       C.animate(delay / 3);
-      C.setVoxel(false, 3, 3, i);
+      C.setVoxel(VOX_OFF, 3, 3, i);
     }
 
     // turn it on at the bottom
-    C.setVoxel(true, x, y, z);
+    C.setVoxel(VOX_ON, x, y, z);
 
     // update and wait for next grain
     C.update();
@@ -822,7 +822,7 @@ void boingCube()
 
   // draw the initial seed cube
   C.clear();
-  C.drawRPrism(true, x, y, z, sx-1, sy-1, sz-1);
+  C.drawRPrism(VOX_ON, x, y, z, sx-1, sy-1, sz-1);
   C.update();
   C.animate(delay);
 
@@ -842,7 +842,7 @@ void boingCube()
       x += dx; y += dy; z += dz;
       sx += 2 * abs(dx); sy += 2 * abs(dy); sz += 2 * abs(dz);
       C.clear();
-      C.drawRPrism(true, x, y, z, sx-1, sy-1, sz-1);
+      C.drawRPrism(VOX_ON, x, y, z, sx-1, sy-1, sz-1);
       C.update();
       C.animate(delay);
     }
@@ -862,7 +862,7 @@ void boingCube()
       sy += 2 * abs(dy); if (sy == C.size(MD_Cubo::YAXIS)) dy = 0;
       sz += 2 * abs(dz); if (sz == C.size(MD_Cubo::ZAXIS)) dz = 0;
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -883,7 +883,7 @@ void boingCube()
       sy -= 2 * abs(dy); if (sy == 2) dy = 0;
       sz -= 2 * abs(dz); if (sz == 2) dz = 0;
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -902,7 +902,7 @@ void boingCube()
       y += dy; if (sy == 2) dy = 0;
       z += dz; if (sz == 2) dz = 0;
       C.clear();
-      C.drawRPrism(true, x, y, z, sx - 1, sy - 1, sz - 1);
+      C.drawRPrism(VOX_ON, x, y, z, sx - 1, sy - 1, sz - 1);
       C.update();
       C.animate(delay);
     }
@@ -927,28 +927,28 @@ void spiralLine()
       for (int8_t x = instep; x < C.size(MD_Cubo::XAXIS) - instep; x++)
       {
         C.clear();
-        C.drawLine(true, x, instep, 0, x, instep, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, x, instep, 0, x, instep, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
       for (int8_t y = 1 + instep; y < C.size(MD_Cubo::YAXIS) - instep; y++)
       {
         C.clear();
-        C.drawLine(true, C.size(MD_Cubo::XAXIS) - 1 - instep, y, 0, C.size(MD_Cubo::XAXIS) - 1 - instep, y, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, C.size(MD_Cubo::XAXIS) - 1 - instep, y, 0, C.size(MD_Cubo::XAXIS) - 1 - instep, y, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
       for (int8_t x = C.size(MD_Cubo::XAXIS) - 2 - instep; x >= instep; x--)
       {
         C.clear();
-        C.drawLine(true, x, C.size(MD_Cubo::YAXIS) - 1 - instep, 0, x, C.size(MD_Cubo::YAXIS) - 1 - instep, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, x, C.size(MD_Cubo::YAXIS) - 1 - instep, 0, x, C.size(MD_Cubo::YAXIS) - 1 - instep, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
       for (int8_t y = C.size(MD_Cubo::YAXIS) - 2 - instep; y >= 1 + instep; y--)
       {
         C.clear();
-        C.drawLine(true, instep, y, 0, instep, y, C.size(MD_Cubo::ZAXIS) - 1);
+        C.drawLine(VOX_ON, instep, y, 0, instep, y, C.size(MD_Cubo::ZAXIS) - 1);
         C.update();
         C.animate(delay);
       }
@@ -956,7 +956,7 @@ void spiralLine()
     for (int8_t i = C.size(MD_Cubo::XAXIS) / 2; i >= 0; i--)
     {
       C.clear();
-      C.drawLine(true, i, i, 0, i, i, C.size(MD_Cubo::ZAXIS) - 1);
+      C.drawLine(VOX_ON, i, i, 0, i, i, C.size(MD_Cubo::ZAXIS) - 1);
       C.update();
       C.animate(delay);
     }
@@ -978,7 +978,7 @@ void outsideStack()
     {
       for (int8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++)
       {
-        C.drawRPrism(step == 0, 0, 0, z, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, 1);
+        C.drawRPrism((step == 0) ? VOX_ON : VOX_OFF, 0, 0, z, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, 1);
         C.update();
         C.animate(delay);
       }
@@ -987,7 +987,7 @@ void outsideStack()
     {
       for (int8_t z = C.size(MD_Cubo::ZAXIS) - 1; z >= 0; z--)
       {
-        C.drawRPrism(step == 0, 0, 0, z, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, 1);
+        C.drawRPrism((step == 0) ? VOX_ON : VOX_OFF, 0, 0, z, C.size(MD_Cubo::XAXIS) - 1, C.size(MD_Cubo::YAXIS) - 1, 1);
         C.update();
         C.animate(delay);
       }
@@ -1012,7 +1012,7 @@ void displayChar(char c, uint16_t delay)
   for (uint8_t y = 0; y < size; y++)
     for (uint8_t z = 0; z < 8; z++)    // only 8 bits in the height of the font
       if (cBuf[y] & (1 << z))
-        C.setVoxel(true, 0, y + (C.size(MD_Cubo::YAXIS) - size) / 2, C.size(MD_Cubo::ZAXIS) - 1 - z);
+        C.setVoxel(VOX_ON, 0, y + (C.size(MD_Cubo::YAXIS) - size) / 2, C.size(MD_Cubo::ZAXIS) - 1 - z);
 
   // Move the character through the X planes front to back. As an added
   // effect also vary the intensity from max to min.
@@ -1025,7 +1025,7 @@ void displayChar(char c, uint16_t delay)
 
     // copy to next plane and delete original
     C.copyPlane(MD_Cubo::YZPLANE, i, i + 1);
-    C.fillPlane(false, MD_Cubo::YZPLANE, i);
+    C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, i);
   }
 }
 
@@ -1054,28 +1054,28 @@ void scrollFaces(void)
   for (int8_t x = 1; x < C.size(MD_Cubo::XAXIS); x++)
     for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++)
     {
-      boolean p = C.getVoxel(x + 1, C.size(MD_Cubo::YAXIS) - 1, z);
+      uint32_t p = C.getVoxel(x + 1, C.size(MD_Cubo::YAXIS) - 1, z);
       C.setVoxel(p, x, C.size(MD_Cubo::YAXIS) - 1, z);
     }
   // YZ Plane at Xmax
   for (int8_t y = C.size(MD_Cubo::YAXIS) - 2; y >= 0; y--)
     for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++)
     {
-      boolean p = C.getVoxel(C.size(MD_Cubo::XAXIS) - 1, y, z);
+      uint32_t p = C.getVoxel(C.size(MD_Cubo::XAXIS) - 1, y, z);
       C.setVoxel(p, C.size(MD_Cubo::XAXIS) - 1, y + 1, z);
     }
   // XZ Plane at Y0
   for (int8_t x = C.size(MD_Cubo::XAXIS) - 2; x >= 0; x--)
     for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++)
     {
-      boolean p = C.getVoxel(x, 0, z);
+      uint32_t p = C.getVoxel(x, 0, z);
       C.setVoxel(p, x + 1, 0, z);
     }
   // YZ Plane at X0
   for (int8_t y = 1; y < C.size(MD_Cubo::YAXIS); y++)
     for (uint8_t z = 0; z < C.size(MD_Cubo::ZAXIS); z++)
     {
-      boolean p = C.getVoxel(0, y, z);
+      uint32_t p = C.getVoxel(0, y, z);
       C.setVoxel(p, 0, y - 1, z);
     }
 }
@@ -1083,7 +1083,7 @@ void scrollFaces(void)
 boolean displayMessage(char *mesg, uint16_t delay = 0)
 // Display a message on the surface of the cube, scrolling around the outside faces
 // Implemented as a non-blocking Finite State Machine.
-// Returns true when the message has completed.
+// Returns VOX_ON when the message has completed.
 // The message is only reference by a pointer to the string, 
 // so the caller is responsible for making sure it remains stable 
 // until the data is displayed.
@@ -1133,7 +1133,7 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 
     // add in the new column
     for (uint8_t z = 0; z < 8; z++)    // only 8 bits in the height of the font
-      C.setVoxel((cBuf[getCol] & (1 << z)) != 0, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - z);
+      C.setVoxel(((cBuf[getCol] & (1 << z)) != 0) ? VOX_ON :VOX_OFF, 0, C.size(MD_Cubo::YAXIS) - 1, C.size(MD_Cubo::ZAXIS) - 1 - z);
     getCol++;
 
     // update the display
@@ -1266,18 +1266,17 @@ unsigned char font_getbitmappixel ( char bitmap, char x, char y)
 void effect_pathmove (unsigned char *path, int length)
 {
   int i,z;
-  unsigned char state;
 
   for (i=(length-1);i>=1;i--)
   {
     for (z=0;z<8;z++)
     {
-      state = C.getVoxel(((path[(i-1)]>>4) & 0x0f), (path[(i-1)] & 0x0f), z);
+      uint32_t state = C.getVoxel(((path[(i-1)]>>4) & 0x0f), (path[(i-1)] & 0x0f), z);
       C.setVoxel(state,((path[i]>>4) & 0x0f), (path[i] & 0x0f), z);
     }
   }
   for (i=0;i<8;i++)
-    C.setVoxel(false,((path[0]>>4) & 0x0f), (path[0] & 0x0f),i);
+    C.setVoxel(VOX_OFF,((path[0]>>4) & 0x0f), (path[0] & 0x0f),i);
 }
 
 #define AXIS_X 1
@@ -1320,19 +1319,19 @@ void shift(char axis, int direction)
 
         if (axis == AXIS_Z)
         {
-          state = C.getVoxel(x,y,iii);
+          uint32_t state = C.getVoxel(x,y,iii);
           C.setVoxel(state,x,y,ii);
         }
 
         if (axis == AXIS_Y)
         {
-          state = C.getVoxel(x,iii,y);
+          uint32_t state = C.getVoxel(x,iii,y);
           C.setVoxel(state,x,ii,y);
         }
 
         if (axis == AXIS_X)
         {
-          state = C.getVoxel(iii,y,x);
+          uint32_t state = C.getVoxel(iii,y,x);
           C.setVoxel(state,ii,y,x);
         }
       }
@@ -1353,13 +1352,13 @@ void shift(char axis, int direction)
     for (y = 0; y < 8; y++)
     {
       if (axis == AXIS_Z)
-        C.setVoxel(false,x,y,i);
+        C.setVoxel(VOX_OFF,x,y,i);
         
       if (axis == AXIS_Y)
-        C.setVoxel(false,x,i,y);
+        C.setVoxel(VOX_OFF,x,i,y);
 
       if (axis == AXIS_X)
-        C.setVoxel(false,i,y,x);
+        C.setVoxel(VOX_OFF,i,y,x);
     }
   }
 }
@@ -1388,10 +1387,10 @@ void fireworks()
     // shoot a particle up in the air
     for (uint8_t i = 0; i < orgZ; i++)
     {
-      C.setVoxel(true, orgX, orgY, i);
+      C.setVoxel(VOX_ON, orgX, orgY, i);
       C.update();
       C.animate(60 + (30 * i));
-      C.setVoxel(false, orgX, orgY, i);
+      C.setVoxel(VOX_OFF, orgX, orgY, i);
     }
 
     // Fill particle array
@@ -1423,7 +1422,7 @@ void fireworks()
         particles[j][2] += particles[j][5] / slowrate;
         particles[j][2] -= gravity;
 
-        C.setVoxel(true, particles[j][0], particles[j][1], particles[j][2]);
+        C.setVoxel(VOX_ON, particles[j][0], particles[j][1], particles[j][2]);
       }
       
       C.update();
@@ -1472,13 +1471,13 @@ void wormsqueeze()
       for (k=0; k<size;k++)
       {
         if (axis == AXIS_Z)
-          C.setVoxel(true,x+j,y+k,origin);
+          C.setVoxel(VOX_ON,x+j,y+k,origin);
 
         if (axis == AXIS_Y)
-          C.setVoxel(true,x+j,origin,y+k);
+          C.setVoxel(VOX_ON,x+j,origin,y+k);
 
         if (axis == AXIS_X)
-          C.setVoxel(true,origin,y+j,x+k);
+          C.setVoxel(VOX_ON,origin,y+j,x+k);
       }
     }
 
@@ -1520,7 +1519,7 @@ void CornerToCorner()
               if(yHigh) yDist = C.size(MD_Cubo::YAXIS) - y - 1;
               if(zHigh) zDist = C.size(MD_Cubo::ZAXIS) - z - 1;
               
-              C.setVoxel((xDist + yDist + zDist <= whatstep),x,y,z);
+              C.setVoxel((xDist + yDist + zDist <= whatstep) ? VOX_ON : VOX_OFF, x, y, z);
             }
           }
         }
@@ -1545,7 +1544,7 @@ void CornerToCorner()
             if(yHigh) yDist = C.size(MD_Cubo::YAXIS) - y - 1;
             if(zHigh) zDist = C.size(MD_Cubo::ZAXIS) - z - 1;
 
-            C.setVoxel(!(xDist + yDist + zDist <= whatstep),x,y,z);
+            C.setVoxel((xDist + yDist + zDist <= whatstep) ? VOX_OFF : VOX_ON,x,y,z);
           }
         }
       }
@@ -1604,9 +1603,9 @@ void effect_bitmapspin (int count, int delay, char bitmap)
           if (font_getbitmappixel ( bitmap, 7-x, y))
           {
             if (!flip)
-              C.setVoxel(true,y,dybde[8 * off + d++],x);
+              C.setVoxel(VOX_ON,y,dybde[8 * off + d++],x);
             else
-              C.setVoxel(true,y,dybde[31 - 8 * off - d++],x);
+              C.setVoxel(VOX_ON,y,dybde[31 - 8 * off - d++],x);
           }
           else
           {
@@ -1646,9 +1645,9 @@ void effect_bitmapspin (int count, int delay, char bitmap)
           if (font_getbitmappixel ( bitmap, 7-x, y))
           {
             if (!flip)
-              C.setVoxel(true,dybde[8 * off + d++], 7 - y,x);
+              C.setVoxel(VOX_ON,dybde[8 * off + d++], 7 - y,x);
             else
-              C.setVoxel(true,dybde[31 - 8 * off - d++],7 - y,x);
+              C.setVoxel(VOX_ON,dybde[31 - 8 * off - d++],7 - y,x);
           } 
           else
           {
@@ -1688,9 +1687,9 @@ void effect_bitmapspin (int count, int delay, char bitmap)
           if (font_getbitmappixel ( bitmap, 7-x, 7-y))
           {
             if (!flip)
-              C.setVoxel(true,y,dybde[8 * off + d++],x);
+              C.setVoxel(VOX_ON,y,dybde[8 * off + d++],x);
             else
-              C.setVoxel(true,y,dybde[31 - 8 * off - d++],x);
+              C.setVoxel(VOX_ON,y,dybde[31 - 8 * off - d++],x);
           }
           else
           {
@@ -1730,9 +1729,9 @@ void effect_bitmapspin (int count, int delay, char bitmap)
           if (font_getbitmappixel ( bitmap, 7-x, 7-y))
           {
             if (!flip)
-              C.setVoxel(true,dybde[8 * off + d++], 7 - y,x);
+              C.setVoxel(VOX_ON,dybde[8 * off + d++], 7 - y,x);
             else
-              C.setVoxel(true,dybde[31 - 8 * off - d++],7 - y,x);
+              C.setVoxel(VOX_ON,dybde[31 - 8 * off - d++],7 - y,x);
           }
           else
           {
@@ -1763,11 +1762,11 @@ void effect_path_bitmap(int delay, char bitmap, int iterations)
       {
         if (font_getbitmappixel(bitmap,(7-z),ii))
         {
-          C.setVoxel(true,0,7,z);
+          C.setVoxel(VOX_ON,0,7,z);
         }
         else
         {
-          C.setVoxel(false,0,7,z);
+          C.setVoxel(VOX_OFF,0,7,z);
         }
       }
       effect_pathmove(path, 28);
