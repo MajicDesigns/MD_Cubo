@@ -10,15 +10,15 @@
 #define	DEBUG_STC	0		///< Enable or disable (default) debugging output from the example
 
 #if DEBUG_STC
-#define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		  ///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  { Serial.print(F(s)); }							          ///< Print a string
+    #define	PRINT(s, v)		{ Serial.print(F(s)); Serial.print(v); }		///< Print a string followed by a value (decimal)
+    #define	PRINTX(s, v)	{ Serial.print(F(s)); Serial.print(v, HEX); }	///< Print a string followed by a value (hex)
+    #define	PRINTB(s, v)	{ Serial.print(F(s)); Serial.print(v, BIN); }	///< Print a string followed by a value (binary)
+    #define	PRINTS(s)		  { Serial.print(F(s)); }						///< Print a string
 #else
-#define	PRINT(s, v)		///< Print a string followed by a value (decimal)
-#define	PRINTX(s, v)	///< Print a string followed by a value (hex)
-#define	PRINTB(s, v)	///< Print a string followed by a value (binary)
-#define	PRINTS(s)		  ///< Print a string
+    #define	PRINT(s, v)		///< Print a string followed by a value (decimal)
+    #define	PRINTX(s, v)	///< Print a string followed by a value (hex)
+    #define	PRINTB(s, v)	///< Print a string followed by a value (binary)
+    #define	PRINTS(s)		  ///< Print a string
 #endif
 
 /**
@@ -27,12 +27,12 @@ Zirrfa 4x4 Cube
 ---------------
 Source: AliExpress "Zirrfa 4x4x4 RGB LED Cube" at https://www.aliexpress.com/item/NEW-3D-4X4X4-RGB-cubeeds-Full-Color-LED-Light-display-Electronic-DIY-Kit-3d4-4-4/32793425203.html
 
-![Zirrfa 4x4 Cube] (Zirrfa_image.jpg "Zirrfa 4x4 Cube")
+![Zirrfa 4x4x4 Cube] (Zirrfa_image.jpg "Zirrfa 4x4x4 Cube")
 
 The Zirrfa RGB color cube can be bought online as a DIY soldering set. It has a STC15F2K60S2 IC with a SPI 
 interface to the Arduino controller and is therefore a 'set and forget' type of device.
 
-Note: To use this implementation you need to install the SoftwareSerial Arduino library available at ???? 
+Note: To use this implementation you need to install the SoftwareSerial Arduino library available at https://www.arduino.cc/en/Reference/SoftwareSerial 
 The RX and TX pins selected for communications should be passed to the class constructor.
 
 ###Implementation Overview###
@@ -57,7 +57,7 @@ const uint8_t COLUMN_COUNT = (CUBE_SIZE * CUBE_SIZE * CUBE_SIZE * 3); ///< LEDs 
 
 const uint8_t HW_INIT = 0xad;       ///< Hardware initialization into serial mode. Send within 5 seconds of HW reset.
 const uint8_t HW_START_MSG = 0xea;  ///< Hardware start serial message packet.
-const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Repeat twice at end of packet.
+const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Repeat once at end of packet.
 
 class MD_Cubo_STC: public MD_Cubo
 {
@@ -72,16 +72,13 @@ class MD_Cubo_STC: public MD_Cubo
   void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z) { setVoxel(p ? VOX_ON : VOX_OFF, x, y, z); };
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
 
-  void clear(uint32_t p = VOX_OFF) { memset(_columns, p, COLUMN_COUNT); }; // #### MC20180211 This needs to cater for p being an RGB value and depends on column arrangement
+  void clear(uint32_t p = VOX_OFF) { memset(_columns, p, COLUMN_COUNT); }; 
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
-  
+  boolean isColorCube () { return true; }
   private:
   uint8_t _tx, _rx;   ///< SoftwareSerial parameters - not sure if we need them!
   uint32_t _bps;      ///< Software Serial comms speed.
   SoftwareSerial _CubeSerial;  ///< Serial comms through this object
-
-  // ### MC20180211 THIS MAY BE BETTER AS A UINT32_T ARRAY (4x4x4 VALUES) BUT DEPENDS ON THE ARRANGEMENT 
-  // WHEN THE COMMS HAPPEN. SEE OTHER COMMENTS.
   uint8_t _columns[COLUMN_COUNT]; ///< Holds the current byte pattern for all LEDs of the cube
 };
 
