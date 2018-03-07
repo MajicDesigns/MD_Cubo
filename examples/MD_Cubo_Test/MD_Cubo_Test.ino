@@ -1,7 +1,16 @@
 // LED Cube device independent hardware test code
+//
+// Runs through a general test of the hardware
+// - Identify origin and x, y, Z axes
+// - Show the led planes (in RGB order if color)
+// - Intensity changes if implemented
+// - All pixels on one at a time
+// - All pixels progressively on and then progressively off
+// - Some line drawing around cube edges and diagonals
+//
 #include <MD_Cubo.h>
 
-// Pick the include file for the right cube
+// Pick the include file for the right cube type
 //#include "MD_Cubo_4x4_72xx.h" 
 //#include "MD_Cubo_4x4_ICS595.h"
 #include "MD_Cubo_4x4_STC.h"
@@ -23,7 +32,7 @@ const uint8_t TX_PIN = 11;
 MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #endif
 
-#define DEBUG 0   ///< Enable or disable (default) debugging output from the example
+#define DEBUG 1   ///< Enable or disable (default) debugging output from the example
 
 #if DEBUG
 #define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      ///< Print a string followed by a value (decimal)
@@ -49,29 +58,29 @@ void ledTest()
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(RGB(0xff,0,0), MD_Cubo::XYPLANE, i);
+    C.fillPlane(VOX_RED, MD_Cubo::XYPLANE, i);
     C.update();
     C.animate(delay);
     C.fillPlane(VOX_OFF, MD_Cubo::XYPLANE, i);
   }
   C.animate();
 
-  PRINTS("\nXZ Blue Plane Y = ");
+  PRINTS("\nXZ Green Y = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::YAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(RGB(0,0xff,0), MD_Cubo::XZPLANE, i);
+    C.fillPlane(VOX_GREEN, MD_Cubo::XZPLANE, i);
     C.update();
     C.animate(delay);
     C.fillPlane(VOX_OFF, MD_Cubo::XZPLANE, i);
   }
   C.animate();
 
-  PRINTS("\nYZ Green Plane X = ");
+  PRINTS("\nYZ Blue Plane X = ");
   for (uint8_t i = 0; i < C.size(MD_Cubo::XAXIS); i++)
   {
     PRINT(" ", i);
-    C.fillPlane(RGB(0,0,0xff), MD_Cubo::YZPLANE, i);
+    C.fillPlane(VOX_BLUE, MD_Cubo::YZPLANE, i);
     C.update();
     C.animate(delay);
     C.fillPlane(VOX_OFF, MD_Cubo::YZPLANE, i);
@@ -189,21 +198,26 @@ void progressive()
 
 void showZero()
 {
+  const bool labelAxis = true;
   const uint16_t delay = 250;
 
   C.clear();
   PRINTS("\nShowZero\nX");
   // print out the X
-  if (C.size(MD_Cubo::XAXIS) >= 6)
+  if (labelAxis)
   {
-    C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 5);
-    C.drawLine(VOX_ON, 0, 1, 5, 0, 5, 1);
+    if (C.size(MD_Cubo::XAXIS) >= 6)
+    {
+      C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 5);
+      C.drawLine(VOX_ON, 0, 1, 5, 0, 5, 1);
+    }
+    else
+    {
+      C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 3);
+      C.drawLine(VOX_ON, 0, 1, 3, 0, 3, 1);
+    }
   }
-  else
-  {
-    C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 3);
-    C.drawLine(VOX_ON, 0, 1, 3, 0, 3, 1);
-  }
+
   for (uint8_t i = 0; i < C.size(MD_Cubo::XAXIS); i++)
   {
     PRINT("", i);
@@ -211,32 +225,37 @@ void showZero()
     C.update();
     C.animate(delay);
   }
-  // clear the X
-  if (C.size(MD_Cubo::XAXIS) >= 6)
+
+  if (labelAxis)
   {
-    C.drawLine(VOX_OFF, 0, 1, 1, 0, 5, 5);
-    C.drawLine(VOX_OFF, 0, 1, 5, 0, 5, 1);
-  }
-  else
-  {
-    C.drawLine(VOX_OFF, 0, 1, 1, 0, 3, 3);
-    C.drawLine(VOX_OFF, 0, 1, 3, 0, 3, 1);
+    // clear the X
+    if (C.size(MD_Cubo::XAXIS) >= 6)
+    {
+      C.drawLine(VOX_OFF, 0, 1, 1, 0, 5, 5);
+      C.drawLine(VOX_OFF, 0, 1, 5, 0, 5, 1);
+    }
+    else
+    {
+      C.drawLine(VOX_OFF, 0, 1, 1, 0, 3, 3);
+      C.drawLine(VOX_OFF, 0, 1, 3, 0, 3, 1);
+    }
+
+    PRINTS("\nY");
+    // draw the Y
+    if (C.size(MD_Cubo::XAXIS) >= 6)
+    {
+      C.drawLine(VOX_ON, 0, 3, 3, 0, 5, 5);
+      C.drawLine(VOX_ON, 0, 3, 3, 0, 1, 5);
+      C.drawLine(VOX_ON, 0, 3, 3, 0, 3, 1);
+    }
+    else
+    {
+      C.drawLine(VOX_ON, 0, 2, 2, 0, 3, 3);
+      C.drawLine(VOX_ON, 0, 2, 2, 0, 1, 3);
+      C.drawLine(VOX_ON, 0, 2, 2, 0, 2, 1);
+    }
   }
 
-  PRINTS("\nY");
-  // draw the Y
-  if (C.size(MD_Cubo::XAXIS) >= 6)
-  {
-    C.drawLine(VOX_ON, 0, 3, 3, 0, 5, 5);
-    C.drawLine(VOX_ON, 0, 3, 3, 0, 1, 5);
-    C.drawLine(VOX_ON, 0, 3, 3, 0, 3, 1);
-  }
-  else
-  {
-    C.drawLine(VOX_ON, 0, 2, 2, 0, 3, 3);
-    C.drawLine(VOX_ON, 0, 2, 2, 0, 1, 3);
-    C.drawLine(VOX_ON, 0, 2, 2, 0, 2, 1);
-  }
   for (uint8_t i = 0; i < C.size(MD_Cubo::YAXIS); i++)
   {
     PRINT("", i);
@@ -244,33 +263,39 @@ void showZero()
     C.update();
     C.animate(delay);
   }
-  if (C.size(MD_Cubo::XAXIS) >= 6)
+
+  if (labelAxis)
   {
-    C.drawLine(VOX_OFF, 0, 3, 3, 0, 5, 5);
-    C.drawLine(VOX_OFF, 0, 3, 3, 0, 1, 5);
-    C.drawLine(VOX_OFF, 0, 3, 3, 0, 3, 1);
-  }
-  else
-  {
-    C.drawLine(VOX_OFF, 0, 2, 2, 0, 3, 3);
-    C.drawLine(VOX_OFF, 0, 2, 2, 0, 1, 3);
-    C.drawLine(VOX_OFF, 0, 2, 2, 0, 2, 1);
+    // clear the Y
+    if (C.size(MD_Cubo::XAXIS) >= 6)
+    {
+      C.drawLine(VOX_OFF, 0, 3, 3, 0, 5, 5);
+      C.drawLine(VOX_OFF, 0, 3, 3, 0, 1, 5);
+      C.drawLine(VOX_OFF, 0, 3, 3, 0, 3, 1);
+    }
+    else
+    {
+      C.drawLine(VOX_OFF, 0, 2, 2, 0, 3, 3);
+      C.drawLine(VOX_OFF, 0, 2, 2, 0, 1, 3);
+      C.drawLine(VOX_OFF, 0, 2, 2, 0, 2, 1);
+    }
+
+    PRINTS("\nZ");
+    // draw the Z
+    if (C.size(MD_Cubo::XAXIS) >= 6)
+    {
+      C.drawLine(VOX_ON, 0, 1, 5, 0, 5, 5);
+      C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 5);
+      C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 1);
+    }
+    else
+    {
+      C.drawLine(VOX_ON, 0, 1, 3, 0, 3, 3);
+      C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 3);
+      C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 1);
+    }
   }
 
-  PRINTS("\nZ");
-  // draw the Z
-  if (C.size(MD_Cubo::XAXIS) >= 6)
-  {
-    C.drawLine(VOX_ON, 0, 1, 5, 0, 5, 5);
-    C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 5);
-    C.drawLine(VOX_ON, 0, 1, 1, 0, 5, 1);
-  }
-  else
-  {
-    C.drawLine(VOX_ON, 0, 1, 3, 0, 3, 3);
-    C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 3);
-    C.drawLine(VOX_ON, 0, 1, 1, 0, 3, 1);
-  }
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS); i++)
   {
     PRINT("", i);
@@ -323,10 +348,5 @@ void loop()
   singles();
   progressive();
   lines();
-
-  if (C.isColorCube())
-  {
-    // test code that only applies to color cubes
-  }
 }
 

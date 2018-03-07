@@ -99,12 +99,16 @@ $(document).ready(function(){initNavTree('_m_d___cubo_8h.html','');});
 <p>Main header file for the <a class="el" href="class_m_d___cubo.html">MD_Cubo</a> library.  
 <a href="#details">More...</a></p>
 <div class="textblock"><code>#include &lt;Arduino.h&gt;</code><br />
+<code>#include &quot;<a class="el" href="_color_defs_8h.html">ColorDefs.h</a>&quot;</code><br />
 </div><div class="textblock"><div id="dynsection-0" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-0-trigger" src="closed.png" alt="+"/> Include dependency graph for MD_Cubo.h:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="_m_d___cubo_8h__incl.png" border="0" usemap="#src_2_m_d___cubo_8h" alt=""/></div>
+<map name="src_2_m_d___cubo_8h" id="src_2_m_d___cubo_8h">
+<area shape="rect" id="node5" href="_color_defs_8h.html" title="Includes color related definitions. " alt="" coords="107,80,196,107"/>
+</map>
 </div>
 </div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-1-trigger" src="closed.png" alt="+"/> This graph shows which files directly or indirectly include this file:</div>
@@ -116,7 +120,8 @@ $(document).ready(function(){initNavTree('_m_d___cubo_8h.html','');});
 <area shape="rect" id="node3" href="_m_d___cubo_8cpp.html" title="Implements class definition and general methods. " alt="" coords="5,80,131,107"/>
 <area shape="rect" id="node5" href="_m_d___cubo__4x4__72xx_8cpp.html" title="Main file for the MD_Cubo 72xx class. " alt="" coords="156,80,345,107"/>
 <area shape="rect" id="node7" href="_m_d___cubo__4x4___i_c_s595_8cpp.html" title="Main file for the MD_Cubo ICStation 595 object. " alt="" coords="369,80,572,107"/>
-<area shape="rect" id="node9" href="_m_d___cubo__8x8__j_c_8cpp.html" title="Main file for the MD_Cubo jolliCube object. " alt="" coords="596,80,769,107"/>
+<area shape="rect" id="node9" href="_m_d___cubo__4x4___s_t_c_8cpp.html" title="Main file for the MD_Cubo STC class. " alt="" coords="596,80,783,107"/>
+<area shape="rect" id="node11" href="_m_d___cubo__8x8__j_c_8cpp.html" title="Main file for the MD_Cubo jolliCube object. " alt="" coords="807,80,980,107"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -135,30 +140,6 @@ Macros</h2></td></tr>
 #define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#a1d1d5e7ff16f25b68fdf779befd298f7">MAX_INTENSITY</a>&#160;&#160;&#160;0xff</td></tr>
 <tr class="memdesc:a1d1d5e7ff16f25b68fdf779befd298f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum intensity for a cube; setting is 0..MAX_INTENSITY. <br /></td></tr>
 <tr class="separator:a1d1d5e7ff16f25b68fdf779befd298f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a118ad3ee36468a3fa616977a64864e"><td class="memItemLeft" align="right" valign="top"><a id="a4a118ad3ee36468a3fa616977a64864e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#a4a118ad3ee36468a3fa616977a64864e">RGB</a>(r,  g,  b)&#160;&#160;&#160;((((uint32_t)r&lt;&lt;16)+((uint32_t)g&lt;&lt;8)+b) &amp; 0xffffff)</td></tr>
-<tr class="memdesc:a4a118ad3ee36468a3fa616977a64864e"><td class="mdescLeft">&#160;</td><td class="mdescRight">create RGB integer from components <br /></td></tr>
-<tr class="separator:a4a118ad3ee36468a3fa616977a64864e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2cde25567f177a6cd9191d536764235e"><td class="memItemLeft" align="right" valign="top"><a id="a2cde25567f177a6cd9191d536764235e"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#a2cde25567f177a6cd9191d536764235e">R</a>(c)&#160;&#160;&#160;((uint8_t)((c &gt;&gt;16) &amp; 0xff))</td></tr>
-<tr class="memdesc:a2cde25567f177a6cd9191d536764235e"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract R component of RGB <br /></td></tr>
-<tr class="separator:a2cde25567f177a6cd9191d536764235e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7cc73638f4849985153257c89a69ee94"><td class="memItemLeft" align="right" valign="top"><a id="a7cc73638f4849985153257c89a69ee94"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#a7cc73638f4849985153257c89a69ee94">G</a>(c)&#160;&#160;&#160;((uint8_t)((c &gt;&gt; 8) &amp; 0xff))</td></tr>
-<tr class="memdesc:a7cc73638f4849985153257c89a69ee94"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract G component of RGB <br /></td></tr>
-<tr class="separator:a7cc73638f4849985153257c89a69ee94"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adddcd4b5f23e5e290c31b64cd8c8efaa"><td class="memItemLeft" align="right" valign="top"><a id="adddcd4b5f23e5e290c31b64cd8c8efaa"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#adddcd4b5f23e5e290c31b64cd8c8efaa">B</a>(c)&#160;&#160;&#160;((uint8_t)(c &amp; 0xff))</td></tr>
-<tr class="memdesc:adddcd4b5f23e5e290c31b64cd8c8efaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">extract B component of RGB <br /></td></tr>
-<tr class="separator:adddcd4b5f23e5e290c31b64cd8c8efaa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7032eafd3744398b668d0893ce9e7de6"><td class="memItemLeft" align="right" valign="top"><a id="a7032eafd3744398b668d0893ce9e7de6"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#a7032eafd3744398b668d0893ce9e7de6">VOX_OFF</a>&#160;&#160;&#160;<a class="el" href="_m_d___cubo_8h.html#a4a118ad3ee36468a3fa616977a64864e">RGB</a>(0,0,0)</td></tr>
-<tr class="memdesc:a7032eafd3744398b668d0893ce9e7de6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default RGB OFF color / monochrome LED off. <br /></td></tr>
-<tr class="separator:a7032eafd3744398b668d0893ce9e7de6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5681d902b37f243711afef2fe916121"><td class="memItemLeft" align="right" valign="top"><a id="af5681d902b37f243711afef2fe916121"></a>
-#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo_8h.html#af5681d902b37f243711afef2fe916121">VOX_ON</a>&#160;&#160;&#160;<a class="el" href="_m_d___cubo_8h.html#a4a118ad3ee36468a3fa616977a64864e">RGB</a>(0xff,0xff,0xff)</td></tr>
-<tr class="memdesc:af5681d902b37f243711afef2fe916121"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default RGB ON color / monochrome LED on. <br /></td></tr>
-<tr class="separator:af5681d902b37f243711afef2fe916121"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Main header file for the <a class="el" href="class_m_d___cubo.html">MD_Cubo</a> library. </p>
@@ -168,7 +149,7 @@ Macros</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_m_d___cubo_8h.html">MD_Cubo.h</a></li>
-    <li class="footer">Generated on Mon Feb 19 2018 08:56:20 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Thu Mar 8 2018 10:35:40 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

@@ -60,7 +60,7 @@ Cube Hardware Supported
 
 Revision History 
 ----------------
-Feb 2018 - version 2.0.0
+Mar 2018 - version 2.0.0
 - Added color cube support
 - Add Ziffra 4x4x4 color cube based on STC15F2K60S2 with serial interface
 
@@ -95,6 +95,7 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 #define MD_CUBO_H
 
 #include <Arduino.h>
+#include "ColorDefs.h"
 
 /**
  * \file
@@ -103,14 +104,6 @@ Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
 
 #define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))    ///< Generic macro to return number of array elemenmts
 #define MAX_INTENSITY 0xff    ///< Maximum intensity for a cube; setting is 0..MAX_INTENSITY
-
-#define RGB(r,g,b) ((((uint32_t)r<<16)+((uint32_t)g<<8)+b) & 0xffffff) ///< create RGB integer from components
-#define R(c)       ((uint8_t)((c >>16) & 0xff))  ///< extract R component of RGB
-#define G(c)       ((uint8_t)((c >> 8) & 0xff))  ///< extract G component of RGB
-#define B(c)       ((uint8_t)(c & 0xff))         ///< extract B component of RGB
-
-#define VOX_OFF RGB(0,0,0)                       ///< Default RGB OFF color / monochrome LED off
-#define VOX_ON  RGB(0xff,0xff,0xff)              ///< Default RGB ON color / monochrome LED on
 
 /**
  * Core object for the MD_Cubo library
@@ -377,8 +370,8 @@ public:
   /**
   * Draw an arbitrary rectangular prism in 3D space.
   *
-  * The rectangular prism is drawn from the start coordinates with to the diagonally 
-  * opposite corner in 3D space. The line can be drawn 'on' or 'off' by specifying
+  * The rectangular prism is drawn from the start coordinates to the diagonally 
+  * opposite corner in 3D space. The line can be drawn in any color by specifying
   * the voxel value, p.
   * A cube is a rectangular prism with the same dx, dy, dz
   * A rectangle (2D) is a rectangular prism with one of dx, dy or dz set to 0

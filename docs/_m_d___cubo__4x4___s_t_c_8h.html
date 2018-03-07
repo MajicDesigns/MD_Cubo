@@ -107,6 +107,16 @@ $(document).ready(function(){initNavTree('_m_d___cubo__4x4___s_t_c_8h.html','');
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
 <div class="center"><img src="_m_d___cubo__4x4___s_t_c_8h__incl.png" border="0" usemap="#src_2_m_d___cubo__4x4___s_t_c_8h" alt=""/></div>
 </div>
+</div><div class="textblock"><div id="dynsection-1" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
+  <img id="dynsection-1-trigger" src="closed.png" alt="+"/> This graph shows which files directly or indirectly include this file:</div>
+<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
+</div>
+<div id="dynsection-1-content" class="dyncontent" style="display:none;">
+<div class="center"><img src="_m_d___cubo__4x4___s_t_c_8h__dep__incl.png" border="0" usemap="#src_2_m_d___cubo__4x4___s_t_c_8hdep" alt=""/></div>
+<map name="src_2_m_d___cubo__4x4___s_t_c_8hdep" id="src_2_m_d___cubo__4x4___s_t_c_8hdep">
+<area shape="rect" id="node3" href="_m_d___cubo__4x4___s_t_c_8cpp.html" title="Main file for the MD_Cubo STC class. " alt="" coords="5,80,192,107"/>
+</map>
+</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -142,10 +152,10 @@ Variables</h2></td></tr>
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> = 4</td></tr>
 <tr class="memdesc:af0ff73f1c4f3421ee6e302bff9bc2ce3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Cube size in the X, Y and Z axis;. <br /></td></tr>
 <tr class="separator:af0ff73f1c4f3421ee6e302bff9bc2ce3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a70ce524733a5a182c1c137bada10e36c"><td class="memItemLeft" align="right" valign="top"><a id="a70ce524733a5a182c1c137bada10e36c"></a>
-const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#a70ce524733a5a182c1c137bada10e36c">COLUMN_COUNT</a> = (<a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> * <a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> * <a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> * 3)</td></tr>
-<tr class="memdesc:a70ce524733a5a182c1c137bada10e36c"><td class="mdescLeft">&#160;</td><td class="mdescRight">LEDs x 3 RGB color values. <br /></td></tr>
-<tr class="separator:a70ce524733a5a182c1c137bada10e36c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4351729883ab58fb802f43b90c1602b4"><td class="memItemLeft" align="right" valign="top"><a id="a4351729883ab58fb802f43b90c1602b4"></a>
+const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#a4351729883ab58fb802f43b90c1602b4">LED_DATA_SIZE</a> = (<a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> * <a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> * <a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#af0ff73f1c4f3421ee6e302bff9bc2ce3">CUBE_SIZE</a> * 3)</td></tr>
+<tr class="memdesc:a4351729883ab58fb802f43b90c1602b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">LEDs x 3 RGB color values. <br /></td></tr>
+<tr class="separator:a4351729883ab58fb802f43b90c1602b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a812edbbcb3a40ffb8fdf170290b9eba0"><td class="memItemLeft" align="right" valign="top"><a id="a812edbbcb3a40ffb8fdf170290b9eba0"></a>
 const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html#a812edbbcb3a40ffb8fdf170290b9eba0">HW_INIT</a> = 0xad</td></tr>
 <tr class="memdesc:a812edbbcb3a40ffb8fdf170290b9eba0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Hardware initialization into serial mode. Send within 5 seconds of HW reset. <br /></td></tr>
@@ -167,7 +177,7 @@ const uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" h
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html">MD_Cubo_4x4_STC.h</a></li>
-    <li class="footer">Generated on Mon Feb 19 2018 08:56:20 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Thu Mar 8 2018 10:35:40 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

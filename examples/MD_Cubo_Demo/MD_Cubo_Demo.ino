@@ -29,7 +29,7 @@ const uint8_t TX_PIN = 11;
 MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #endif
 
-#define RANDOM_CYCLE  1 // 1 for random selection, 0 for sequential cycle
+#define RANDOM_CYCLE  0 // 1 for random selection, 0 for sequential cycle
 
 #define DEBUG   0   // Enable or disable (default) debugging output from the example
 
@@ -57,7 +57,7 @@ void firefly()
 {
   uint8_t x, y, z;
   uint32_t colorRGB;
-  uint32_t colorsRGB[3] = {0x005501, 0x00ff99, 0x0081ee};
+  uint32_t colorsRGB[] = { RGB(0x00, 0x55, 0x01), RGB(0x00, 0xff, 0x99), RGB(0x00, 0x81, 0xee) };
 
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 10, 2);
 
@@ -86,13 +86,14 @@ void brownian()
 {
   uint8_t x = 0, y = 0, z = 0;
   int8_t dx, dy, dz;
-  uint32_t colorsRGB[3] = {0xFF0000, 0x00ff99, 0x0081ee};
+  uint32_t colorsRGB[] = {RGB(0xff, 0x00, 0x00), RGB(0x00, 0xff, 0x99), RGB(0x00, 0x81, 0xee)};
 
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 50, 1);
 
   PRINTS("\nBrownian");
   timeStart = millis();
-  while (millis() - timeStart <= DEMO_RUNTIME) {
+  while (millis() - timeStart <= DEMO_RUNTIME) 
+  {
     C.clear();
     PRINTC("\n", x, y, z);
     C.drawCube(C.isColorCube() ? shifter.shift() : VOX_ON, x, y, z, 2);
@@ -114,7 +115,10 @@ void slideFaces()
   const uint16_t  delay = 100;
 
   PRINTS("\nSlide Faces");
-  uint32_t colorsRGB[7] = {0xFF00FF, 0x00ff99, 0x0081ee, 0xFFFF00, 0x883311, 0xFF0022, 0x0081ee};
+  uint32_t colorsRGB[] = { RGB(0xff, 0x00, 0xFF), RGB(0x00, 0xff, 0x99), RGB(0x00, 0x81, 0xee), 
+                           RGB(0xff, 0xff, 0x00), RGB(0x88, 0x33, 0x11), RGB(0xff, 0x00, 0x22), 
+                           RGB(0x00, 0x81, 0xee) };
+
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 25, 1);
 
   C.clear();
@@ -160,7 +164,8 @@ void wrapFaces()
 // Wrap the around all the 6 faces of the cube in a sliding pattern
 {
   const uint16_t  delay = 100;
-  uint32_t colorsRGB[4] = {0xFF0000, 0x00ff99, 0x0081ee, 0xFFFF30};
+  uint32_t colorsRGB[] = { RGB(0xff, 0x00, 0x00), RGB(0x00, 0xff, 0x99), 
+                           RGB(0x00, 0x81, 0xee), RGB(0xff, 0xff, 0x30) };
 
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 50, 1);
 
@@ -224,8 +229,8 @@ void intersectPlanes()
 {
   const uint16_t  delay = 200;
   uint32_t colorRGB, colorRGB2;
-  uint32_t colorsRGB[3] = {0xFF0001, 0x00ff99, 0x0081ee};
-  uint32_t colorsRGB2[3] = {0x00EE01, 0x0000FF, 0xFFee00};
+  uint32_t colorsRGB[] = { RGB(0xff, 0x00, 0x01), RGB(0x00, 0xff, 0x99), RGB(0x00, 0x81, 0xee) };
+  uint32_t colorsRGB2[] = {RGB(0x00, 0xee, 0x01), RGB(0x00, 0x00, 0xFF), RGB(0xff, 0xee, 0x00)};
 
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 25, 2);
   ColorShifter shifter2(colorsRGB2, ARRAY_SIZE(colorsRGB2), 23, 2);
@@ -275,7 +280,7 @@ void intersectPlanes()
 }
 
 void droplets()
-// dropls mobving up and down between the top and bottom
+// drops moving up and down between the top and bottom
 {
   const uint16_t delay = 50;
   const uint16_t MAX_DROP = (C.size(MD_Cubo::XAXIS) * C.size(MD_Cubo::YAXIS)) / 2;
@@ -283,10 +288,11 @@ void droplets()
   uint8_t *dropy = (uint8_t *)malloc(MAX_DROP);
   uint8_t get = 0, put = 1;
   uint32_t colorRGB;
-  uint32_t colorsRGB[4] = {0xFF0001, 0x00ff99, 0xFFAA00, 0x0081ee};
+  uint32_t colorsRGB[] = { RGB(0xff, 0x00, 0x01), RGB(0x00, 0xff, 0x99), 
+                           RGB(0xff, 0xaa, 0x00), RGB(0x00, 0x81, 0xee) };
+
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 40, 2);
-
-
+  
   PRINTS("\nDroplets");
   memset(dropx, 0, MAX_DROP * sizeof(dropx[0]));
   memset(dropy, 0, MAX_DROP * sizeof(dropy[0]));
@@ -384,7 +390,7 @@ void scaleCube()
   for (uint8_t i = 0; i < C.size(MD_Cubo::ZAXIS) / 2; i++)
   {
     if (C.isColorCube())
-      colorRGB = RGB(random(255), random(255), random(255));
+      colorRGB = RGB(random(0xff), random(0xff), random(0xff));
     else
       colorRGB = VOX_ON;
 
@@ -642,7 +648,8 @@ void oscillation()
 {
   uint8_t curZ = 0, dz = 1;
   uint32_t colorRGB;
-  uint32_t colorsRGB[3] = {0x0F5501, 0x00ff99, 0xff2155};
+  uint32_t colorsRGB[] = {RGB(0x0f, 0x55, 0x01), RGB(0x00, 0xff, 0x99), RGB(0xff, 0x21, 0x55) };
+  
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 40, 1);
 
   PRINTS("\nOscillation");
@@ -677,12 +684,12 @@ void flagwave()
 {
   uint8_t curY = 0, dy = 1;
   uint32_t colorRGB;
-  uint32_t colorsRGB[4] = 
+  uint32_t colorsRGB[] = 
   {
     RGB(random(255), random(255), random(255)),
-    RGB(random(55), random(255), random(255)),
+    RGB(random(55),  random(255), random(255)),
     RGB(random(255), random(255), random(55)),
-    RGB(random(255), random(55), random(255))
+    RGB(random(255), random(55),  random(255))
   };
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 30, 2);
 
@@ -759,7 +766,8 @@ void suspension()
   // Spread out the LEDs evenly in each layer
   const uint8_t numSpeckles = (C.size(MD_Cubo::YAXIS) * C.size(MD_Cubo::ZAXIS)) / C.size(MD_Cubo::XAXIS);
   uint32_t colorRGB;
-  uint32_t colorsRGB[3] = {0x0F5501, 0x00ff99, 0xff2155};
+  uint32_t colorsRGB[] = {RGB(0x0f, 0x55, 0x01), RGB(0x00, 0xff, 0x99), RGB(0xff, 0x21, 0x55) };
+
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 20, 1);
 
   PRINTS("\nSuspension");
@@ -959,10 +967,10 @@ void boingCube()
   uint8_t x, y, z;  // corner coordinates of the rect prism we are drawing
   int8_t  dx, dy, dz; // direction of expansion for each coordinate
   int8_t  sx, sy, sz; // the size of the cube in x, y and z directions
-  uint32_t colorsRGB[3] = {0xfF2201, 0x11ff88, 0xffff55};
+  uint32_t colorsRGB[] = { RGB(0xff, 0x22, 0x01), RGB(0x11, 0xff, 0x88), RGB(0xff, 0xff, 0x55) };
+
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 20, 1);
-
-
+  
   PRINTS("\nBoing Cube");
 
   x = (C.size(MD_Cubo::XAXIS) / 2) - 1;
@@ -1066,7 +1074,10 @@ void spiralLine()
 // vertical line spirals from the outside to the inside and then moves back out, to start all over again
 {
   uint16_t delay = 50;
-  uint32_t colorsRGB[7] = {0xFF00FF, 0x00ff99, 0x0081ee, 0xFFFF00, 0x883311, 0xFF0022, 0x0081ee};
+  uint32_t colorsRGB[] = {RGB(0xff, 0x00, 0xff), RGB(0x00, 0xff, 0x99), RGB(0x00, 0x81, 0xee),
+                          RGB(0xff, 0xff, 0x00), RGB(0x88, 0x33, 0x11), RGB(0xff, 0x00, 0x22), 
+                          RGB(0x00, 0x81, 0xee) };
+
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 25, 1);
 
   PRINTS("\nSpiral Line");
@@ -1119,8 +1130,10 @@ void outsideStack()
 // outside square is drawn up the cube, then collapses into the top, the down the cube, repeats
 {
   uint16_t delay = 50;
-  uint32_t colorRGB = 0xFF00FF;
-  uint32_t colorsRGB[7] = {0xFF00FF, 0x00ff99, 0x0081ee, 0xFFFF00, 0x883311, 0xFF0022, 0x0081ee};
+  uint32_t colorsRGB[] = { RGB(0xff, 0x00, 0xff), RGB(0x00, 0xff, 0x99), RGB(0x00, 0x81, 0xee),
+                           RGB(0xff, 0xff, 0x00), RGB(0x88, 0x33, 0x11), RGB(0xff, 0x00, 0x22),
+                           RGB(0x00, 0x81, 0xee) };
+  uint32_t colorRGB = colorsRGB[1];
 
   ColorShifter shifter(colorsRGB, ARRAY_SIZE(colorsRGB), 30, 2);
 
@@ -1347,6 +1360,10 @@ boolean displayMessage(char *mesg, uint16_t delay = 0)
 void scrollingText()
 {
   char message[] = "Hello";
+
+  // this only works for larger cubes, so return if the cube is not big enough
+  if ((C.size(MD_Cubo::XAXIS) < 8 || C.size(MD_Cubo::YAXIS) < 8 || C.size(MD_Cubo::ZAXIS) < 8))
+    return;
 
   PRINTS("\nScrolling Text")
   C.clear();    // new clean cube

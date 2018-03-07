@@ -53,7 +53,7 @@ To update the cube send 0xEA + 192 bytes of LED/color data + 0xEB to finish.
 */
 
 const uint8_t CUBE_SIZE = 4;        ///< Cube size in the X, Y and Z axis;
-const uint8_t COLUMN_COUNT = (CUBE_SIZE * CUBE_SIZE * CUBE_SIZE * 3); ///< LEDs x 3 RGB color values
+const uint8_t LED_DATA_SIZE = (CUBE_SIZE * CUBE_SIZE * CUBE_SIZE * 3); ///< LEDs x 3 RGB color values
 
 const uint8_t HW_INIT = 0xad;       ///< Hardware initialization into serial mode. Send within 5 seconds of HW reset.
 const uint8_t HW_START_MSG = 0xea;  ///< Hardware start serial message packet.
@@ -62,24 +62,25 @@ const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Rep
 class MD_Cubo_STC: public MD_Cubo
 {
   public:
-  MD_Cubo_STC(uint8_t tx, uint8_t rx, uint32_t bps): _tx(tx), _rx(rx), _bps(bps), MD_Cubo(CUBE_SIZE), _CubeSerial(_tx, _rx) {return;};
-  ~MD_Cubo_STC() {return;};
+  MD_Cubo_STC(uint8_t tx, uint8_t rx, uint32_t bps): _tx(tx), _rx(rx), _bps(bps), MD_Cubo(CUBE_SIZE), _CubeSerial(_tx, _rx) { };
+  ~MD_Cubo_STC() { };
 
   void begin();
   void update();
 
   void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z);
-  void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z) { setVoxel(p ? VOX_ON : VOX_OFF, x, y, z); };
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
+  void setVoxel(boolean p, uint8_t x, uint8_t y, uint8_t z) { setVoxel(p ? VOX_ON : VOX_OFF, x, y, z); };
 
-  void clear(uint32_t p = VOX_OFF) { memset(_columns, p, COLUMN_COUNT); }; 
+  void clear(uint32_t p = VOX_OFF);
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
   boolean isColorCube () { return true; }
+
   private:
   uint8_t _tx, _rx;   ///< SoftwareSerial parameters - not sure if we need them!
   uint32_t _bps;      ///< Software Serial comms speed.
   SoftwareSerial _CubeSerial;  ///< Serial comms through this object
-  uint8_t _columns[COLUMN_COUNT]; ///< Holds the current byte pattern for all LEDs of the cube
+  uint8_t _ledData[LED_DATA_SIZE]; ///< Holds the current color pattern for all LEDs of the cube
 };
 
 #endif

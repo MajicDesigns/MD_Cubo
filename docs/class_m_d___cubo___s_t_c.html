@@ -127,11 +127,11 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae8e47fa495a4fa5c3275bbc02fe25bf8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6c74def98b50bd29f84fa69c95ad095f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#a6c74def98b50bd29f84fa69c95ad095f">setVoxel</a> (uint32_t p, uint8_t x, uint8_t y, uint8_t z)</td></tr>
 <tr class="separator:a6c74def98b50bd29f84fa69c95ad095f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6f87778c2b6684a13ac10b328449a10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#ac6f87778c2b6684a13ac10b328449a10">setVoxel</a> (boolean p, uint8_t x, uint8_t y, uint8_t z)</td></tr>
-<tr class="separator:ac6f87778c2b6684a13ac10b328449a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a5d1bb8cdea2f54a854ab627289cd63"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#a5a5d1bb8cdea2f54a854ab627289cd63">getVoxel</a> (uint8_t x, uint8_t y, uint8_t z)</td></tr>
 <tr class="separator:a5a5d1bb8cdea2f54a854ab627289cd63"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a248c3d25251834078a18f38f2e05268c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#a248c3d25251834078a18f38f2e05268c">clear</a> (uint32_t p=<a class="el" href="_m_d___cubo_8h.html#a7032eafd3744398b668d0893ce9e7de6">VOX_OFF</a>)</td></tr>
+<tr class="memitem:ac6f87778c2b6684a13ac10b328449a10"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#ac6f87778c2b6684a13ac10b328449a10">setVoxel</a> (boolean p, uint8_t x, uint8_t y, uint8_t z)</td></tr>
+<tr class="separator:ac6f87778c2b6684a13ac10b328449a10"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a248c3d25251834078a18f38f2e05268c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_m_d___cubo___s_t_c.html#a248c3d25251834078a18f38f2e05268c">clear</a> (uint32_t p=<a class="el" href="_color_defs_8h.html#a8ebec4928891b613f2a63b3b6c0242f9">VOX_OFF</a>)</td></tr>
 <tr class="separator:a248c3d25251834078a18f38f2e05268c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebd9303924688f830ff9d83aa2b3565d"><td class="memItemLeft" align="right" valign="top"><a id="aebd9303924688f830ff9d83aa2b3565d"></a>
 uint8_t&#160;</td><td class="memItemRight" valign="bottom"><b>size</b> (<a class="el" href="class_m_d___cubo.html#a5b4e3c95550d679303a932bc32427380">axis_t</a> axis)</td></tr>
@@ -238,7 +238,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
           <td class="memname">void MD_Cubo_STC::clear </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
-          <td class="paramname"><em>p</em> = <code><a class="el" href="_m_d___cubo_8h.html#a7032eafd3744398b668d0893ce9e7de6">VOX_OFF</a></code></td><td>)</td>
+          <td class="paramname"><em>p</em> = <code><a class="el" href="_color_defs_8h.html#a8ebec4928891b613f2a63b3b6c0242f9">VOX_OFF</a></code></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -252,7 +252,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <p>Set every voxel in the cube to the specified value (default off). The generic method iterates through all the voxels. A more efficient implementation may be possible by exploiting access to hardware.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">p</td><td>set the the RGB value required, <a class="el" href="_m_d___cubo_8h.html#a4a118ad3ee36468a3fa616977a64864e" title="create RGB integer from components ">RGB(0,0,0)</a> for all black (default). </td></tr>
+    <tr><td class="paramname">p</td><td>set the the RGB value required, <a class="el" href="_color_defs_8h.html#a4a118ad3ee36468a3fa616977a64864e">RGB(0,0,0)</a> for all black (default). </td></tr>
   </table>
   </dd>
 </dl>
@@ -508,7 +508,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>src/<a class="el" href="_m_d___cubo__4x4___s_t_c_8h.html">MD_Cubo_4x4_STC.h</a></li>
-<li>src/MD_Cubo_4x4_STC.cpp</li>
+<li>src/<a class="el" href="_m_d___cubo__4x4___s_t_c_8cpp.html">MD_Cubo_4x4_STC.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
@@ -516,7 +516,7 @@ uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="c
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="class_m_d___cubo___s_t_c.html">MD_Cubo_STC</a></li>
-    <li class="footer">Generated on Mon Feb 19 2018 08:56:20 for MD_Cubo LED Cube Arduino Library by
+    <li class="footer">Generated on Thu Mar 8 2018 10:35:40 for MD_Cubo LED Cube Arduino Library by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>
   </ul>

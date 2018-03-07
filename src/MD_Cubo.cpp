@@ -1,7 +1,7 @@
 /*
 MD_Cubo - Arduino LED Cube Library
   
-See header file for comments
+See main header file for comments
 
 This file contains class related methods.
   
