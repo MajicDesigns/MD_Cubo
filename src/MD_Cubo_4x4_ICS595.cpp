@@ -8,6 +8,7 @@
 
 void MD_Cubo_ICS595::begin()
 {
+  PRINTS("\n595: begin");
   pinMode(_data, OUTPUT);
   pinMode(_clock,OUTPUT);
   pinMode(_load, OUTPUT);
@@ -40,7 +41,7 @@ void MD_Cubo_ICS595::animate(uint32_t wait)
 {
   uint32_t  timeStart = millis();
   
-  PRINT("\nAnimate ", wait);
+  PRINT("\n595: Animate ", wait);
   do 
   {
     if (millis() - _timeLayer >= LAYER_TIME)
@@ -67,12 +68,13 @@ void MD_Cubo_ICS595::animate(uint32_t wait)
 void MD_Cubo_ICS595::update()
 //Update the cube LEDs from the scratch to the display
 {
+  PRINTS("\n595: Update");
   memcpy(&_current, &_scratch, sizeof(dispData_t));
 }
 
 void MD_Cubo_ICS595::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 {
-  PRINT("\nPixel ", p);
+  PRINTX("\n595: setVoxel ", p);
   PRINT(" @ ", x);
   PRINT(",",y);
   PRINT(",",z);
@@ -83,7 +85,10 @@ void MD_Cubo_ICS595::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
   uint16_t  pix = (x + (y << 2));  // same as x + (y * 4)
   boolean b = (p != VOX_OFF);
 
-  bitWrite(_scratch.data[z], pix, b ? 1 : 0);
+  if (p)
+    bitSet(_scratch.data[z], pix);
+  else
+    bitClear(_scratch.data[z], pix);
   _scratch.count[z] += (b ? 1 : -1);
   
   PRINTX(" layer data ", _scratch.data[z]);
@@ -91,6 +96,8 @@ void MD_Cubo_ICS595::setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z)
 
 uint32_t MD_Cubo_ICS595::getVoxel(uint8_t x, uint8_t y, uint8_t z)
 {
+  PRINTS("\n595: getVoxel");
+
   if ((x >= CUBE_SIZE) || (y >= CUBE_SIZE) || (z >= CUBE_SIZE))
     return(VOX_OFF);
 

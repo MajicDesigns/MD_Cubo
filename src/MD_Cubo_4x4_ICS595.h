@@ -84,7 +84,7 @@ class MD_Cubo_ICS595: public MD_Cubo
   private:
   typedef struct 
   {
-    uint8_t  count[CUBE_SIZE];// the count of point on per layer  of current 
+    uint8_t  count[CUBE_SIZE];// the count of points ON per layer
     uint16_t data[CUBE_SIZE]; // the bit pattern for each layer of the cube
   } dispData_t;
   

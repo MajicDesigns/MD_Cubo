@@ -60,6 +60,9 @@ Cube Hardware Supported
 
 Revision History 
 ----------------
+Jul 2018 - version 2.0.1
+- Fixed setVoxel issue with 595 cube
+
 Mar 2018 - version 2.0.0
 - Added color cube support
 - Add Ziffra 4x4x4 color cube based on STC15F2K60S2 with serial interface

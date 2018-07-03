@@ -50,7 +50,7 @@ class ColorShifter
    \param shiftColorCount  The number of colors in the array
    \param stepWidth        The step width which all 3 colors are moved along
    \param finishMode       This determines what happens if the last color in the array is reached: 
-      Set to 0 to end the shifting - Provate property _isDone will be set to true after that.
+      Set to 0 to end the shifting - Private property _isDone will be set to true after that.
       Set to 1 to move backward in the array (bounce)
       Set to 2 to set the first color as next color (loop)
    \return the new RGB color

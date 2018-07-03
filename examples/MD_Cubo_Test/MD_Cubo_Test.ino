@@ -12,8 +12,8 @@
 
 // Pick the include file for the right cube type
 //#include "MD_Cubo_4x4_72xx.h" 
-//#include "MD_Cubo_4x4_ICS595.h"
-#include "MD_Cubo_4x4_STC.h"
+#include "MD_Cubo_4x4_ICS595.h"
+//#include "MD_Cubo_4x4_STC.h"
 //#include "MD_Cubo_8x8_jC.h"
 
 // Define the cube object
@@ -32,7 +32,7 @@ const uint8_t TX_PIN = 11;
 MD_Cubo_STC  C(RX_PIN, TX_PIN, 57600);
 #endif
 
-#define DEBUG 1   ///< Enable or disable (default) debugging output from the example
+#define DEBUG 0   ///< Enable or disable (default) debugging output from the example
 
 #if DEBUG
 #define PRINT(s, v)   { Serial.print(F(s)); Serial.print(v); }      ///< Print a string followed by a value (decimal)
