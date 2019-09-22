@@ -4,6 +4,8 @@ The MD_Cubo library implements methods that allow the software elements of LED c
 
 The library implements functions that allow LED cubes to be abstracted in software so that underlying hardware changes do not affect the definition and structure of the controlling code.
 
-Library currently comes with working code and examples tested on 2 monochrome 4x4x4 cubes, 1 4x4x4 RGB color cube and the monochrome jolliCube 8x8x8 cube.
+Library currently comes with working code and examples tested on 2 monochrome 4x4x4 cubes, 1 4x4x4 RGB color cube, the monochrome jolliCube MAX7219 8x8x8 cube and an ICS574 8x8x8 cube.
+
+If you like and use this library please consider making a small donation using [PayPal](https://paypal.me/MajicDesigns/4USD)
 
 [Library Documentation](https://majicdesigns.github.io/MD_Cubo/)

@@ -1,7 +1,8 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$class_m_d___cubo.html" title="MD_Cubo" alt="" coords="6,81,85,108"/>
-<area shape="rect" id="node3" href="$class_m_d___cubo__72xx.html" title="MD_Cubo_72xx" alt="" coords="140,5,255,32"/>
-<area shape="rect" id="node5" href="$class_m_d___cubo___i_c_s595.html" title="MD_Cubo_ICS595" alt="" coords="133,56,261,83"/>
-<area shape="rect" id="node7" href="$class_m_d___cubo___j_c.html" title="MD_Cubo_JC" alt="" coords="147,107,248,133"/>
-<area shape="rect" id="node9" href="$class_m_d___cubo___s_t_c.html" title="MD_Cubo_STC" alt="" coords="142,157,253,184"/>
+<area shape="rect" id="node1" href="$class_m_d___cubo.html" title=" " alt="" coords="6,107,85,133"/>
+<area shape="rect" id="node3" href="$class_m_d___cubo__72xx.html" title=" " alt="" coords="140,5,255,32"/>
+<area shape="rect" id="node5" href="$class_m_d___cubo___i_c_s574.html" title=" " alt="" coords="133,56,261,83"/>
+<area shape="rect" id="node7" href="$class_m_d___cubo___i_c_s595.html" title=" " alt="" coords="133,107,261,133"/>
+<area shape="rect" id="node9" href="$class_m_d___cubo___j_c.html" title=" " alt="" coords="147,157,248,184"/>
+<area shape="rect" id="node11" href="$class_m_d___cubo___s_t_c.html" title=" " alt="" coords="142,208,253,235"/>
 </map>

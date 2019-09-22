@@ -8,6 +8,8 @@ any monochrome or color LED cube to be easily implemented. This allows the progr
 use the LED matrix as a voxel device addressable through XYZ cartesian coordinates, displaying 
 graphics elements much like any other voxel addressable display.
 
+If you like and use this library please consider making a small donation using [PayPal](https://paypal.me/MajicDesigns/4USD)
+
 The Library
 -----------
 The library implements functions that allow LED cubes to be abstracted in software so that 
@@ -57,9 +59,13 @@ Cube Hardware Supported
 - \subpage pagePAULRB4x4x4
 - \subpage pageJOLLICUBE8x8x8
 - \subpage pageZIFFRADIY4x4x4
+- \subpage pageICS5748x8x8
 
 Revision History 
 ----------------
+Sep 2019 - version 2.0.2
+- Added ICS574 cube
+
 Jul 2018 - version 2.0.1
 - Fixed setVoxel issue with 595 cube
 
@@ -78,7 +84,7 @@ Aug 2015 - version 1.0
 
 Copyright
 ---------
-Copyright (C) 2015 Marco Colli. All rights reserved.
+Copyright (C) 2015-2019 Marco Colli. All rights reserved.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public

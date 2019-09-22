@@ -23,8 +23,8 @@
 
 /**
 \page pageZIFFRADIY4x4x4 Zirrfa DIY Implementation
-Zirrfa 4x4 Cube
----------------
+Zirrfa 4x4x4 Cube
+-----------------
 Source: AliExpress "Zirrfa 4x4x4 RGB LED Cube" at https://www.aliexpress.com/item/NEW-3D-4X4X4-RGB-cubeeds-Full-Color-LED-Light-display-Electronic-DIY-Kit-3d4-4-4/32793425203.html
 
 ![Zirrfa 4x4x4 Cube] (Zirrfa_image.jpg "Zirrfa 4x4x4 Cube")

@@ -22,8 +22,8 @@
 
 /**
 \page pageJOLLICUBE8x8x8 jolliCube Implementation
-JolliCube 8x8x8 Cube
---------------------
+JolliCube 8x8x8 MAX7219 Cube
+----------------------------
 Reference: jolliCube by jollifactory "JolliCube - an 8x8x8 LED Cube (SPI)" at http://www.instructables.com/id/JolliCube-an-8x8x8-LED-Cube-SPI/
 
 ![jolliCube 8x8 Cube] (JolliCube_image.jpg "jolliCube 8x8 Cube")
