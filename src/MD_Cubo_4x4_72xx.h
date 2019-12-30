@@ -56,12 +56,12 @@ const uint8_t LOAD = 10;  ///< SPI Load pin number
 const uint8_t CUBE_SIZE = 4;    ///< Cube size in the X, Y and Z axis
 
 // Relevant MAX7219 Control Registers
-const uint8_t INTENSITY   = 0x0A; ///< MAX7219 intensity control register address
-const uint8_t ON_OFF      = 0x0C; ///< MAX7219 on/off control register address
-const uint8_t DECODE      = 0x09; ///< MAX7219 BCD decode control register address
-const uint8_t SCAN_DIGITS = 0x0B; ///< MAX7219 scanned digits control register address
-const uint8_t TEST_MODE   = 0x0F; ///< MAX7219 test mode control register address
-const uint8_t DIGIT0      = 0x01; ///< MAX7219 DIGIT 0 register address. Digits 1..9 consecutive after this.
+const uint8_t R_INTENSITY   = 0x0A; ///< MAX7219 intensity control register address
+const uint8_t R_ON_OFF      = 0x0C; ///< MAX7219 on/off control register address
+const uint8_t R_DECODE      = 0x09; ///< MAX7219 BCD decode control register address
+const uint8_t R_SCAN_DIGITS = 0x0B; ///< MAX7219 scanned digits control register address
+const uint8_t R_TEST_MODE   = 0x0F; ///< MAX7219 test mode control register address
+const uint8_t R_DIGIT0      = 0x01; ///< MAX7219 DIGIT 0 register address. Digits 1..9 consecutive after this.
 
 class MD_Cubo_72xx: public MD_Cubo
 {
@@ -75,7 +75,7 @@ class MD_Cubo_72xx: public MD_Cubo
   void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z);
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
 
-  void setIntensity(uint8_t intensity) { sendSPI(INTENSITY, intensity >> 4); MD_Cubo::setIntensity(intensity); };
+  void setIntensity(uint8_t intensity) { sendSPI(R_INTENSITY, intensity >> 4); MD_Cubo::setIntensity(intensity); };
 
   void clear(uint32_t p = VOX_OFF) { memset(_layer, (p == VOX_OFF ? 0 : 0xff), sizeof(_layer[0])*CUBE_SIZE); };
   uint8_t size(axis_t axis) { return CUBE_SIZE; };

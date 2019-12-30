@@ -12,10 +12,10 @@ void MD_Cubo_72xx::begin()
   pinMode(_clock,OUTPUT);
   pinMode(_load, OUTPUT);
 
-  sendSPI(ON_OFF,      1);  // switch on LED Driver
-  sendSPI(DECODE,      0);  // no decoding on any digits
-  sendSPI(SCAN_DIGITS, 7);  // scan all digits
-  sendSPI(TEST_MODE,   0);  // test mode off
+  sendSPI(R_ON_OFF,      1);  // switch on LED Driver
+  sendSPI(R_DECODE,      0);  // no decoding on any digits
+  sendSPI(R_SCAN_DIGITS, 7);  // scan all digits
+  sendSPI(R_TEST_MODE,   0);  // test mode off
   setIntensity(MAX_INTENSITY);
 }
 
