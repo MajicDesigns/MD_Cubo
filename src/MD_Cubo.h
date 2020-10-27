@@ -60,9 +60,14 @@ Cube Hardware Supported
 - \subpage pageJOLLICUBE8x8x8
 - \subpage pageZIFFRADIY4x4x4
 - \subpage pageICS5748x8x8
+- \subpage pageDIRECTIO
 
 Revision History 
 ----------------
+Oct 2020 - version 2.1
+- Added Direct I/O cube
+- Fixed some compiler warnings
+
 Sep 2019 - version 2.0.2
 - Added ICS574 cube
 
@@ -84,7 +89,7 @@ Aug 2015 - version 1.0
 
 Copyright
 ---------
-Copyright (C) 2015-2019 Marco Colli. All rights reserved.
+Copyright (C) 2015-2020 Marco Colli. All rights reserved.
 
 This library is free software; you can redistribute it and/or
 modify it under the terms of the GNU Lesser General Public
@@ -125,7 +130,7 @@ public:
   *
   * This enumerated type is used to specify a cartesian axis
   */
-  enum axis_t
+  enum axis_t: uint8_t
   {
     XAXIS,  ///< X axis
     YAXIS,  ///< Y axis
@@ -137,7 +142,7 @@ public:
   *
   * This enumerated type is used to define a specific cartesian plane
   */
-  enum plane_t
+  enum plane_t: uint8_t
   {
     XYPLANE,  ///< Cartesian plane bounded by XY axes
     XZPLANE,  ///< Cartesian plane bounded by XZ axes
@@ -236,7 +241,7 @@ public:
    * \param z  z coordinate for the voxel.
    * \return voxel RGB value - VOX_OFF if the voxel is off. Otherwise the voxel color value.
    */
-  virtual uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z) {};
+  virtual uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z) { return(VOX_OFF); };
 
  /** 
    * Set the default intensity/brightness of the cube.

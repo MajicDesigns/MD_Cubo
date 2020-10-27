@@ -1,8 +1,9 @@
 <map id="src/MD_Cubo.h" name="src/MD_Cubo.h">
-<area shape="rect" id="node1" title="Main header file for the MD_Cubo library." alt="" coords="415,5,527,32"/>
+<area shape="rect" id="node1" title="Main header file for the MD_Cubo library." alt="" coords="524,5,636,32"/>
 <area shape="rect" id="node3" href="$_m_d___cubo_8cpp.html" title="Implements class definition and general methods." alt="" coords="5,80,131,107"/>
 <area shape="rect" id="node5" href="$_m_d___cubo__4x4__72xx_8cpp.html" title="Main file for the MD_Cubo 72xx class." alt="" coords="156,80,345,107"/>
 <area shape="rect" id="node7" href="$_m_d___cubo__4x4___i_c_s595_8cpp.html" title="Main file for the MD_Cubo ICStation 595 object." alt="" coords="369,80,572,107"/>
 <area shape="rect" id="node9" href="$_m_d___cubo__4x4___s_t_c_8cpp.html" title="Main file for the MD_Cubo STC class." alt="" coords="596,80,783,107"/>
 <area shape="rect" id="node11" href="$_m_d___cubo__8x8__j_c_8cpp.html" title="Main file for the MD_Cubo jolliCube object." alt="" coords="807,80,980,107"/>
+<area shape="rect" id="node13" href="$_m_d___cubo__nxn___direct_i_o_8cpp.html" title="Main file for the MD_Cubo Direct I/O object." alt="" coords="1004,80,1212,107"/>
 </map>

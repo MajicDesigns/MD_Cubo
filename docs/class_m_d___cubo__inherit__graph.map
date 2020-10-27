@@ -1,8 +1,9 @@
 <map id="MD_Cubo" name="MD_Cubo">
-<area shape="rect" id="node1" title=" " alt="" coords="321,5,399,32"/>
+<area shape="rect" id="node1" title=" " alt="" coords="402,5,480,32"/>
 <area shape="rect" id="node3" href="$class_m_d___cubo__72xx.html" title=" " alt="" coords="5,80,120,107"/>
-<area shape="rect" id="node5" href="$class_m_d___cubo___i_c_s574.html" title=" " alt="" coords="144,80,272,107"/>
-<area shape="rect" id="node7" href="$class_m_d___cubo___i_c_s595.html" title=" " alt="" coords="296,80,424,107"/>
-<area shape="rect" id="node9" href="$class_m_d___cubo___j_c.html" title=" " alt="" coords="448,80,549,107"/>
-<area shape="rect" id="node11" href="$class_m_d___cubo___s_t_c.html" title=" " alt="" coords="574,80,684,107"/>
+<area shape="rect" id="node5" href="$class_m_d___cubo___direct_i_o.html" title=" " alt="" coords="144,80,277,107"/>
+<area shape="rect" id="node7" href="$class_m_d___cubo___i_c_s574.html" title=" " alt="" coords="301,80,429,107"/>
+<area shape="rect" id="node9" href="$class_m_d___cubo___i_c_s595.html" title=" " alt="" coords="453,80,581,107"/>
+<area shape="rect" id="node11" href="$class_m_d___cubo___j_c.html" title=" " alt="" coords="605,80,707,107"/>
+<area shape="rect" id="node13" href="$class_m_d___cubo___s_t_c.html" title=" " alt="" coords="731,80,841,107"/>
 </map>

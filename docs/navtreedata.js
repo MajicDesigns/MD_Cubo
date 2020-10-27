@@ -1,35 +1,31 @@
 /*
-@licstart  The following is the entire license notice for the
-JavaScript code in this file.
+ @licstart  The following is the entire license notice for the JavaScript code in this file.
 
-Copyright (C) 1997-2019 by Dimitri van Heesch
+ The MIT License (MIT)
 
-This program is free software; you can redistribute it and/or modify
-it under the terms of version 2 of the GNU General Public License as published by
-the Free Software Foundation
+ Copyright (C) 1997-2020 by Dimitri van Heesch
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU General Public License for more details.
+ Permission is hereby granted, free of charge, to any person obtaining a copy of this software
+ and associated documentation files (the "Software"), to deal in the Software without restriction,
+ including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
 
-You should have received a copy of the GNU General Public License along
-with this program; if not, write to the Free Software Foundation, Inc.,
-51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ The above copyright notice and this permission notice shall be included in all copies or
+ substantial portions of the Software.
 
-@licend  The above is the entire license notice
-for the JavaScript code in this file
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING
+ BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+ @licend  The above is the entire license notice for the JavaScript code in this file
 */
 var NAVTREE =
 [
   [ "MD_Cubo LED Cube Arduino Library", "index.html", [
-    [ "Arduino LED Cube Library", "index.html", null ],
-    [ "PaulRB DIY Implementation", "page_p_a_u_l_r_b4x4x4.html", null ],
-    [ "ICStation '595 Implementation", "page_i_c_s_t_a_t_i_o_n4x4x4.html", null ],
-    [ "Zirrfa DIY Implementation", "page_z_i_f_f_r_a_d_i_y4x4x4.html", null ],
-    [ "ICS574 Implementation", "page_i_c_s5748x8x8.html", null ],
-    [ "jolliCube Implementation", "page_j_o_l_l_i_c_u_b_e8x8x8.html", null ],
-    [ "Adding New Cube Types", "page_add_hardware.html", null ],
+    [ "Arduino LED Cube Library", "index.html", "index" ],
     [ "Classes", "annotated.html", [
       [ "Class List", "annotated.html", "annotated_dup" ],
       [ "Class Index", "classes.html", null ],
@@ -56,7 +52,7 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "_color_defs_8h.html",
-"class_m_d___cubo.html#a5b4e3c95550d679303a932bc32427380"
+"class_m_d___cubo.html#a1438e155b7b464c6fec81123d0315276"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -62,7 +62,7 @@ const uint8_t HW_END_MSG = 0xeb;    ///< Hardware end serial message packet. Rep
 class MD_Cubo_STC: public MD_Cubo
 {
   public:
-  MD_Cubo_STC(uint8_t tx, uint8_t rx, uint32_t bps): _tx(tx), _rx(rx), _bps(bps), MD_Cubo(CUBE_SIZE), _CubeSerial(_tx, _rx) { };
+  MD_Cubo_STC(uint8_t tx, uint8_t rx, uint32_t bps): MD_Cubo(CUBE_SIZE), _tx(tx), _rx(rx), _bps(bps), _CubeSerial(_tx, _rx) { };
   ~MD_Cubo_STC() { };
 
   void begin();

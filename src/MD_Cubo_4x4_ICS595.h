@@ -68,7 +68,7 @@ const uint8_t CUBE_SIZE = 4;    ///< Cube size in the X, Y and Z axis
 class MD_Cubo_ICS595: public MD_Cubo
 {
   public:
-  MD_Cubo_ICS595(): MD_Cubo(CUBE_SIZE), _data(DATA), _clock(CLK), _load(LOAD), _enable(OUT_ENA), _curLayer(0), _pwmOffset(7) {return;};
+  MD_Cubo_ICS595(): MD_Cubo(CUBE_SIZE), _pwmOffset(7), _curLayer(0), _data(DATA), _clock(CLK), _load(LOAD), _enable(OUT_ENA) {return;};
   ~MD_Cubo_ICS595() {return;};
 
   void begin();
@@ -78,7 +78,12 @@ class MD_Cubo_ICS595: public MD_Cubo
   void setVoxel(uint32_t p, uint8_t x, uint8_t y, uint8_t z);
   uint32_t getVoxel(uint8_t x, uint8_t y, uint8_t z);
 
-  void clear(uint32_t p = VOX_OFF) { memset(&_scratch, (p == VOX_OFF ? 0 : 0xff), sizeof(dispData_t)); };
+  void clear(uint32_t p = VOX_OFF) 
+  {
+    memset(_scratch.count, (p == VOX_OFF ? 0 : CUBE_SIZE * CUBE_SIZE), CUBE_SIZE);
+    memset(_scratch.data, (p == VOX_OFF ? 0 : 0xff), CUBE_SIZE);
+  }
+
   uint8_t size(axis_t axis) { return CUBE_SIZE; };
     
   private:

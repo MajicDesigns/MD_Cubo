@@ -60,6 +60,8 @@ uint8_t MD_Cubo_ICS574::size(axis_t axis)
     case YAXIS: return(CUBE_YSIZE);
     case ZAXIS: return(CUBE_ZSIZE);
   }
+
+  return(0);
 }
 
 // direct port control to the uP.

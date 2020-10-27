@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['zirrfa_20diy_20implementation_484',['Zirrfa DIY Implementation',['../page_z_i_f_f_r_a_d_i_y4x4x4.html',1,'']]]
+  ['paulrb_20diy_20implementation_493',['PaulRB DIY Implementation',['../page_p_a_u_l_r_b4x4x4.html',1,'index']]]
 ];

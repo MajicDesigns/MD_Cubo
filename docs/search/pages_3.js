@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['paulrb_20diy_20implementation_483',['PaulRB DIY Implementation',['../page_p_a_u_l_r_b4x4x4.html',1,'']]]
+  ['jollicube_20implementation_492',['jolliCube Implementation',['../page_j_o_l_l_i_c_u_b_e8x8x8.html',1,'index']]]
 ];

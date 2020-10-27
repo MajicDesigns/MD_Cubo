@@ -10,7 +10,8 @@
 // Pick the include file for the right cube
 //#include "MD_Cubo_4x4_72xx.h"
 //#include "MD_Cubo_4x4_ICS595.h"
-#include "MD_Cubo_4x4_STC.h"
+#include "MD_Cubo_nxn_DirectIO.h"
+//#include "MD_Cubo_4x4_STC.h"
 //#include "MD_Cubo_8x8_jC.h"
 
 // Define the cube object
@@ -19,6 +20,9 @@ MD_Cubo_72xx  C;
 #endif
 #ifdef MD_CUBO_4x4_ICS595_H
 MD_Cubo_ICS595  C;
+#endif
+#ifdef MD_CUBO_NxN_DIRECTIO_H
+MD_Cubo_DirectIO  C;
 #endif
 #ifdef MD_CUBO_8x8_JC_H
 MD_Cubo_JC  C;

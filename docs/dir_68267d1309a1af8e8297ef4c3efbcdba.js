@@ -12,5 +12,7 @@ var dir_68267d1309a1af8e8297ef4c3efbcdba =
     [ "MD_Cubo_8x8_ICS574.h", "_m_d___cubo__8x8___i_c_s574_8h.html", "_m_d___cubo__8x8___i_c_s574_8h" ],
     [ "MD_Cubo_8x8_jC.cpp", "_m_d___cubo__8x8__j_c_8cpp.html", null ],
     [ "MD_Cubo_8x8_jC.h", "_m_d___cubo__8x8__j_c_8h.html", "_m_d___cubo__8x8__j_c_8h" ],
-    [ "MD_Cubo_lib.h", "_m_d___cubo__lib_8h.html", "_m_d___cubo__lib_8h" ]
+    [ "MD_Cubo_lib.h", "_m_d___cubo__lib_8h.html", "_m_d___cubo__lib_8h" ],
+    [ "MD_Cubo_nxn_DirectIO.cpp", "_m_d___cubo__nxn___direct_i_o_8cpp.html", "_m_d___cubo__nxn___direct_i_o_8cpp" ],
+    [ "MD_Cubo_nxn_DirectIO.h", "_m_d___cubo__nxn___direct_i_o_8h.html", "_m_d___cubo__nxn___direct_i_o_8h" ]
 ];
