@@ -64,7 +64,7 @@ Cube Hardware Supported
 
 Revision History 
 ----------------
-Oct 2020 - version 2.1
+Oct 2020 - version 2.1.0
 - Added Direct I/O cube
 - Fixed some compiler warnings
 
