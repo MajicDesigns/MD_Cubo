@@ -64,6 +64,9 @@ Cube Hardware Supported
 
 Revision History 
 ----------------
+Feb 2022 - version 2.1.1
+- Fixed wrong case for MD_CUBO_4x4_ICS595.h in ICS595.cpp file.
+
 Oct 2020 - version 2.1.0
 - Added Direct I/O cube
 - Fixed some compiler warnings
